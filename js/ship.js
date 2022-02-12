@@ -3,16 +3,16 @@ _updatePos( sign, dir )
 	if(dir == 0) {
 		switch(sign) {
 			case "0" :
-				this._cells.forEach(element => element._col += 1);
+				this._cells.forEach(element => element[3] = alphabet(getYfromID(element) += 1));
 			case "1" :
-				this._cells.forEach(element => element._col -= 1);
+				this._cells.forEach(element => element[3] = alphabet(getYfromID(element) -= 1));
 	}
 	else {
 		switch(sign) {
 			case "0" :
-				this._cells.forEach(element => element._row += 1);
+				this._cells.forEach(element => element[4] += 1);
 			case "1" :
-				this._cells.forEach(element => element._row -= 1);
+				this._cells.forEach(element => element[4] -= 1);
 	}
 }
 
@@ -24,14 +24,16 @@ _rotate( sign )
 			let calculationsY[this._length];
 
 			var valid = new Boolean(true);			
+			
+			originX = getXfromID(this._cells[0]);
+			originY = getYfromID(this._cells[0]);
+
 
 			this._cells.forEach(element => {
 				var b = 0;
-				originX = _cells[0]._col;
-				originY = _cells[0]._row;
 
-				calculationsX[b] = element._row - originY + originX;
-				calculationsY[b] = -1 * (element._col - originX) + originY;
+				calculationsX[b] = getYfromID(element) - originY + originX;
+				calculationsY[b] = -1 * (getXfromID(element) - originX) + originY;
 				b++;
 			};
 
@@ -45,8 +47,8 @@ _rotate( sign )
 			if(valid == true) {
 				this._cells.forEach(element => {
 					var c = 0;
-					element._row = calculationsY[c];
-					element._col = calculationsX[c];
+					element[3] = alphabet(calculationsY[c]);
+					element[4] = calculationsX[c];
 					c++;
 				};
 			}
@@ -56,14 +58,16 @@ _rotate( sign )
 			let calculationsY[this._length];
 
 			var valid = new Boolean(true);			
+			
+			originX = getXfromID(this._cells[0]);
+			originY = getYfromID(this._cells[0]);
+
 
 			this._cells.forEach(element => {
 				var b = 0;
-				originX = _cells[0]._col;
-				originY = _cells[0]._row;
 
-				calculationsX[b] = -1 * (element._row - originY) + originX;
-				calculationsY[b] = element._col - originX + originY;
+				calculationsX[b] = -1 * (getYfromID(element) - originY) + originX;
+				calculationsY[b] = getXfromID(element) - originX + originY;
 				b++;
 			};
 
@@ -77,10 +81,12 @@ _rotate( sign )
 			if(valid == true) {
 				this._cells.forEach(element => {
 					var c = 0;
-					element._row = calculationsY[c];
-					element._col = calculationsX[c];
+					element[3] = alphabet(calculationsY[c]);
+					element[4] = calculationsX[c];
 					c++;
 				};
 			}
 	}
 }
+
+

@@ -51,6 +51,7 @@
             display: flex;
             flex-direction: row;
             width: 100%;
+            height: all;
             justify-content: space-evenly;
           }
           
@@ -84,7 +85,7 @@
           {
             background-color: #333;
             overflow: hidden;
-            
+
           }
 
           .bottom
@@ -93,11 +94,11 @@
             left: 0;
             bottom: 0;
             width: 100%;
+            color: white;
             text-align: center;
             background-color: #333;
             overflow: hidden;
-            width: all;
-            height: 100px;
+            height: 50px;
 
           }
 
@@ -116,7 +117,6 @@
           {
             background-color: #666;
             overflow: hidden;
-            /*padding: 2px;*/
             text-align: center;
           }
 
@@ -143,10 +143,68 @@
 
           .submit:hover
           {
-            background-color: #4CAF50; /* Green */
+            background-color: #4CAF50;
             color: white;
           }
 
+          form {
+            display: grid;
+            place-content: center;
+            min-height: 100vh;
+          }
+
+          .form-control {
+            font-weight: bold;
+            line-height: 1.1;
+            display: grid;
+            grid-template-columns: 1em auto;
+            gap: 0.5em;
+          }
+
+          .form-control + .form-control {
+            margin-top: 1em;
+          }
+
+          .form-control:focus-within {
+            color: var(--form-control-color);
+          }
+
+          input[type="radio"] {
+            -webkit-appearance: none;
+            appearance: none;
+            margin: 0;
+
+            font: inherit;
+            color: currentColor;
+            width: 1.15em;
+            height: 1.15em;
+            border: 0.15em solid currentColor;
+            border-radius: 50%;
+            transform: translateY(-0.075em);
+
+            display: grid;
+            place-content: center;
+          }
+
+          input[type="radio"]::before {
+            content: "";
+            width: 0.65em;
+            height: 0.65em;
+            border-radius: 50%;
+            transform: scale(0);
+            transition: 120ms transform ease-in-out;
+            box-shadow: inset 1em 1em var(--form-control-color);
+            background-color: CanvasText;
+          }
+
+          input[type="radio"]:checked::before {
+            transform: scale(1);
+          }
+
+          input[type="radio"]:focus {
+            outline: max(2px, 0.15em) solid currentColor;
+            outline-offset: max(2px, 0.15em);
+          }
         </style>
     </head>
     <body>
@@ -156,16 +214,16 @@
         <div class="desc">
           <p>Battleship is a two player game. Where you will take turns trying to sink each others ships!</p>
         </div>
-
         <div id="p1-boards-container" class="container">
             <div class="buttons">
-              <p>Player 1's Boards</p>
+              <p class="hidden">Player 1's Boards</p>
               <form id="p1-ship-opt" class="menu">
-                    <p><label for="p1so_1">1</label><input id="p1so_1" type="radio" value="1" name="p1so"/></p>
-                    <p><label for="p1so_2">2</label><input id="p1so_2" type="radio" value="2" name="p1so"/></p>
-                    <p><label for="p1so_3">3</label><input id="p1so_3" type="radio" value="3" name="p1so"/></p>
-                    <p><label for="p1so_4">4</label><input id="p1so_4" type="radio" value="4" name="p1so"/></p>
-                    <p><label for="p1so_5">5</label><input id="p1so_5" checked="checked" type="radio" value="5" name="p1so"/></p>
+                    <p>Player 1's Boards</p>
+                    <p><label class="form-control" for="p1so_1"><input id="p1so_1" type="radio" value="1" name="p1so"/>1</label></p>
+                    <p><label class="form-control" for="p1so_2"><input id="p1so_2" type="radio" value="2" name="p1so"/>2</label></p>
+                    <p><label class="form-control" for="p1so_3"><input id="p1so_3" type="radio" value="3" name="p1so"/>3</label></p>
+                    <p><label class="form-control" for="p1so_4"><input id="p1so_4" type="radio" value="4" name="p1so"/>4</label></p>
+                    <p><label class="form-control" for="p1so_5"><input id="p1so_5" checked="checked" type="radio" value="5" name="p1so"/>5</label></p>
                     <input class="submit" id="p1-ship-opt-submit" type="submit" value="Confirm &raquo;" />
               </form>
             </div>
@@ -398,8 +456,7 @@
                     </svg>
                 </div>
             </div>
-
-<!-- </div><div class="bottom"></div> -->
+            
   <!--  -->
   <!--  -->
   <!--  -->
@@ -652,7 +709,6 @@
                     </svg>
                 </div>
             </div>
-            <div class="bottom"></div>
             <footer>
               <script type="text/javascript" src="./js/game.js"></script>
               <!-- <script type="text/javascript" src="./js/ship.js"></script>
@@ -660,4 +716,7 @@
               <script type="text/javascript" src="./test.js"></script>
             </footer>
         </body>
+        <div class="bottom">
+          <p> </p>
+        </div>
 </html>
