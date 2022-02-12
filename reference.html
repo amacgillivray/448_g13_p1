@@ -136,12 +136,12 @@
 <div class="buttons">
   <p>Player 1's Boards</p>
   <form id="p1-ship-opt" class="menu">
-        <p><label for="p1so_1">1</label><input type="radio" value="1" name="p1so_1"/></p>
-        <p><label for="p1so_2">2</label><input type="radio" value="2" name="p1so_2"/></p>
-        <p><label for="p1so_3">3</label><input type="radio" value="3" name="p1so_3"/></p>
-        <p><label for="p1so_4">4</label><input type="radio" value="4" name="p1so_4"/></p>
-        <p><label for="p1so_5">5</label><input type="radio" value="5" name="p1so_5"/></p>
-        <input type="submit" value="Confirm &raquo;" />
+        <p><label for="p1so_1">1</label><input type="radio" value="1" name="p1so"/></p>
+        <p><label for="p1so_2">2</label><input type="radio" value="2" name="p1so"/></p>
+        <p><label for="p1so_3">3</label><input type="radio" value="3" name="p1so"/></p>
+        <p><label for="p1so_4">4</label><input type="radio" value="4" name="p1so"/></p>
+        <p><label for="p1so_5">5</label><input type="radio" value="5" name="p1so"/></p>
+        <input id="p1-ship-opt-submit" type="submit" value="Confirm &raquo;" />
   </form>
 </div>
 <div class="svg_container">
@@ -155,7 +155,7 @@
       <g id="ships">
       </g>
       <g id="grid">
-        <rect id = "p1ba1" class="c cp" width="23.23404" height="23.23404"/>
+        <rect id = "p1ba1" data-occupied="true" class="c cp" width="23.23404" height="23.23404"/>
         <rect id = "p1ba2" class="c cp" x="26.23404" width="23.23404" height="23.23404"/>
         <rect id = "p1ba3" class="c cp" x="52.46808" width="23.23404" height="23.23404"/>
         <rect id = "p1ba4" class="c cp" x="78.70213" width="23.23404" height="23.23404"/>
@@ -394,7 +394,7 @@
               <p><label for="p2so_3">3</label><input type="radio" value="3" name="p2so_3"/></p>
               <p><label for="p2so_4">4</label><input type="radio" value="4" name="p2so_4"/></p>
               <p><label for="p2so_5">5</label><input type="radio" value="5" name="p2so_5"/></p>
-              <input type="submit" value="Confirm &raquo;" />
+              <input id="p2-ship-opt-submit" type="submit" value="Confirm &raquo;" />
       </form>
   </div>
   <div class="svg_container">

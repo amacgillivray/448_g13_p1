@@ -120,12 +120,6 @@ class Board
 
 class Player
 {
-  // constructor ( boardPlacement, boardTarget )
-  // {
-  //   // or just give the container and player number?
-  //   this._p = boardPlacement;
-  //   this._t = boardTarget;
-  // }
 
   constructor ( container, player_number )
   {
@@ -180,6 +174,10 @@ class Player
   {
     // get the number of ships the player is going to place
     // then, loop over "DoPlacementTurn" until all ships are placed
+    this._formSubmit.addEventListener("click", function(e){
+        
+    });
+    
   }
 
   _toggleHidden()
@@ -202,6 +200,7 @@ class Game
         2
       );
   }
+  
   start(){
     this._p2._toggleHidden();
     this._p1._giveTurn("first");
@@ -212,6 +211,7 @@ class Game
     this._p2._giveTurn("first");
     this.loop();
   }
+  
   loop()
   {
     // call toggle hidden on both players for each turn change
