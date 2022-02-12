@@ -73,13 +73,11 @@ function getYfromId( id )
 
 class Ship 
 {
-    constructor( size, cells )
+    constructor( length, cells )
     {
+        this._length = length;
+        
         this._cells = cells;    
-    }
-
-    __boundscheck( row_offset = 0 , col_offset = 0 ){
-        // todo - check that movement is valid 
     }
 
     moveA(){
@@ -115,9 +113,9 @@ class Ship
 
     _confirm()
     {
-        forEach( this._cells => function(cell){
-            cell.setOccupied();
-        });
+        // forEach( this._cells => function(cell){
+        //     cell.setOccupied();
+        // });
     }
 }
 
@@ -152,7 +150,7 @@ class Player
     this._formSubmit = document.getElementById("p" + this._num + "-ship-opt-submit" );
   }
 
-  _giveTurn( type ="targeting" )
+  _giveTurn( type = "targeting" )
   {
     // maybe have parameter "type", for "placement" or "targeting"
     // where type would be "placement" until all ships have been placed,
@@ -195,7 +193,8 @@ class Player
     // get the number of ships the player is going to place
     // then, loop over "DoPlacementTurn" until all ships are placed
     this._formSubmit.addEventListener("click", function(e){
-        
+        // alert("Clicked");
+        e.preventDefault();
     });
     
   }
