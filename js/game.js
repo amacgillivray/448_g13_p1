@@ -111,6 +111,7 @@ class Player
   {
     // or just give the container and player number?
     this._num = player_number;
+    this._container = container;
     this._b_placement = new Board( document.getElementById( 'p' + this._num + '-board-placement' ) );
     this._b_target    = new Board( document.getElementById( 'p' + this._num + '-board-target' ) );
     this._form = 
@@ -146,6 +147,7 @@ class Player
       alert("Targeting");
   }
 
+  // only called by _doFirstTurn; 
   _doPlacementTurn()
   {
       alert("Targeting");
@@ -156,7 +158,13 @@ class Player
   
   _doFirstTurn() 
   {
-      // get the number of ships the player is going to place
+    // get the number of ships the player is going to place
+    // then, loop over "DoPlacementTurn" until all ships are placed
+  }
+
+  _toggleHidden()
+  {
+    this._container.classList.toggle("hidden");
   }
 }
 
@@ -174,7 +182,23 @@ class Game
         2
       );
   }
+  start(){
+    this._p2._toggleHidden();
+    this._p1._giveTurn("first");
+
+    this._p1._toggleHidden();
+    this._p2._toggleHidden();
+
+    this._p2._giveTurn("first");
+    this.loop();
+  }
+  loop()
+  {
+    // call toggle hidden on both players for each turn change
+    
+    this._p1._giveTurn()
+  }
 }
 
 let game = new Game();
-
+game.start();
