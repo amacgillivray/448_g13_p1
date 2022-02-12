@@ -73,10 +73,10 @@ function getYfromId( id )
 
 class Ship 
 {
-    constructor( length, cells )
+    constructor( parent, length, cells )
     {
+        this._parent = parent;
         this._length = length;
-        
         this._cells = cells;    
     }
 
@@ -122,7 +122,7 @@ class Ship
 
 class Board
 {
-    constructor( rootNode, rows = 10, cols = 10 )
+    constructor( rootNode )
     {
       this._root = rootNode;
 
@@ -185,7 +185,7 @@ class Player
   // only called by _doFirstTurn; 
   _doPlacementTurn()
   {
-      alert("Targeting");
+      alert("Placement");
   }
   
   _doFirstTurn() 
@@ -199,9 +199,9 @@ class Player
     
   }
 
-  _toggleHidden()
+  _hide()
   {
-    this._container.classList.toggle("hidden");
+    this._container.classList.toggle("hidden", true);
   }
 }
 
@@ -221,13 +221,15 @@ class Game
   }
   
   start(){
-    this._p2._toggleHidden();
+      
+    // alert("Working!");
+    this._p2._hide();
     this._p1._giveTurn("first");
 
-    this._p1._toggleHidden();
-    this._p2._toggleHidden();
+    this._p1._hide();
 
     this._p2._giveTurn("first");
+    this._p2._hide();
     this.loop();
   }
   
@@ -235,11 +237,12 @@ class Game
   {
     // call toggle hidden on both players for each turn change
     this._p1._giveTurn("targeting");
-    this._p1._toggleHidden();
-    this._p2._toggleHidden();
+    this._p1._hide();
     this._p2._giveTurn("targeting");
-    this._p1._toggleHidden();
-    this._p2._toggleHidden();
+    this._p2._hide();
+    
+    // FOR TESTING
+    this._p1._giveTurn("targeting");
 
   }
 }
