@@ -29,8 +29,8 @@ class Player
   {
     // or just give the container and player number?
     this._num = player_number;
-    this._b_placement = new Board( container.getElementById( 'p' . this._num . '-board-placement' ) );
-    this._b_target    = new Board( container.getElementById( 'p' . this._num . '-board-target' ) );
+    this._b_placement = new Board( document.getElementById( 'p' + this._num + '-board-placement' ) );
+    this._b_target    = new Board( document.getElementById( 'p' + this._num + '-board-target' ) );
   }
 
   _giveTurn( type ="targeting" )
@@ -50,20 +50,27 @@ class Player
       case "placement" :
         this._doPlacementTurn();
         break;
+      case "first":
       default:
         window.alert("Invalid turn type specified: " + type);
         break;
     }
   }
 
+
   _doTargetingTurn()
   {
-
+      alert("Targeting");
   }
 
   _doPlacementTurn()
   {
-
+      alert("Targeting");
+  }
+  
+  _doFirstTurn() 
+  {
+      // get the number of ships the player is going to place
   }
 }
 
@@ -82,3 +89,6 @@ class Game
       );
   }
 }
+
+let game = new Game();
+
