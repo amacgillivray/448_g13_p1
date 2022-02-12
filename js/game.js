@@ -139,8 +139,10 @@ class Board
 class Player
 {
 
-  constructor ( container, player_number )
+  constructor ( game, container, player_number )
   {
+    this._parent = game; 
+     
     // or just give the container and player number?
     this._num = player_number;
     this._container = container;
@@ -148,9 +150,10 @@ class Player
     this._b_target    = new Board( document.getElementById( 'p' + this._num + '-board-target' ) );
     this._form = document.getElementById("p" + this._num + "-ship-opt");
     this._formSubmit = document.getElementById("p" + this._num + "-ship-opt-submit" );
+    this._shipCount = -1;
   }
 
-  _giveTurn( type = "targeting" )
+  giveTurn( type = "targeting" )
   {
     // maybe have parameter "type", for "placement" or "targeting"
     // where type would be "placement" until all ships have been placed,
@@ -168,7 +171,7 @@ class Player
         this._doPlacementTurn();
         break;
       case "first":
-        this._doFirstTurn();
+        this._doFirstTurn( this );
         break;
       default:
         window.alert("Invalid turn type specified: " + type);
@@ -183,20 +186,68 @@ class Player
   }
 
   // only called by _doFirstTurn; 
-  _doPlacementTurn()
+  _doPlacementTurn( shipLength )
   {
-      alert("Placement");
+      alert("Placing ship of size 1x" + shipLength);
+      
+      
   }
   
-  _doFirstTurn() 
+  _doFirstTurn( obj ) 
   {
     // get the number of ships the player is going to place
     // then, loop over "DoPlacementTurn" until all ships are placed
-    this._formSubmit.addEventListener("click", function(e){
-        // alert("Clicked");
-        e.preventDefault();
-    });
-    
+    // this._formSubmit.this = this;
+    // this._formSubmit.addEventListener("click", function(e){
+    //     // alert("Clicked");
+    //     let str = "p" + this._num + "so_";
+    //     for ( let i = 1; i <=5; i++ )
+    //     {
+    //         alert(str+i);
+    //         let button = document.getElementById(str + i); 
+    //         if (button.checked)  {
+    //             this.shipCount = button.value;
+    //             break;
+    //         }
+    //     }
+    //     e.preventDefault();
+    // 
+    //     for (let i = 0; i < shipCount; i++)
+    //     {
+    //         this._doPlacementTurn(i);
+    //     }
+    // 
+    //     this._parent.endTurn( this._num );
+    // 
+    // });
+    this._formSubmit.addEventListener("click", function(e){ 
+        alert( obj );
+        obj._firstTurnHandler(e) }, false );
+  }
+  
+  _firstTurnHandler( e )
+  {
+      // alert("In first turn handler");
+      let str = "p" + this._num + "so_";
+      for ( let i = 1; i <=5; i++ )
+      {
+          // alert(str+i);
+          let button = document.getElementById(str + i); 
+          if (button.checked)  {
+              this._shipCount = button.value;
+              break;
+          }
+      }
+      e.preventDefault();
+      
+      for (let i = 1; i <= this._shipCount; i++)
+      {
+          this._doPlacementTurn(i);
+      }
+      
+      this._form.classList.toggle("hidden", true);
+      
+      this._parent.endTurn( this._num );
   }
 
   _hide()
@@ -210,41 +261,64 @@ class Game
   constructor()
   {
       this._p1 = new Player(
+        this,
         document.getElementById("p1-boards-container"),
         1
       );
 
       this._p2 = new Player(
+        this,
         document.getElementById("p2-boards-container"),
         2
       );
   }
   
+  
+  
   start(){
       
     // alert("Working!");
     this._p2._hide();
-    this._p1._giveTurn("first");
-
-    this._p1._hide();
-
-    this._p2._giveTurn("first");
-    this._p2._hide();
-    this.loop();
+    this._p1.giveTurn("first");
+    
+    this._p1tc = 0;
+    this._p2tc = 0;
+    // this._p1._hide();
+    // 
+    // this._p2.giveTurn("first");
+    // this._p2._hide();
+    // this.loop();
   }
   
-  loop()
+  endTurn( forPlayer )
   {
-    // call toggle hidden on both players for each turn change
-    this._p1._giveTurn("targeting");
-    this._p1._hide();
-    this._p2._giveTurn("targeting");
-    this._p2._hide();
-    
-    // FOR TESTING
-    this._p1._giveTurn("targeting");
-
+      if (forPlayer == 1)
+      {
+          this._p1._hide();
+          this._p1tc++;
+          if (this._p2tc == 0)
+            this._p2.giveTurn("first");
+          else
+            this._p2.giveTurn("targeting");
+      } else if (forPlayer == 2){
+          this._p2._hide();
+          this._p2tc++;
+          if (this._p1tc == 0)
+            this._p1.giveTurn("first");
+          else
+            this._p1.giveTurn("targeting");
+      }
   }
+  
+  // loop()
+  // {
+  //   // call toggle hidden on both players for each turn change
+  //   this._p1.giveTurn("targeting");
+  //   this._p1._hide();
+  //   this._p2.giveTurn("targeting");
+  //   this._p2._hide();
+  // 
+  // }
 }
 
 let game = new Game();
