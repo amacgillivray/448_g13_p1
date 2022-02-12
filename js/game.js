@@ -5,61 +5,79 @@ const alphabet = [
     'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
 ];
 
-class cell {
-    
-    /** 
-     * @param board 
-     *        String such as "p1p" (player1's placement board) that acts as 
-     *        a prefix to the cell's id.
-     * @param row
-     * @param col
-     */
-    constructor ( board, row, col )
-    {
-        this._board = board;
-        this._row = row;
-        this._col = col;
-        this._occupied = false;
-        this._called = false;        
-        this._node = document.getElementById(board + alphabet[row] + col );
-    }
-    
-    /** 
-     * @brief Tells the cell that it has been "called" by an opposing player. 
-     * @post  The cell's class-list will be modified with "h" (hit) or "m" (miss)
-     * @return true|false
-     *          True indicates hit. False indicates miss.
-     */ 
-    call()
-    {
-        this._called = true;
-        
-        if ( this._occupied ) 
-        {
-            this._node.classlist.add("h");
-            return true;
-        } else {
-            this._node.classList.add("m");
-            return false;
-        }
-    }
-    
-    setOccupied()
-    {
-        this._occupied = true;
-    }
-
+/**
+ * @brief converts a row letter to a number
+ */
+function rowToNum( letter )
+{
+    return alphabet.indexOf(letter);
 }
+
+function getXfromId( id )
+{
+    return id[4];
+}
+
+function getYfromId( id )
+{
+    return rowToNum(id[3]);
+}
+
+
+// Cell will now be handled entirely in the DOM, no JS objects. 
+// class cell {
+// 
+//     /** 
+//      * @param board 
+//      *        String such as "p1p" (player1's placement board) that acts as 
+//      *        a prefix to the cell's id.
+//      * @param row
+//      * @param col
+//      */
+//     constructor ( board, row, col )
+//     {
+//         this._board = board;
+//         this._row = row;
+//         this._col = col;
+//         this._occupied = false;
+//         this._called = false;        
+//         this._node = document.getElementById(board + alphabet[row] + col );
+//     }
+// 
+//     /** 
+//      * @brief Tells the cell that it has been "called" by an opposing player. 
+//      * @post  The cell's class-list will be modified with "h" (hit) or "m" (miss)
+//      * @return true|false
+//      *          True indicates hit. False indicates miss.
+//      */ 
+//     call()
+//     {
+//         this._called = true;
+// 
+//         if ( this._occupied ) 
+//         {
+//             this._node.classlist.add("h");
+//             return true;
+//         } else {
+//             this._node.classList.add("m");
+//             return false;
+//         }
+//     }
+// 
+//     setOccupied()
+//     {
+//         this._occupied = true;
+//     }
+// 
+// }
 
 class Ship 
 {
-    constructor( size, cells )
+    constructor( length, cells )
     {
+        this._length = length;
+        
         this._cells = cells;    
-    }
-
-    __boundscheck( row_offset = 0 , col_offset = 0 ){
-        // todo - check that movement is valid 
     }
 
     moveA(){
@@ -95,9 +113,9 @@ class Ship
 
     _confirm()
     {
-        forEach( this._cells => function(cell){
-            cell.setOccupied();
-        });
+        // forEach( this._cells => function(cell){
+        //     cell.setOccupied();
+        // });
     }
 }
 
@@ -132,7 +150,7 @@ class Player
     this._formSubmit = document.getElementById("p" + this._num + "-ship-opt-submit" );
   }
 
-  _giveTurn( type ="targeting" )
+  _giveTurn( type = "targeting" )
   {
     // maybe have parameter "type", for "placement" or "targeting"
     // where type would be "placement" until all ships have been placed,
@@ -175,7 +193,8 @@ class Player
     // get the number of ships the player is going to place
     // then, loop over "DoPlacementTurn" until all ships are placed
     this._formSubmit.addEventListener("click", function(e){
-        
+        // alert("Clicked");
+        e.preventDefault();
     });
     
   }
