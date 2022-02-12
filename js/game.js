@@ -109,8 +109,8 @@ class Game
   loop()
   {
     // call toggle hidden on both players for each turn change
+    this._p1._giveTurn();
     
-    this._p1._giveTurn()
   }
 }
 
