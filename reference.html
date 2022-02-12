@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="utf-8" />
         <title>Battleship</title>
         <style>
           .a {
@@ -21,6 +22,21 @@
 
           .c:hover {
             fill: #444;
+          }
+
+          /* ship cell */
+          .s {
+              fill: #777;
+          }
+          
+          /* target board : hit cell */
+          .h {
+              fill: #fa242e;
+          }
+          
+          /* target board: miss cell */
+          .m {
+              fill: #242424;
           }
 
           .container
@@ -130,6 +146,7 @@
         <rect class="c cp" x="26.23404" y="209.87234" width="23.23404" height="23.23404"/>
         <rect class="c cp" x="52.46808" y="209.87234" width="23.23404" height="23.23404"/>
         <rect class="c cp" x="78.70213" y="209.87234" width="23.23404" height="23.23404"/>
+        <rect class="c cp" x="131.17021" y="78.70213" width="23.23404" height="23.23404"/>
         <rect class="c cp" x="104.93616" y="209.87234" width="23.23404" height="23.23404"/>
         <rect class="c cp" x="131.17021" y="209.87234" width="23.23404" height="23.23404"/>
         <rect class="c cp" x="157.40425" y="209.87234" width="23.23404" height="23.23404"/>
@@ -505,9 +522,8 @@
 
 <!-- end svg copy/paste -->
         <footer>
-          <!-- <script type="text/javascript" src="/js/board.js" /></script> -->
-          <!-- <script type="text/javascript" src="/js/ship.js" /></script> -->
-          <script type="text/javascript" src="/js/game.js" /></script>
+          <script type="text/javascript" src="./js/game.js"></script>
+          <script type="text/javascript" src="./test.js"></script>
         </footer>
     </body>
 </html>
