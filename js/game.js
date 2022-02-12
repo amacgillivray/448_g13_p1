@@ -120,6 +120,12 @@ class Board
 
 class Player
 {
+  // constructor ( boardPlacement, boardTarget )
+  // {
+  //   // or just give the container and player number?
+  //   this._p = boardPlacement;
+  //   this._t = boardTarget;
+  // }
 
   constructor ( container, player_number )
   {
@@ -139,7 +145,7 @@ class Player
     // and then "targeting" until the game is complete.
 
     // this would control which board is active / waiting for input
-    // this._container.classList.remove("hidden");
+    this._container.classList.remove("hidden");
 
     switch (type)
     {
@@ -167,8 +173,7 @@ class Player
   // only called by _doFirstTurn; 
   _doPlacementTurn()
   {
-      alert("Placement");
-      
+      alert("Targeting");
   }
   
   _doFirstTurn() 
@@ -210,8 +215,13 @@ class Game
   loop()
   {
     // call toggle hidden on both players for each turn change
-    
-    this._p1._giveTurn()
+    this._p1._giveTurn("targeting");
+    this._p1._toggleHidden();
+    this._p2._toggleHidden();
+    this._p2._giveTurn("targeting");
+    this._p1._toggleHidden();
+    this._p2._toggleHidden();
+
   }
 }
 
