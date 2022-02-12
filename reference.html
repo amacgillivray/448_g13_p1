@@ -46,15 +46,25 @@
 
           .container
           {
-            padding-top: 10px;
+            background-color: #999;
+            text-align: center;
             display: flex;
             flex-direction: row;
             width: 100%;
             justify-content: space-evenly;
           }
+          
+          .svg_container {
+              padding: 50px;
+              display: flex;
+              flex-direction: row;
+              width: 100%;
+              justify-content: space-evenly;
+          }
 
            .hidden{
             display: none;
+            width: auto;
           }
 
           html, body {
@@ -74,14 +84,23 @@
           {
             background-color: #333;
             overflow: hidden;
-            /*box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);*/
+            
+          }
+
+          .bottom
+          {
+            background-color: #333;
+            overflow: hidden;
+            width: all;
+            height: 100px;
+
           }
 
           .buttons
           {
             text-align: center;
             background-color: #555;
-            /*width: ;*/
+            height: all;
             padding: 10px;
             padding-left: 100px;
             border: 2px;
@@ -100,6 +119,7 @@
           {
             padding-bottom: 5px;
             background-color: green;
+
           }
         </style>
     </head>
@@ -116,14 +136,15 @@
 <div class="buttons">
   <p>Player 1's Boards</p>
   <form id="p1-ship-opt" class="menu">
-        <p><label for="p1so_1">1</label><input type="radio" value="1" name="p1so_1"/></p>
-        <p><label for="p1so_2">2</label><input type="radio" value="2" name="p1so_2"/></p>
-        <p><label for="p1so_3">3</label><input type="radio" value="3" name="p1so_3"/></p>
-        <p><label for="p1so_4">4</label><input type="radio" value="4" name="p1so_4"/></p>
-        <p><label for="p1so_5">5</label><input type="radio" value="5" name="p1so_5"/></p>
-        <input type="submit" value="Confirm &raquo;" />
+        <p><label for="p1so_1">1</label><input type="radio" value="1" name="p1so"/></p>
+        <p><label for="p1so_2">2</label><input type="radio" value="2" name="p1so"/></p>
+        <p><label for="p1so_3">3</label><input type="radio" value="3" name="p1so"/></p>
+        <p><label for="p1so_4">4</label><input type="radio" value="4" name="p1so"/></p>
+        <p><label for="p1so_5">5</label><input type="radio" value="5" name="p1so"/></p>
+        <input id="p1-ship-opt-submit" type="submit" value="Confirm &raquo;" />
   </form>
 </div>
+<div class="svg_container">
 <svg id="p1-board-placement" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 259.34042 259.34042" width="500" height="500">
     <defs>
       <clipPath id="a" transform="translate(-103 -244.65957)">
@@ -134,107 +155,106 @@
       <g id="ships">
       </g>
       <g id="grid">
-        <rect id = "p1ba1" class="c cp" width="23.23404" height="23.23404"/>
-        <rect id = "p1ba2" class="c cp" x="26.23404" width="23.23404" height="23.23404"/>
-        <rect id = "p1ba3" class="c cp" x="52.46808" width="23.23404" height="23.23404"/>
-        <rect id = "p1ba4" class="c cp" x="78.70213" width="23.23404" height="23.23404"/>
-        <rect id = "p1ba5" class="c cp" x="104.93616" width="23.23404" height="23.23404"/>
-        <rect id = "p1ba6" class="c cp" x="131.17021" width="23.23404" height="23.23404"/>
-        <rect id = "p1ba7" class="c cp" x="157.40425" width="23.23404" height="23.23404"/>
-        <rect id = "p1ba8" class="c cp" x="183.63829" width="23.23404" height="23.23404"/>
-        <rect id = "p1ba9" class="c cp" x="209.87234" width="23.23404" height="23.23404"/>
-        <rect id = "p1ba10" class="c cp" x="236.10638" width="23.23404" height="23.23404"/>
-        <rect id = "p1bb1" class="c cp" y="26.23404" width="23.23404" height="23.23404"/>
-        <rect id = "p1bb2" class="c cp" x="26.23404" y="26.23404" width="23.23404" height="23.23404"/>
-        <rect id = "p1bb3" class="c cp" x="52.46808" y="26.23404" width="23.23404" height="23.23404"/>
-        <rect id = "p1bb4" class="c cp" x="78.70213" y="26.23404" width="23.23404" height="23.23404"/>
-        <rect id = "p1bb5" class="c cp" x="104.93616" y="26.23404" width="23.23404" height="23.23404"/>
-        <rect id = "p1bb6" class="c cp" x="131.17021" y="26.23404" width="23.23404" height="23.23404"/>
-        <rect id = "p1bb7" class="c cp" x="157.40425" y="26.23404" width="23.23404" height="23.23404"/>
-        <rect id = "p1bb8" class="c cp" x="183.63829" y="26.23404" width="23.23404" height="23.23404"/>
-        <rect id = "p1bb9" class="c cp" x="209.87234" y="26.23404" width="23.23404" height="23.23404"/>
-        <rect id = "p1bb10" class="c cp" x="236.10638" y="26.23404" width="23.23404" height="23.23404"/>
-        <rect id = "p1bc1" class="c cp" y="52.46808" width="23.23404" height="23.23404"/>
-        <rect id = "p1bc2" class="c cp" x="26.23404" y="52.46808" width="23.23404" height="23.23404"/>
-        <rect id = "p1bc3" class="c cp" x="52.46808" y="52.46808" width="23.23404" height="23.23404"/>
-        <rect id = "p1bc4" class="c cp" x="78.70213" y="52.46808" width="23.23404" height="23.23404"/>
-        <rect id = "p1bc5" class="c cp" x="104.93616" y="52.46808" width="23.23404" height="23.23404"/>
-        <rect id = "p1bc6" class="c cp" x="131.17021" y="52.46808" width="23.23404" height="23.23404"/>
-        <rect id = "p1bc7" class="c cp" x="157.40425" y="52.46808" width="23.23404" height="23.23404"/>
-        <rect id = "p1bc8" class="c cp" x="183.63829" y="52.46808" width="23.23404" height="23.23404"/>
-        <rect id = "p1bc9" class="c cp" x="209.87234" y="52.46808" width="23.23404" height="23.23404"/>
-        <rect id = "p1bc10" class="c cp" x="236.10638" y="52.46808" width="23.23404" height="23.23404"/>
-        <rect id = "p1bd1" class="c cp" y="78.70213" width="23.23404" height="23.23404"/>
-        <rect id = "p1bd2" class="c cp" x="26.23404" y="78.70213" width="23.23404" height="23.23404"/>
-        <rect id = "p1bd3" class="c cp" x="52.46808" y="78.70213" width="23.23404" height="23.23404"/>
-        <rect id = "p1bd4" class="c cp" x="78.70213" y="78.70213" width="23.23404" height="23.23404"/>
-        <rect id = "p1bd5" class="c cp" x="104.93616" y="78.70213" width="23.23404" height="23.23404"/>
-        <rect id = "p1bd6" class="c cp" x="131.17021" y="78.70213" width="23.23404" height="23.23404"/>
-        <rect id = "p1bd7" class="c cp" x="157.40425" y="78.70213" width="23.23404" height="23.23404"/>
-        <rect id = "p1bd8" class="c cp" x="183.63829" y="78.70213" width="23.23404" height="23.23404"/>
-        <rect id = "p1bd9" class="c cp" x="209.87234" y="78.70213" width="23.23404" height="23.23404"/>
-        <rect id = "p1bd10" class="c cp" x="236.10638" y="78.70213" width="23.23404" height="23.23404"/>
-        <rect id = "p1be1" class="c cp" y="104.93616" width="23.23404" height="23.23404"/>
-        <rect id = "p1be2" class="c cp" x="26.23404" y="104.93616" width="23.23404" height="23.23404"/>
-        <rect id = "p1be3" class="c cp" x="52.46808" y="104.93616" width="23.23404" height="23.23404"/>
-        <rect id = "p1be4" class="c cp" x="78.70213" y="104.93616" width="23.23404" height="23.23404"/>
-        <rect id = "p1be5" class="c cp" x="104.93616" y="104.93616" width="23.23404" height="23.23404"/>
-        <rect id = "p1be6" class="c cp" x="131.17021" y="104.93616" width="23.23404" height="23.23404"/>
-        <rect id = "p1be7" class="c cp" x="157.40425" y="104.93616" width="23.23404" height="23.23404"/>
-        <rect id = "p1be8" class="c cp" x="183.63829" y="104.93616" width="23.23404" height="23.23404"/>
-        <rect id = "p1be9" class="c cp" x="209.87234" y="104.93616" width="23.23404" height="23.23404"/>
-        <rect id = "p1be10" class="c cp" x="236.10638" y="104.93616" width="23.23404" height="23.23404"/>
-        <rect id = "p1bf1" class="c cp" y="131.17021" width="23.23404" height="23.23404"/>
-        <rect id = "p1bf2" class="c cp" x="26.23404" y="131.17021" width="23.23404" height="23.23404"/>
-        <rect id = "p1bf3" class="c cp" x="52.46808" y="131.17021" width="23.23404" height="23.23404"/>
-        <rect id = "p1bf4" class="c cp" x="78.70213" y="131.17021" width="23.23404" height="23.23404"/>
-        <rect id = "p1bf5" class="c cp" x="104.93616" y="131.17021" width="23.23404" height="23.23404"/>
-        <rect id = "p1bf6" class="c cp" x="131.17021" y="131.17021" width="23.23404" height="23.23404"/>
-        <rect id = "p1bf7" class="c cp" x="157.40425" y="131.17021" width="23.23404" height="23.23404"/>
-        <rect id = "p1bf8" class="c cp" x="183.63829" y="131.17021" width="23.23404" height="23.23404"/>
-        <rect id = "p1bf9" class="c cp" x="209.87234" y="131.17021" width="23.23404" height="23.23404"/>
-        <rect id = "p1bf10" class="c cp" x="236.10638" y="131.17021" width="23.23404" height="23.23404"/>
-        <rect id = "p1bg1" class="c cp" y="157.40425" width="23.23404" height="23.23404"/>
-        <rect id = "p1bg2" class="c cp" x="26.23404" y="157.40425" width="23.23404" height="23.23404"/>
-        <rect id = "p1bg3" class="c cp" x="52.46808" y="157.40425" width="23.23404" height="23.23404"/>
-        <rect id = "p1bg4" class="c cp" x="78.70213" y="157.40425" width="23.23404" height="23.23404"/>
-        <rect id = "p1bg5" class="c cp" x="104.93616" y="157.40425" width="23.23404" height="23.23404"/>
-        <rect id = "p1bg6" class="c cp" x="131.17021" y="157.40425" width="23.23404" height="23.23404"/>
-        <rect id = "p1bg7" class="c cp" x="157.40425" y="157.40425" width="23.23404" height="23.23404"/>
-        <rect id = "p1bg8" class="c cp" x="183.63829" y="157.40425" width="23.23404" height="23.23404"/>
-        <rect id = "p1bg9" class="c cp" x="209.87234" y="157.40425" width="23.23404" height="23.23404"/>
-        <rect id = "p1bg10" class="c cp" x="236.10638" y="157.40425" width="23.23404" height="23.23404"/>
-        <rect id = "p1bh1" class="c cp" y="183.63829" width="23.23404" height="23.23404"/>
-        <rect id = "p1bh2" class="c cp" x="26.23404" y="183.63829" width="23.23404" height="23.23404"/>
-        <rect id = "p1bh3" class="c cp" x="52.46808" y="183.63829" width="23.23404" height="23.23404"/>
-        <rect id = "p1bh4" class="c cp" x="78.70213" y="183.63829" width="23.23404" height="23.23404"/>
-        <rect id = "p1bh5" class="c cp" x="104.93616" y="183.63829" width="23.23404" height="23.23404"/>
-        <rect id = "p1bh6" class="c cp" x="131.17021" y="183.63829" width="23.23404" height="23.23404"/>
-        <rect id = "p1bh7" class="c cp" x="157.40425" y="183.63829" width="23.23404" height="23.23404"/>
-        <rect id = "p1bh8" class="c cp" x="183.63829" y="183.63829" width="23.23404" height="23.23404"/>
-        <rect id = "p1bh9" class="c cp" x="209.87234" y="183.63829" width="23.23404" height="23.23404"/>
-        <rect id = "p1bh10" class="c cp" x="236.10638" y="183.63829" width="23.23404" height="23.23404"/>
-        <rect id = "p1bi1" class="c cp" y="209.87234" width="23.23404" height="23.23404"/>
-        <rect id = "p1bi2" class="c cp" x="26.23404" y="209.87234" width="23.23404" height="23.23404"/>
-        <rect id = "p1bi3" class="c cp" x="52.46808" y="209.87234" width="23.23404" height="23.23404"/>
-        <rect id = "p1bi4" class="c cp" x="78.70213" y="209.87234" width="23.23404" height="23.23404"/>
-        <!-- <rect id b "p1ti" class="c cp" x="131.17021" y="78.70213" width="23.23404" height="23.23404"/> -->
-        <rect id = "p1bi5" class="c cp" x="104.93616" y="209.87234" width="23.23404" height="23.23404"/>
-        <rect id = "p1bi6" class="c cp" x="131.17021" y="209.87234" width="23.23404" height="23.23404"/>
-        <rect id = "p1bi7" class="c cp" x="157.40425" y="209.87234" width="23.23404" height="23.23404"/>
-        <rect id = "p1bi8" class="c cp" x="183.63829" y="209.87234" width="23.23404" height="23.23404"/>
-        <rect id = "p1bi9" class="c cp" x="209.87234" y="209.87234" width="23.23404" height="23.23404"/>
-        <rect id = "p1bj10" class="c cp" x="236.10638" y="209.87234" width="23.23404" height="23.23404"/>
-        <rect id = "p1bj1" class="c cp" y="236.10638" width="23.23404" height="23.23404"/>
-        <rect id = "p1bj2" class="c cp" x="26.23404" y="236.10638" width="23.23404" height="23.23404"/>
-        <rect id = "p1bj3" class="c cp" x="52.46808" y="236.10638" width="23.23404" height="23.23404"/>
-        <rect id = "p1bj4" class="c cp" x="78.70213" y="236.10638" width="23.23404" height="23.23404"/>
-        <rect id = "p1bj5" class="c cp" x="104.93616" y="236.10638" width="23.23404" height="23.23404"/>
-        <rect id = "p1bj6" class="c cp" x="131.17021" y="236.10638" width="23.23404" height="23.23404"/>
-        <rect id = "p1bj7" class="c cp" x="157.40425" y="236.10638" width="23.23404" height="23.23404"/>
-        <rect id = "p1bj8" class="c cp" x="183.63829" y="236.10638" width="23.23404" height="23.23404"/>
-        <rect id = "p1bj9" class="c cp" x="209.87234" y="236.10638" width="23.23404" height="23.23404"/>
-        <rect id = "p1bj10" class="c cp" x="236.10638" y="236.10638" width="23.23404" height="23.23404"/>
+        <rect id = "p1pa0" class="c cp" width="23.23404" height="23.23404"/>
+        <rect id = "p1pa1" class="c cp" x="26.23404" width="23.23404" height="23.23404"/>
+        <rect id = "p1pa2" class="c cp" x="52.46808" width="23.23404" height="23.23404"/>
+        <rect id = "p1pa3" class="c cp" x="78.70213" width="23.23404" height="23.23404"/>
+        <rect id = "p1pa4" class="c cp" x="104.93616" width="23.23404" height="23.23404"/>
+        <rect id = "p1pa5" class="c cp" x="131.17021" width="23.23404" height="23.23404"/>
+        <rect id = "p1pa6" class="c cp" x="157.40425" width="23.23404" height="23.23404"/>
+        <rect id = "p1pa7" class="c cp" x="183.63829" width="23.23404" height="23.23404"/>
+        <rect id = "p1pa8" class="c cp" x="209.87234" width="23.23404" height="23.23404"/>
+        <rect id = "p1pa9" class="c cp" x="236.10638" width="23.23404" height="23.23404"/>
+        <rect id = "p1pb0" class="c cp" y="26.23404" width="23.23404" height="23.23404"/>
+        <rect id = "p1pb1" class="c cp" x="26.23404" y="26.23404" width="23.23404" height="23.23404"/>
+        <rect id = "p1pb2" class="c cp" x="52.46808" y="26.23404" width="23.23404" height="23.23404"/>
+        <rect id = "p1pb3" class="c cp" x="78.70213" y="26.23404" width="23.23404" height="23.23404"/>
+        <rect id = "p1pb4" class="c cp" x="104.93616" y="26.23404" width="23.23404" height="23.23404"/>
+        <rect id = "p1pb5" class="c cp" x="131.17021" y="26.23404" width="23.23404" height="23.23404"/>
+        <rect id = "p1pb6" class="c cp" x="157.40425" y="26.23404" width="23.23404" height="23.23404"/>
+        <rect id = "p1pb7" class="c cp" x="183.63829" y="26.23404" width="23.23404" height="23.23404"/>
+        <rect id = "p1pb8" class="c cp" x="209.87234" y="26.23404" width="23.23404" height="23.23404"/>
+        <rect id = "p1pb9" class="c cp" x="236.10638" y="26.23404" width="23.23404" height="23.23404"/>
+        <rect id = "p1pc0" class="c cp" y="52.46808" width="23.23404" height="23.23404"/>
+        <rect id = "p1pc1" class="c cp" x="26.23404" y="52.46808" width="23.23404" height="23.23404"/>
+        <rect id = "p1pc2" class="c cp" x="52.46808" y="52.46808" width="23.23404" height="23.23404"/>
+        <rect id = "p1pc3" class="c cp" x="78.70213" y="52.46808" width="23.23404" height="23.23404"/>
+        <rect id = "p1pc4" class="c cp" x="104.93616" y="52.46808" width="23.23404" height="23.23404"/>
+        <rect id = "p1pc5" class="c cp" x="131.17021" y="52.46808" width="23.23404" height="23.23404"/>
+        <rect id = "p1pc6" class="c cp" x="157.40425" y="52.46808" width="23.23404" height="23.23404"/>
+        <rect id = "p1pc7" class="c cp" x="183.63829" y="52.46808" width="23.23404" height="23.23404"/>
+        <rect id = "p1pc8" class="c cp" x="209.87234" y="52.46808" width="23.23404" height="23.23404"/>
+        <rect id = "p1pc9" class="c cp" x="236.10638" y="52.46808" width="23.23404" height="23.23404"/>
+        <rect id = "p1pd0" class="c cp" y="78.70213" width="23.23404" height="23.23404"/>
+        <rect id = "p1pd1" class="c cp" x="26.23404" y="78.70213" width="23.23404" height="23.23404"/>
+        <rect id = "p1pd2" class="c cp" x="52.46808" y="78.70213" width="23.23404" height="23.23404"/>
+        <rect id = "p1pd3" class="c cp" x="78.70213" y="78.70213" width="23.23404" height="23.23404"/>
+        <rect id = "p1pd4" class="c cp" x="104.93616" y="78.70213" width="23.23404" height="23.23404"/>
+        <rect id = "p1pd5" class="c cp" x="131.17021" y="78.70213" width="23.23404" height="23.23404"/>
+        <rect id = "p1pd6" class="c cp" x="157.40425" y="78.70213" width="23.23404" height="23.23404"/>
+        <rect id = "p1pd7" class="c cp" x="183.63829" y="78.70213" width="23.23404" height="23.23404"/>
+        <rect id = "p1pd8" class="c cp" x="209.87234" y="78.70213" width="23.23404" height="23.23404"/>
+        <rect id = "p1pd9" class="c cp" x="236.10638" y="78.70213" width="23.23404" height="23.23404"/>
+        <rect id = "p1pe0" class="c cp" y="104.93616" width="23.23404" height="23.23404"/>
+        <rect id = "p1pe1" class="c cp" x="26.23404" y="104.93616" width="23.23404" height="23.23404"/>
+        <rect id = "p1pe2" class="c cp" x="52.46808" y="104.93616" width="23.23404" height="23.23404"/>
+        <rect id = "p1pe3" class="c cp" x="78.70213" y="104.93616" width="23.23404" height="23.23404"/>
+        <rect id = "p1pe4" class="c cp" x="104.93616" y="104.93616" width="23.23404" height="23.23404"/>
+        <rect id = "p1pe5" class="c cp" x="131.17021" y="104.93616" width="23.23404" height="23.23404"/>
+        <rect id = "p1pe6" class="c cp" x="157.40425" y="104.93616" width="23.23404" height="23.23404"/>
+        <rect id = "p1pe7" class="c cp" x="183.63829" y="104.93616" width="23.23404" height="23.23404"/>
+        <rect id = "p1pe8" class="c cp" x="209.87234" y="104.93616" width="23.23404" height="23.23404"/>
+        <rect id = "p1pe9" class="c cp" x="236.10638" y="104.93616" width="23.23404" height="23.23404"/>
+        <rect id = "p1pf0" class="c cp" y="131.17021" width="23.23404" height="23.23404"/>
+        <rect id = "p1pf1" class="c cp" x="26.23404" y="131.17021" width="23.23404" height="23.23404"/>
+        <rect id = "p1pf2" class="c cp" x="52.46808" y="131.17021" width="23.23404" height="23.23404"/>
+        <rect id = "p1pf3" class="c cp" x="78.70213" y="131.17021" width="23.23404" height="23.23404"/>
+        <rect id = "p1pf4" class="c cp" x="104.93616" y="131.17021" width="23.23404" height="23.23404"/>
+        <rect id = "p1pf5" class="c cp" x="131.17021" y="131.17021" width="23.23404" height="23.23404"/>
+        <rect id = "p1pf6" class="c cp" x="157.40425" y="131.17021" width="23.23404" height="23.23404"/>
+        <rect id = "p1pf7" class="c cp" x="183.63829" y="131.17021" width="23.23404" height="23.23404"/>
+        <rect id = "p1pf8" class="c cp" x="209.87234" y="131.17021" width="23.23404" height="23.23404"/>
+        <rect id = "p1pf9" class="c cp" x="236.10638" y="131.17021" width="23.23404" height="23.23404"/>
+        <rect id = "p1pg0" class="c cp" y="157.40425" width="23.23404" height="23.23404"/>
+        <rect id = "p1pg1" class="c cp" x="26.23404" y="157.40425" width="23.23404" height="23.23404"/>
+        <rect id = "p1pg2" class="c cp" x="52.46808" y="157.40425" width="23.23404" height="23.23404"/>
+        <rect id = "p1pg3" class="c cp" x="78.70213" y="157.40425" width="23.23404" height="23.23404"/>
+        <rect id = "p1pg4" class="c cp" x="104.93616" y="157.40425" width="23.23404" height="23.23404"/>
+        <rect id = "p1pg5" class="c cp" x="131.17021" y="157.40425" width="23.23404" height="23.23404"/>
+        <rect id = "p1pg6" class="c cp" x="157.40425" y="157.40425" width="23.23404" height="23.23404"/>
+        <rect id = "p1pg7" class="c cp" x="183.63829" y="157.40425" width="23.23404" height="23.23404"/>
+        <rect id = "p1pg8" class="c cp" x="209.87234" y="157.40425" width="23.23404" height="23.23404"/>
+        <rect id = "p1pg9" class="c cp" x="236.10638" y="157.40425" width="23.23404" height="23.23404"/>
+        <rect id = "p1ph0" class="c cp" y="183.63829" width="23.23404" height="23.23404"/>
+        <rect id = "p1ph1" class="c cp" x="26.23404" y="183.63829" width="23.23404" height="23.23404"/>
+        <rect id = "p1ph2" class="c cp" x="52.46808" y="183.63829" width="23.23404" height="23.23404"/>
+        <rect id = "p1ph3" class="c cp" x="78.70213" y="183.63829" width="23.23404" height="23.23404"/>
+        <rect id = "p1ph4" class="c cp" x="104.93616" y="183.63829" width="23.23404" height="23.23404"/>
+        <rect id = "p1ph5" class="c cp" x="131.17021" y="183.63829" width="23.23404" height="23.23404"/>
+        <rect id = "p1ph6" class="c cp" x="157.40425" y="183.63829" width="23.23404" height="23.23404"/>
+        <rect id = "p1ph7" class="c cp" x="183.63829" y="183.63829" width="23.23404" height="23.23404"/>
+        <rect id = "p1ph8" class="c cp" x="209.87234" y="183.63829" width="23.23404" height="23.23404"/>
+        <rect id = "p1ph9" class="c cp" x="236.10638" y="183.63829" width="23.23404" height="23.23404"/>
+        <rect id = "p1pi0" class="c cp" y="209.87234" width="23.23404" height="23.23404"/>
+        <rect id = "p1pi1" class="c cp" x="26.23404" y="209.87234" width="23.23404" height="23.23404"/>
+        <rect id = "p1pi2" class="c cp" x="52.46808" y="209.87234" width="23.23404" height="23.23404"/>
+        <rect id = "p1pi3" class="c cp" x="78.70213" y="209.87234" width="23.23404" height="23.23404"/>
+        <rect id = "p1pi4" class="c cp" x="104.93616" y="209.87234" width="23.23404" height="23.23404"/>
+        <rect id = "p1pi5" class="c cp" x="131.17021" y="209.87234" width="23.23404" height="23.23404"/>
+        <rect id = "p1pi6" class="c cp" x="157.40425" y="209.87234" width="23.23404" height="23.23404"/>
+        <rect id = "p1pi7" class="c cp" x="183.63829" y="209.87234" width="23.23404" height="23.23404"/>
+        <rect id = "p1pi8" class="c cp" x="209.87234" y="209.87234" width="23.23404" height="23.23404"/>
+        <rect id = "p1pj9" class="c cp" x="236.10638" y="209.87234" width="23.23404" height="23.23404"/>
+        <rect id = "p1pj0" class="c cp" y="236.10638" width="23.23404" height="23.23404"/>
+        <rect id = "p1pj1" class="c cp" x="26.23404" y="236.10638" width="23.23404" height="23.23404"/>
+        <rect id = "p1pj2" class="c cp" x="52.46808" y="236.10638" width="23.23404" height="23.23404"/>
+        <rect id = "p1pj3" class="c cp" x="78.70213" y="236.10638" width="23.23404" height="23.23404"/>
+        <rect id = "p1pj4" class="c cp" x="104.93616" y="236.10638" width="23.23404" height="23.23404"/>
+        <rect id = "p1pj5" class="c cp" x="131.17021" y="236.10638" width="23.23404" height="23.23404"/>
+        <rect id = "p1pj6" class="c cp" x="157.40425" y="236.10638" width="23.23404" height="23.23404"/>
+        <rect id = "p1pj7" class="c cp" x="183.63829" y="236.10638" width="23.23404" height="23.23404"/>
+        <rect id = "p1pj8" class="c cp" x="209.87234" y="236.10638" width="23.23404" height="23.23404"/>
+        <rect id = "p1pj9" class="c cp" x="236.10638" y="236.10638" width="23.23404" height="23.23404"/>
       </g>
     </g>
   </svg>
@@ -248,110 +268,112 @@
         <g id="ships">
         </g>
         <g id="grid">
-          <rect id="p1ta1" class="c ct" width="23.23404" height="23.23404"/>
-          <rect id="p1ta2" class="c ct" x="26.23404" width="23.23404" height="23.23404"/>
-          <rect id="p1ta3" class="c ct" x="52.46808" width="23.23404" height="23.23404"/>
-          <rect id="p1ta4" class="c ct" x="78.70213" width="23.23404" height="23.23404"/>
-          <rect id="p1ta5" class="c ct" x="104.93616" width="23.23404" height="23.23404"/>
-          <rect id="p1ta6" class="c ct" x="131.17021" width="23.23404" height="23.23404"/>
-          <rect id="p1ta7" class="c ct" x="157.40425" width="23.23404" height="23.23404"/>
-          <rect id="p1ta8" class="c ct" x="183.63829" width="23.23404" height="23.23404"/>
-          <rect id="p1ta9" class="c ct" x="209.87234" width="23.23404" height="23.23404"/>
-          <rect id="p1ta10" class="c ct" x="236.10638" width="23.23404" height="23.23404"/>
-          <rect id="p1tb1" class="c ct" y="26.23404" width="23.23404" height="23.23404"/>
-          <rect id="p1tb2" class="c ct" x="26.23404" y="26.23404" width="23.23404" height="23.23404"/>
-          <rect id="p1tb3" class="c ct" x="52.46808" y="26.23404" width="23.23404" height="23.23404"/>
-          <rect id="p1tb4" class="c ct" x="78.70213" y="26.23404" width="23.23404" height="23.23404"/>
-          <rect id="p1tb5" class="c ct" x="104.93616" y="26.23404" width="23.23404" height="23.23404"/>
-          <rect id="p1tb6" class="c ct" x="131.17021" y="26.23404" width="23.23404" height="23.23404"/>
-          <rect id="p1tb7" class="c ct" x="157.40425" y="26.23404" width="23.23404" height="23.23404"/>
-          <rect id="p1tb8" class="c ct" x="183.63829" y="26.23404" width="23.23404" height="23.23404"/>
-          <rect id="p1tb9" class="c ct" x="209.87234" y="26.23404" width="23.23404" height="23.23404"/>
-          <rect id="p1tb10" class="c ct" x="236.10638" y="26.23404" width="23.23404" height="23.23404"/>
-          <rect id="p1tc1" class="c ct" y="52.46808" width="23.23404" height="23.23404"/>
-          <rect id="p1tc2" class="c ct" x="26.23404" y="52.46808" width="23.23404" height="23.23404"/>
-          <rect id="p1tc3" class="c ct" x="52.46808" y="52.46808" width="23.23404" height="23.23404"/>
-          <rect id="p1tc4" class="c ct" x="78.70213" y="52.46808" width="23.23404" height="23.23404"/>
-          <rect id="p1tc5" class="c ct" x="104.93616" y="52.46808" width="23.23404" height="23.23404"/>
-          <rect id="p1tc6" class="c ct" x="131.17021" y="52.46808" width="23.23404" height="23.23404"/>
-          <rect id="p1tc7" class="c ct" x="157.40425" y="52.46808" width="23.23404" height="23.23404"/>
-          <rect id="p1tc8" class="c ct" x="183.63829" y="52.46808" width="23.23404" height="23.23404"/>
-          <rect id="p1tc9" class="c ct" x="209.87234" y="52.46808" width="23.23404" height="23.23404"/>
-          <rect id="p1tc10" class="c ct" x="236.10638" y="52.46808" width="23.23404" height="23.23404"/>
-          <rect id="p1td1" class="c ct" y="78.70213" width="23.23404" height="23.23404"/>
-          <rect id="p1td2" class="c ct" x="26.23404" y="78.70213" width="23.23404" height="23.23404"/>
-          <rect id="p1td3" class="c ct" x="52.46808" y="78.70213" width="23.23404" height="23.23404"/>
-          <rect id="p1td4" class="c ct" x="78.70213" y="78.70213" width="23.23404" height="23.23404"/>
-          <rect id="p1td5" class="c ct" x="104.93616" y="78.70213" width="23.23404" height="23.23404"/>
-          <rect id="p1td6" class="c ct" x="131.17021" y="78.70213" width="23.23404" height="23.23404"/>
-          <rect id="p1td7" class="c ct" x="157.40425" y="78.70213" width="23.23404" height="23.23404"/>
-          <rect id="p1td8" class="c ct" x="183.63829" y="78.70213" width="23.23404" height="23.23404"/>
-          <rect id="p1td9" class="c ct" x="209.87234" y="78.70213" width="23.23404" height="23.23404"/>
-          <rect id="p1td10" class="c ct" x="236.10638" y="78.70213" width="23.23404" height="23.23404"/>
-          <rect id="p1te1" class="c ct" y="104.93616" width="23.23404" height="23.23404"/>
-          <rect id="p1te2" class="c ct" x="26.23404" y="104.93616" width="23.23404" height="23.23404"/>
-          <rect id="p1te3" class="c ct" x="52.46808" y="104.93616" width="23.23404" height="23.23404"/>
-          <rect id="p1te4" class="c ct" x="78.70213" y="104.93616" width="23.23404" height="23.23404"/>
-          <rect id="p1te5" class="c ct" x="104.93616" y="104.93616" width="23.23404" height="23.23404"/>
-          <rect id="p1te6" class="c ct" x="131.17021" y="104.93616" width="23.23404" height="23.23404"/>
-          <rect id="p1te7" class="c ct" x="157.40425" y="104.93616" width="23.23404" height="23.23404"/>
-          <rect id="p1te8" class="c ct" x="183.63829" y="104.93616" width="23.23404" height="23.23404"/>
-          <rect id="p1te9" class="c ct" x="209.87234" y="104.93616" width="23.23404" height="23.23404"/>
-          <rect id="p1te10" class="c ct" x="236.10638" y="104.93616" width="23.23404" height="23.23404"/>
-          <rect id="p1tf1" class="c ct" y="131.17021" width="23.23404" height="23.23404"/>
-          <rect id="p1tf2" class="c ct" x="26.23404" y="131.17021" width="23.23404" height="23.23404"/>
-          <rect id="p1tf3" class="c ct" x="52.46808" y="131.17021" width="23.23404" height="23.23404"/>
-          <rect id="p1tf4" class="c ct" x="78.70213" y="131.17021" width="23.23404" height="23.23404"/>
-          <rect id="p1tf5" class="c ct" x="104.93616" y="131.17021" width="23.23404" height="23.23404"/>
-          <rect id="p1tf6" class="c ct" x="131.17021" y="131.17021" width="23.23404" height="23.23404"/>
-          <rect id="p1tf7" class="c ct" x="157.40425" y="131.17021" width="23.23404" height="23.23404"/>
-          <rect id="p1tf8" class="c ct" x="183.63829" y="131.17021" width="23.23404" height="23.23404"/>
-          <rect id="p1tf9" class="c ct" x="209.87234" y="131.17021" width="23.23404" height="23.23404"/>
-          <rect id="p1tf10" class="c ct" x="236.10638" y="131.17021" width="23.23404" height="23.23404"/>
-          <rect id="p1tg1" class="c ct" y="157.40425" width="23.23404" height="23.23404"/>
-          <rect id="p1tg2" class="c ct" x="26.23404" y="157.40425" width="23.23404" height="23.23404"/>
-          <rect id="p1tg3" class="c ct" x="52.46808" y="157.40425" width="23.23404" height="23.23404"/>
-          <rect id="p1tg4" class="c ct" x="78.70213" y="157.40425" width="23.23404" height="23.23404"/>
-          <rect id="p1tg5" class="c ct" x="104.93616" y="157.40425" width="23.23404" height="23.23404"/>
-          <rect id="p1tg6" class="c ct" x="131.17021" y="157.40425" width="23.23404" height="23.23404"/>
-          <rect id="p1tg7" class="c ct" x="157.40425" y="157.40425" width="23.23404" height="23.23404"/>
-          <rect id="p1tg8" class="c ct" x="183.63829" y="157.40425" width="23.23404" height="23.23404"/>
-          <rect id="p1tg9" class="c ct" x="209.87234" y="157.40425" width="23.23404" height="23.23404"/>
-          <rect id="p1tg10" class="c ct" x="236.10638" y="157.40425" width="23.23404" height="23.23404"/>
-          <rect id="p1th1" class="c ct" y="183.63829" width="23.23404" height="23.23404"/>
-          <rect id="p1th2" class="c ct" x="26.23404" y="183.63829" width="23.23404" height="23.23404"/>
-          <rect id="p1th3" class="c ct" x="52.46808" y="183.63829" width="23.23404" height="23.23404"/>
-          <rect id="p1th4" class="c ct" x="78.70213" y="183.63829" width="23.23404" height="23.23404"/>
-          <rect id="p1th5" class="c ct" x="104.93616" y="183.63829" width="23.23404" height="23.23404"/>
-          <rect id="p1th6" class="c ct" x="131.17021" y="183.63829" width="23.23404" height="23.23404"/>
-          <rect id="p1th7" class="c ct" x="157.40425" y="183.63829" width="23.23404" height="23.23404"/>
-          <rect id="p1th8" class="c ct" x="183.63829" y="183.63829" width="23.23404" height="23.23404"/>
-          <rect id="p1th9" class="c ct" x="209.87234" y="183.63829" width="23.23404" height="23.23404"/>
-          <rect id="p1th10" class="c ct" x="236.10638" y="183.63829" width="23.23404" height="23.23404"/>
-          <rect id="p1ti1" class="c ct" y="209.87234" width="23.23404" height="23.23404"/>
-          <rect id="p1ti2" class="c ct" x="26.23404" y="209.87234" width="23.23404" height="23.23404"/>
-          <rect id="p1ti3" class="c ct" x="52.46808" y="209.87234" width="23.23404" height="23.23404"/>
-          <rect id="p1ti4" class="c ct" x="78.70213" y="209.87234" width="23.23404" height="23.23404"/>
-          <rect id="p1ti5" class="c ct" x="104.93616" y="209.87234" width="23.23404" height="23.23404"/>
-          <rect id="p1ti6" class="c ct" x="131.17021" y="209.87234" width="23.23404" height="23.23404"/>
-          <rect id="p1ti7" class="c ct" x="157.40425" y="209.87234" width="23.23404" height="23.23404"/>
-          <rect id="p1ti8" class="c ct" x="183.63829" y="209.87234" width="23.23404" height="23.23404"/>
-          <rect id="p1ti9" class="c ct" x="209.87234" y="209.87234" width="23.23404" height="23.23404"/>
-          <rect id="p1ti10" class="c ct" x="236.10638" y="209.87234" width="23.23404" height="23.23404"/>
-          <rect id="p1tj1" class="c ct" y="236.10638" width="23.23404" height="23.23404"/>
-          <rect id="p1tj2" class="c ct" x="26.23404" y="236.10638" width="23.23404" height="23.23404"/>
-          <rect id="p1tj3" class="c ct" x="52.46808" y="236.10638" width="23.23404" height="23.23404"/>
-          <rect id="p1tj4" class="c ct" x="78.70213" y="236.10638" width="23.23404" height="23.23404"/>
-          <rect id="p1tj5" class="c ct" x="104.93616" y="236.10638" width="23.23404" height="23.23404"/>
-          <rect id="p1tj6" class="c ct" x="131.17021" y="236.10638" width="23.23404" height="23.23404"/>
-          <rect id="p1tj7" class="c ct" x="157.40425" y="236.10638" width="23.23404" height="23.23404"/>
-          <rect id="p1tj8" class="c ct" x="183.63829" y="236.10638" width="23.23404" height="23.23404"/>
-          <rect id="p1tj9" class="c ct" x="209.87234" y="236.10638" width="23.23404" height="23.23404"/>
-          <rect id="p1tj10" class="c ct" x="236.10638" y="236.10638" width="23.23404" height="23.23404"/>
+          <rect id="p1ta0" class="c ct" width="23.23404" height="23.23404"/>
+          <rect id="p1ta1" class="c ct" x="26.23404" width="23.23404" height="23.23404"/>
+          <rect id="p1ta2" class="c ct" x="52.46808" width="23.23404" height="23.23404"/>
+          <rect id="p1ta3" class="c ct" x="78.70213" width="23.23404" height="23.23404"/>
+          <rect id="p1ta4" class="c ct" x="104.93616" width="23.23404" height="23.23404"/>
+          <rect id="p1ta5" class="c ct" x="131.17021" width="23.23404" height="23.23404"/>
+          <rect id="p1ta6" class="c ct" x="157.40425" width="23.23404" height="23.23404"/>
+          <rect id="p1ta7" class="c ct" x="183.63829" width="23.23404" height="23.23404"/>
+          <rect id="p1ta8" class="c ct" x="209.87234" width="23.23404" height="23.23404"/>
+          <rect id="p1ta9" class="c ct" x="236.10638" width="23.23404" height="23.23404"/>
+          <rect id="p1tb0" class="c ct" y="26.23404" width="23.23404" height="23.23404"/>
+          <rect id="p1tb1" class="c ct" x="26.23404" y="26.23404" width="23.23404" height="23.23404"/>
+          <rect id="p1tb2" class="c ct" x="52.46808" y="26.23404" width="23.23404" height="23.23404"/>
+          <rect id="p1tb3" class="c ct" x="78.70213" y="26.23404" width="23.23404" height="23.23404"/>
+          <rect id="p1tb4" class="c ct" x="104.93616" y="26.23404" width="23.23404" height="23.23404"/>
+          <rect id="p1tb5" class="c ct" x="131.17021" y="26.23404" width="23.23404" height="23.23404"/>
+          <rect id="p1tb6" class="c ct" x="157.40425" y="26.23404" width="23.23404" height="23.23404"/>
+          <rect id="p1tb7" class="c ct" x="183.63829" y="26.23404" width="23.23404" height="23.23404"/>
+          <rect id="p1tb8" class="c ct" x="209.87234" y="26.23404" width="23.23404" height="23.23404"/>
+          <rect id="p1tb9" class="c ct" x="236.10638" y="26.23404" width="23.23404" height="23.23404"/>
+          <rect id="p1tc0" class="c ct" y="52.46808" width="23.23404" height="23.23404"/>
+          <rect id="p1tc1" class="c ct" x="26.23404" y="52.46808" width="23.23404" height="23.23404"/>
+          <rect id="p1tc2" class="c ct" x="52.46808" y="52.46808" width="23.23404" height="23.23404"/>
+          <rect id="p1tc3" class="c ct" x="78.70213" y="52.46808" width="23.23404" height="23.23404"/>
+          <rect id="p1tc4" class="c ct" x="104.93616" y="52.46808" width="23.23404" height="23.23404"/>
+          <rect id="p1tc5" class="c ct" x="131.17021" y="52.46808" width="23.23404" height="23.23404"/>
+          <rect id="p1tc6" class="c ct" x="157.40425" y="52.46808" width="23.23404" height="23.23404"/>
+          <rect id="p1tc7" class="c ct" x="183.63829" y="52.46808" width="23.23404" height="23.23404"/>
+          <rect id="p1tc8" class="c ct" x="209.87234" y="52.46808" width="23.23404" height="23.23404"/>
+          <rect id="p1tc9" class="c ct" x="236.10638" y="52.46808" width="23.23404" height="23.23404"/>
+          <rect id="p1td0" class="c ct" y="78.70213" width="23.23404" height="23.23404"/>
+          <rect id="p1td1" class="c ct" x="26.23404" y="78.70213" width="23.23404" height="23.23404"/>
+          <rect id="p1td2" class="c ct" x="52.46808" y="78.70213" width="23.23404" height="23.23404"/>
+          <rect id="p1td3" class="c ct" x="78.70213" y="78.70213" width="23.23404" height="23.23404"/>
+          <rect id="p1td4" class="c ct" x="104.93616" y="78.70213" width="23.23404" height="23.23404"/>
+          <rect id="p1td5" class="c ct" x="131.17021" y="78.70213" width="23.23404" height="23.23404"/>
+          <rect id="p1td6" class="c ct" x="157.40425" y="78.70213" width="23.23404" height="23.23404"/>
+          <rect id="p1td7" class="c ct" x="183.63829" y="78.70213" width="23.23404" height="23.23404"/>
+          <rect id="p1td8" class="c ct" x="209.87234" y="78.70213" width="23.23404" height="23.23404"/>
+          <rect id="p1td9" class="c ct" x="236.10638" y="78.70213" width="23.23404" height="23.23404"/>
+          <rect id="p1te0" class="c ct" y="104.93616" width="23.23404" height="23.23404"/>
+          <rect id="p1te1" class="c ct" x="26.23404" y="104.93616" width="23.23404" height="23.23404"/>
+          <rect id="p1te2" class="c ct" x="52.46808" y="104.93616" width="23.23404" height="23.23404"/>
+          <rect id="p1te3" class="c ct" x="78.70213" y="104.93616" width="23.23404" height="23.23404"/>
+          <rect id="p1te4" class="c ct" x="104.93616" y="104.93616" width="23.23404" height="23.23404"/>
+          <rect id="p1te5" class="c ct" x="131.17021" y="104.93616" width="23.23404" height="23.23404"/>
+          <rect id="p1te6" class="c ct" x="157.40425" y="104.93616" width="23.23404" height="23.23404"/>
+          <rect id="p1te7" class="c ct" x="183.63829" y="104.93616" width="23.23404" height="23.23404"/>
+          <rect id="p1te8" class="c ct" x="209.87234" y="104.93616" width="23.23404" height="23.23404"/>
+          <rect id="p1te9" class="c ct" x="236.10638" y="104.93616" width="23.23404" height="23.23404"/>
+          <rect id="p1tf0" class="c ct" y="131.17021" width="23.23404" height="23.23404"/>
+          <rect id="p1tf1" class="c ct" x="26.23404" y="131.17021" width="23.23404" height="23.23404"/>
+          <rect id="p1tf2" class="c ct" x="52.46808" y="131.17021" width="23.23404" height="23.23404"/>
+          <rect id="p1tf3" class="c ct" x="78.70213" y="131.17021" width="23.23404" height="23.23404"/>
+          <rect id="p1tf4" class="c ct" x="104.93616" y="131.17021" width="23.23404" height="23.23404"/>
+          <rect id="p1tf5" class="c ct" x="131.17021" y="131.17021" width="23.23404" height="23.23404"/>
+          <rect id="p1tf6" class="c ct" x="157.40425" y="131.17021" width="23.23404" height="23.23404"/>
+          <rect id="p1tf7" class="c ct" x="183.63829" y="131.17021" width="23.23404" height="23.23404"/>
+          <rect id="p1tf8" class="c ct" x="209.87234" y="131.17021" width="23.23404" height="23.23404"/>
+          <rect id="p1tf9" class="c ct" x="236.10638" y="131.17021" width="23.23404" height="23.23404"/>
+          <rect id="p1tg0" class="c ct" y="157.40425" width="23.23404" height="23.23404"/>
+          <rect id="p1tg1" class="c ct" x="26.23404" y="157.40425" width="23.23404" height="23.23404"/>
+          <rect id="p1tg2" class="c ct" x="52.46808" y="157.40425" width="23.23404" height="23.23404"/>
+          <rect id="p1tg3" class="c ct" x="78.70213" y="157.40425" width="23.23404" height="23.23404"/>
+          <rect id="p1tg4" class="c ct" x="104.93616" y="157.40425" width="23.23404" height="23.23404"/>
+          <rect id="p1tg5" class="c ct" x="131.17021" y="157.40425" width="23.23404" height="23.23404"/>
+          <rect id="p1tg6" class="c ct" x="157.40425" y="157.40425" width="23.23404" height="23.23404"/>
+          <rect id="p1tg7" class="c ct" x="183.63829" y="157.40425" width="23.23404" height="23.23404"/>
+          <rect id="p1tg8" class="c ct" x="209.87234" y="157.40425" width="23.23404" height="23.23404"/>
+          <rect id="p1tg9" class="c ct" x="236.10638" y="157.40425" width="23.23404" height="23.23404"/>
+          <rect id="p1th0" class="c ct" y="183.63829" width="23.23404" height="23.23404"/>
+          <rect id="p1th1" class="c ct" x="26.23404" y="183.63829" width="23.23404" height="23.23404"/>
+          <rect id="p1th2" class="c ct" x="52.46808" y="183.63829" width="23.23404" height="23.23404"/>
+          <rect id="p1th3" class="c ct" x="78.70213" y="183.63829" width="23.23404" height="23.23404"/>
+          <rect id="p1th4" class="c ct" x="104.93616" y="183.63829" width="23.23404" height="23.23404"/>
+          <rect id="p1th5" class="c ct" x="131.17021" y="183.63829" width="23.23404" height="23.23404"/>
+          <rect id="p1th6" class="c ct" x="157.40425" y="183.63829" width="23.23404" height="23.23404"/>
+          <rect id="p1th7" class="c ct" x="183.63829" y="183.63829" width="23.23404" height="23.23404"/>
+          <rect id="p1th8" class="c ct" x="209.87234" y="183.63829" width="23.23404" height="23.23404"/>
+          <rect id="p1th9" class="c ct" x="236.10638" y="183.63829" width="23.23404" height="23.23404"/>
+          <rect id="p1ti0" class="c ct" y="209.87234" width="23.23404" height="23.23404"/>
+          <rect id="p1ti1" class="c ct" x="26.23404" y="209.87234" width="23.23404" height="23.23404"/>
+          <rect id="p1ti2" class="c ct" x="52.46808" y="209.87234" width="23.23404" height="23.23404"/>
+          <rect id="p1ti3" class="c ct" x="78.70213" y="209.87234" width="23.23404" height="23.23404"/>
+          <rect id="p1ti4" class="c ct" x="104.93616" y="209.87234" width="23.23404" height="23.23404"/>
+          <rect id="p1ti5" class="c ct" x="131.17021" y="209.87234" width="23.23404" height="23.23404"/>
+          <rect id="p1ti6" class="c ct" x="157.40425" y="209.87234" width="23.23404" height="23.23404"/>
+          <rect id="p1ti7" class="c ct" x="183.63829" y="209.87234" width="23.23404" height="23.23404"/>
+          <rect id="p1ti8" class="c ct" x="209.87234" y="209.87234" width="23.23404" height="23.23404"/>
+          <rect id="p1ti9" class="c ct" x="236.10638" y="209.87234" width="23.23404" height="23.23404"/>
+          <rect id="p1tj0" class="c ct" y="236.10638" width="23.23404" height="23.23404"/>
+          <rect id="p1tj1" class="c ct" x="26.23404" y="236.10638" width="23.23404" height="23.23404"/>
+          <rect id="p1tj2" class="c ct" x="52.46808" y="236.10638" width="23.23404" height="23.23404"/>
+          <rect id="p1tj3" class="c ct" x="78.70213" y="236.10638" width="23.23404" height="23.23404"/>
+          <rect id="p1tj4" class="c ct" x="104.93616" y="236.10638" width="23.23404" height="23.23404"/>
+          <rect id="p1tj5" class="c ct" x="131.17021" y="236.10638" width="23.23404" height="23.23404"/>
+          <rect id="p1tj6" class="c ct" x="157.40425" y="236.10638" width="23.23404" height="23.23404"/>
+          <rect id="p1tj7" class="c ct" x="183.63829" y="236.10638" width="23.23404" height="23.23404"/>
+          <rect id="p1tj8" class="c ct" x="209.87234" y="236.10638" width="23.23404" height="23.23404"/>
+          <rect id="p1tj9" class="c ct" x="236.10638" y="236.10638" width="23.23404" height="23.23404"/>
         </g>
       </g>
     </svg>
   </div>
+
+</div><div class="bottom"></div>
   <!--  -->
   <!--  -->
   <!--  -->
@@ -371,9 +393,10 @@
               <p><label for="p2so_3">3</label><input type="radio" value="3" name="p2so_3"/></p>
               <p><label for="p2so_4">4</label><input type="radio" value="4" name="p2so_4"/></p>
               <p><label for="p2so_5">5</label><input type="radio" value="5" name="p2so_5"/></p>
-              <input type="submit" value="Confirm &raquo;" />
+              <input id="p2-ship-opt-submit" type="submit" value="Confirm &raquo;" />
       </form>
   </div>
+  <div class="svg_container">
   <svg id="p2-board-placement" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 259.34042 259.34042" width="500" height="500">
       <defs>
         <clipPath id="a" transform="translate(-103 -244.65957)">
@@ -384,106 +407,106 @@
         <g id="ships">
         </g>
         <g id="grid">
-          <rect id = "p2ba1" class="c cp" width="23.23404" height="23.23404"/>
-          <rect id = "p2ba2" class="c cp" x="26.23404" width="23.23404" height="23.23404"/>
-          <rect id = "p2ba3" class="c cp" x="52.46808" width="23.23404" height="23.23404"/>
-          <rect id = "p2ba4" class="c cp" x="78.70213" width="23.23404" height="23.23404"/>
-          <rect id = "p2ba5" class="c cp" x="104.93616" width="23.23404" height="23.23404"/>
-          <rect id = "p2ba6" class="c cp" x="131.17021" width="23.23404" height="23.23404"/>
-          <rect id = "p2ba7" class="c cp" x="157.40425" width="23.23404" height="23.23404"/>
-          <rect id = "p2ba8" class="c cp" x="183.63829" width="23.23404" height="23.23404"/>
-          <rect id = "p2ba9" class="c cp" x="209.87234" width="23.23404" height="23.23404"/>
-          <rect id = "p2ba10" class="c cp" x="236.10638" width="23.23404" height="23.23404"/>
-          <rect id = "p2bb1" class="c cp" y="26.23404" width="23.23404" height="23.23404"/>
-          <rect id = "p2bb2" class="c cp" x="26.23404" y="26.23404" width="23.23404" height="23.23404"/>
-          <rect id = "p2bb3" class="c cp" x="52.46808" y="26.23404" width="23.23404" height="23.23404"/>
-          <rect id = "p2bb4" class="c cp" x="78.70213" y="26.23404" width="23.23404" height="23.23404"/>
-          <rect id = "p2bb5" class="c cp" x="104.93616" y="26.23404" width="23.23404" height="23.23404"/>
-          <rect id = "p2bb6" class="c cp" x="131.17021" y="26.23404" width="23.23404" height="23.23404"/>
-          <rect id = "p2bb7" class="c cp" x="157.40425" y="26.23404" width="23.23404" height="23.23404"/>
-          <rect id = "p2bb8" class="c cp" x="183.63829" y="26.23404" width="23.23404" height="23.23404"/>
-          <rect id = "p2bb9" class="c cp" x="209.87234" y="26.23404" width="23.23404" height="23.23404"/>
-          <rect id = "p2bb10" class="c cp" x="236.10638" y="26.23404" width="23.23404" height="23.23404"/>
-          <rect id = "p2bc1" class="c cp" y="52.46808" width="23.23404" height="23.23404"/>
-          <rect id = "p2bc2" class="c cp" x="26.23404" y="52.46808" width="23.23404" height="23.23404"/>
-          <rect id = "p2bc3" class="c cp" x="52.46808" y="52.46808" width="23.23404" height="23.23404"/>
-          <rect id = "p2bc4" class="c cp" x="78.70213" y="52.46808" width="23.23404" height="23.23404"/>
-          <rect id = "p2bc5" class="c cp" x="104.93616" y="52.46808" width="23.23404" height="23.23404"/>
-          <rect id = "p2bc6" class="c cp" x="131.17021" y="52.46808" width="23.23404" height="23.23404"/>
-          <rect id = "p2bc7" class="c cp" x="157.40425" y="52.46808" width="23.23404" height="23.23404"/>
-          <rect id = "p2bc8" class="c cp" x="183.63829" y="52.46808" width="23.23404" height="23.23404"/>
-          <rect id = "p2bc9" class="c cp" x="209.87234" y="52.46808" width="23.23404" height="23.23404"/>
-          <rect id = "p2bc10" class="c cp" x="236.10638" y="52.46808" width="23.23404" height="23.23404"/>
-          <rect id = "p2bd1" class="c cp" y="78.70213" width="23.23404" height="23.23404"/>
-          <rect id = "p2bd2" class="c cp" x="26.23404" y="78.70213" width="23.23404" height="23.23404"/>
-          <rect id = "p2bd3" class="c cp" x="52.46808" y="78.70213" width="23.23404" height="23.23404"/>
-          <rect id = "p2bd4" class="c cp" x="78.70213" y="78.70213" width="23.23404" height="23.23404"/>
-          <rect id = "p2bd5" class="c cp" x="104.93616" y="78.70213" width="23.23404" height="23.23404"/>
-          <rect id = "p2bd6" class="c cp" x="131.17021" y="78.70213" width="23.23404" height="23.23404"/>
-          <rect id = "p2bd7" class="c cp" x="157.40425" y="78.70213" width="23.23404" height="23.23404"/>
-          <rect id = "p2bd8" class="c cp" x="183.63829" y="78.70213" width="23.23404" height="23.23404"/>
-          <rect id = "p2bd9" class="c cp" x="209.87234" y="78.70213" width="23.23404" height="23.23404"/>
-          <rect id = "p2bd10" class="c cp" x="236.10638" y="78.70213" width="23.23404" height="23.23404"/>
-          <rect id = "p2be1" class="c cp" y="104.93616" width="23.23404" height="23.23404"/>
-          <rect id = "p2be2" class="c cp" x="26.23404" y="104.93616" width="23.23404" height="23.23404"/>
-          <rect id = "p2be3" class="c cp" x="52.46808" y="104.93616" width="23.23404" height="23.23404"/>
-          <rect id = "p2be4" class="c cp" x="78.70213" y="104.93616" width="23.23404" height="23.23404"/>
-          <rect id = "p2be5" class="c cp" x="104.93616" y="104.93616" width="23.23404" height="23.23404"/>
-          <rect id = "p2be6" class="c cp" x="131.17021" y="104.93616" width="23.23404" height="23.23404"/>
-          <rect id = "p2be7" class="c cp" x="157.40425" y="104.93616" width="23.23404" height="23.23404"/>
-          <rect id = "p2be8" class="c cp" x="183.63829" y="104.93616" width="23.23404" height="23.23404"/>
-          <rect id = "p2be9" class="c cp" x="209.87234" y="104.93616" width="23.23404" height="23.23404"/>
-          <rect id = "p2be10" class="c cp" x="236.10638" y="104.93616" width="23.23404" height="23.23404"/>
-          <rect id = "p2bf1" class="c cp" y="131.17021" width="23.23404" height="23.23404"/>
-          <rect id = "p2bf2" class="c cp" x="26.23404" y="131.17021" width="23.23404" height="23.23404"/>
-          <rect id = "p2bf3" class="c cp" x="52.46808" y="131.17021" width="23.23404" height="23.23404"/>
-          <rect id = "p2bf4" class="c cp" x="78.70213" y="131.17021" width="23.23404" height="23.23404"/>
-          <rect id = "p2bf5" class="c cp" x="104.93616" y="131.17021" width="23.23404" height="23.23404"/>
-          <rect id = "p2bf6" class="c cp" x="131.17021" y="131.17021" width="23.23404" height="23.23404"/>
-          <rect id = "p2bf7" class="c cp" x="157.40425" y="131.17021" width="23.23404" height="23.23404"/>
-          <rect id = "p2bf8" class="c cp" x="183.63829" y="131.17021" width="23.23404" height="23.23404"/>
-          <rect id = "p2bf9" class="c cp" x="209.87234" y="131.17021" width="23.23404" height="23.23404"/>
-          <rect id = "p2bf10" class="c cp" x="236.10638" y="131.17021" width="23.23404" height="23.23404"/>
-          <rect id = "p2bg1" class="c cp" y="157.40425" width="23.23404" height="23.23404"/>
-          <rect id = "p2bg2" class="c cp" x="26.23404" y="157.40425" width="23.23404" height="23.23404"/>
-          <rect id = "p2bg3" class="c cp" x="52.46808" y="157.40425" width="23.23404" height="23.23404"/>
-          <rect id = "p2bg4" class="c cp" x="78.70213" y="157.40425" width="23.23404" height="23.23404"/>
-          <rect id = "p2bg5" class="c cp" x="104.93616" y="157.40425" width="23.23404" height="23.23404"/>
-          <rect id = "p2bg6" class="c cp" x="131.17021" y="157.40425" width="23.23404" height="23.23404"/>
-          <rect id = "p2bg7" class="c cp" x="157.40425" y="157.40425" width="23.23404" height="23.23404"/>
-          <rect id = "p2bg8" class="c cp" x="183.63829" y="157.40425" width="23.23404" height="23.23404"/>
-          <rect id = "p2bg9" class="c cp" x="209.87234" y="157.40425" width="23.23404" height="23.23404"/>
-          <rect id = "p2bg10" class="c cp" x="236.10638" y="157.40425" width="23.23404" height="23.23404"/>
-          <rect id = "p2bh1" class="c cp" y="183.63829" width="23.23404" height="23.23404"/>
-          <rect id = "p2bh2" class="c cp" x="26.23404" y="183.63829" width="23.23404" height="23.23404"/>
-          <rect id = "p2bh3" class="c cp" x="52.46808" y="183.63829" width="23.23404" height="23.23404"/>
-          <rect id = "p2bh4" class="c cp" x="78.70213" y="183.63829" width="23.23404" height="23.23404"/>
-          <rect id = "p2bh5" class="c cp" x="104.93616" y="183.63829" width="23.23404" height="23.23404"/>
-          <rect id = "p2bh6" class="c cp" x="131.17021" y="183.63829" width="23.23404" height="23.23404"/>
-          <rect id = "p2bh7" class="c cp" x="157.40425" y="183.63829" width="23.23404" height="23.23404"/>
-          <rect id = "p2bh8" class="c cp" x="183.63829" y="183.63829" width="23.23404" height="23.23404"/>
-          <rect id = "p2bh9" class="c cp" x="209.87234" y="183.63829" width="23.23404" height="23.23404"/>
-          <rect id = "p2bh10" class="c cp" x="236.10638" y="183.63829" width="23.23404" height="23.23404"/>
-          <rect id = "p2bi1" class="c cp" y="209.87234" width="23.23404" height="23.23404"/>
-          <rect id = "p2bi2" class="c cp" x="26.23404" y="209.87234" width="23.23404" height="23.23404"/>
-          <rect id = "p2bi3" class="c cp" x="52.46808" y="209.87234" width="23.23404" height="23.23404"/>
-          <rect id = "p2bi4" class="c cp" x="78.70213" y="209.87234" width="23.23404" height="23.23404"/>
-          <rect id = "p2bi5" class="c cp" x="104.93616" y="209.87234" width="23.23404" height="23.23404"/>
-          <rect id = "p2bi6" class="c cp" x="131.17021" y="209.87234" width="23.23404" height="23.23404"/>
-          <rect id = "p2bi7" class="c cp" x="157.40425" y="209.87234" width="23.23404" height="23.23404"/>
-          <rect id = "p2bi8" class="c cp" x="183.63829" y="209.87234" width="23.23404" height="23.23404"/>
-          <rect id = "p2bi9" class="c cp" x="209.87234" y="209.87234" width="23.23404" height="23.23404"/>
-          <rect id = "p2bi10" class="c cp" x="236.10638" y="209.87234" width="23.23404" height="23.23404"/>
-          <rect id = "p2bj1" class="c cp" y="236.10638" width="23.23404" height="23.23404"/>
-          <rect id = "p2bj2" class="c cp" x="26.23404" y="236.10638" width="23.23404" height="23.23404"/>
-          <rect id = "p2bj3" class="c cp" x="52.46808" y="236.10638" width="23.23404" height="23.23404"/>
-          <rect id = "p2bj4" class="c cp" x="78.70213" y="236.10638" width="23.23404" height="23.23404"/>
-          <rect id = "p2bj5" class="c cp" x="104.93616" y="236.10638" width="23.23404" height="23.23404"/>
-          <rect id = "p2bj6" class="c cp" x="131.17021" y="236.10638" width="23.23404" height="23.23404"/>
-          <rect id = "p2bj7" class="c cp" x="157.40425" y="236.10638" width="23.23404" height="23.23404"/>
-          <rect id = "p2bj8" class="c cp" x="183.63829" y="236.10638" width="23.23404" height="23.23404"/>
-          <rect id = "p2bj9" class="c cp" x="209.87234" y="236.10638" width="23.23404" height="23.23404"/>
-          <rect id = "p2bj10" class="c cp" x="236.10638" y="236.10638" width="23.23404" height="23.23404"/>
+          <rect id = "p2ba0" class="c cp" width="23.23404" height="23.23404"/>
+          <rect id = "p2ba1" class="c cp" x="26.23404" width="23.23404" height="23.23404"/>
+          <rect id = "p2ba2" class="c cp" x="52.46808" width="23.23404" height="23.23404"/>
+          <rect id = "p2ba3" class="c cp" x="78.70213" width="23.23404" height="23.23404"/>
+          <rect id = "p2ba4" class="c cp" x="104.93616" width="23.23404" height="23.23404"/>
+          <rect id = "p2ba5" class="c cp" x="131.17021" width="23.23404" height="23.23404"/>
+          <rect id = "p2ba6" class="c cp" x="157.40425" width="23.23404" height="23.23404"/>
+          <rect id = "p2ba7" class="c cp" x="183.63829" width="23.23404" height="23.23404"/>
+          <rect id = "p2ba8" class="c cp" x="209.87234" width="23.23404" height="23.23404"/>
+          <rect id = "p2ba9" class="c cp" x="236.10638" width="23.23404" height="23.23404"/>
+          <rect id = "p2bb0" class="c cp" y="26.23404" width="23.23404" height="23.23404"/>
+          <rect id = "p2bb1" class="c cp" x="26.23404" y="26.23404" width="23.23404" height="23.23404"/>
+          <rect id = "p2bb2" class="c cp" x="52.46808" y="26.23404" width="23.23404" height="23.23404"/>
+          <rect id = "p2bb3" class="c cp" x="78.70213" y="26.23404" width="23.23404" height="23.23404"/>
+          <rect id = "p2bb4" class="c cp" x="104.93616" y="26.23404" width="23.23404" height="23.23404"/>
+          <rect id = "p2bb5" class="c cp" x="131.17021" y="26.23404" width="23.23404" height="23.23404"/>
+          <rect id = "p2bb6" class="c cp" x="157.40425" y="26.23404" width="23.23404" height="23.23404"/>
+          <rect id = "p2bb7" class="c cp" x="183.63829" y="26.23404" width="23.23404" height="23.23404"/>
+          <rect id = "p2bb8" class="c cp" x="209.87234" y="26.23404" width="23.23404" height="23.23404"/>
+          <rect id = "p2bb9" class="c cp" x="236.10638" y="26.23404" width="23.23404" height="23.23404"/>
+          <rect id = "p2bc0" class="c cp" y="52.46808" width="23.23404" height="23.23404"/>
+          <rect id = "p2bc1" class="c cp" x="26.23404" y="52.46808" width="23.23404" height="23.23404"/>
+          <rect id = "p2bc2" class="c cp" x="52.46808" y="52.46808" width="23.23404" height="23.23404"/>
+          <rect id = "p2bc3" class="c cp" x="78.70213" y="52.46808" width="23.23404" height="23.23404"/>
+          <rect id = "p2bc4" class="c cp" x="104.93616" y="52.46808" width="23.23404" height="23.23404"/>
+          <rect id = "p2bc5" class="c cp" x="131.17021" y="52.46808" width="23.23404" height="23.23404"/>
+          <rect id = "p2bc6" class="c cp" x="157.40425" y="52.46808" width="23.23404" height="23.23404"/>
+          <rect id = "p2bc7" class="c cp" x="183.63829" y="52.46808" width="23.23404" height="23.23404"/>
+          <rect id = "p2bc8" class="c cp" x="209.87234" y="52.46808" width="23.23404" height="23.23404"/>
+          <rect id = "p2bc9" class="c cp" x="236.10638" y="52.46808" width="23.23404" height="23.23404"/>
+          <rect id = "p2bd0" class="c cp" y="78.70213" width="23.23404" height="23.23404"/>
+          <rect id = "p2bd1" class="c cp" x="26.23404" y="78.70213" width="23.23404" height="23.23404"/>
+          <rect id = "p2bd2" class="c cp" x="52.46808" y="78.70213" width="23.23404" height="23.23404"/>
+          <rect id = "p2bd3" class="c cp" x="78.70213" y="78.70213" width="23.23404" height="23.23404"/>
+          <rect id = "p2bd4" class="c cp" x="104.93616" y="78.70213" width="23.23404" height="23.23404"/>
+          <rect id = "p2bd5" class="c cp" x="131.17021" y="78.70213" width="23.23404" height="23.23404"/>
+          <rect id = "p2bd6" class="c cp" x="157.40425" y="78.70213" width="23.23404" height="23.23404"/>
+          <rect id = "p2bd7" class="c cp" x="183.63829" y="78.70213" width="23.23404" height="23.23404"/>
+          <rect id = "p2bd8" class="c cp" x="209.87234" y="78.70213" width="23.23404" height="23.23404"/>
+          <rect id = "p2bd9" class="c cp" x="236.10638" y="78.70213" width="23.23404" height="23.23404"/>
+          <rect id = "p2be0" class="c cp" y="104.93616" width="23.23404" height="23.23404"/>
+          <rect id = "p2be1" class="c cp" x="26.23404" y="104.93616" width="23.23404" height="23.23404"/>
+          <rect id = "p2be2" class="c cp" x="52.46808" y="104.93616" width="23.23404" height="23.23404"/>
+          <rect id = "p2be3" class="c cp" x="78.70213" y="104.93616" width="23.23404" height="23.23404"/>
+          <rect id = "p2be4" class="c cp" x="104.93616" y="104.93616" width="23.23404" height="23.23404"/>
+          <rect id = "p2be5" class="c cp" x="131.17021" y="104.93616" width="23.23404" height="23.23404"/>
+          <rect id = "p2be6" class="c cp" x="157.40425" y="104.93616" width="23.23404" height="23.23404"/>
+          <rect id = "p2be7" class="c cp" x="183.63829" y="104.93616" width="23.23404" height="23.23404"/>
+          <rect id = "p2be8" class="c cp" x="209.87234" y="104.93616" width="23.23404" height="23.23404"/>
+          <rect id = "p2be9" class="c cp" x="236.10638" y="104.93616" width="23.23404" height="23.23404"/>
+          <rect id = "p2bf0" class="c cp" y="131.17021" width="23.23404" height="23.23404"/>
+          <rect id = "p2bf1" class="c cp" x="26.23404" y="131.17021" width="23.23404" height="23.23404"/>
+          <rect id = "p2bf2" class="c cp" x="52.46808" y="131.17021" width="23.23404" height="23.23404"/>
+          <rect id = "p2bf3" class="c cp" x="78.70213" y="131.17021" width="23.23404" height="23.23404"/>
+          <rect id = "p2bf4" class="c cp" x="104.93616" y="131.17021" width="23.23404" height="23.23404"/>
+          <rect id = "p2bf5" class="c cp" x="131.17021" y="131.17021" width="23.23404" height="23.23404"/>
+          <rect id = "p2bf6" class="c cp" x="157.40425" y="131.17021" width="23.23404" height="23.23404"/>
+          <rect id = "p2bf7" class="c cp" x="183.63829" y="131.17021" width="23.23404" height="23.23404"/>
+          <rect id = "p2bf8" class="c cp" x="209.87234" y="131.17021" width="23.23404" height="23.23404"/>
+          <rect id = "p2bf9" class="c cp" x="236.10638" y="131.17021" width="23.23404" height="23.23404"/>
+          <rect id = "p2bg0" class="c cp" y="157.40425" width="23.23404" height="23.23404"/>
+          <rect id = "p2bg1" class="c cp" x="26.23404" y="157.40425" width="23.23404" height="23.23404"/>
+          <rect id = "p2bg2" class="c cp" x="52.46808" y="157.40425" width="23.23404" height="23.23404"/>
+          <rect id = "p2bg3" class="c cp" x="78.70213" y="157.40425" width="23.23404" height="23.23404"/>
+          <rect id = "p2bg4" class="c cp" x="104.93616" y="157.40425" width="23.23404" height="23.23404"/>
+          <rect id = "p2bg5" class="c cp" x="131.17021" y="157.40425" width="23.23404" height="23.23404"/>
+          <rect id = "p2bg6" class="c cp" x="157.40425" y="157.40425" width="23.23404" height="23.23404"/>
+          <rect id = "p2bg7" class="c cp" x="183.63829" y="157.40425" width="23.23404" height="23.23404"/>
+          <rect id = "p2bg8" class="c cp" x="209.87234" y="157.40425" width="23.23404" height="23.23404"/>
+          <rect id = "p2bg9" class="c cp" x="236.10638" y="157.40425" width="23.23404" height="23.23404"/>
+          <rect id = "p2bh0" class="c cp" y="183.63829" width="23.23404" height="23.23404"/>
+          <rect id = "p2bh1" class="c cp" x="26.23404" y="183.63829" width="23.23404" height="23.23404"/>
+          <rect id = "p2bh2" class="c cp" x="52.46808" y="183.63829" width="23.23404" height="23.23404"/>
+          <rect id = "p2bh3" class="c cp" x="78.70213" y="183.63829" width="23.23404" height="23.23404"/>
+          <rect id = "p2bh4" class="c cp" x="104.93616" y="183.63829" width="23.23404" height="23.23404"/>
+          <rect id = "p2bh5" class="c cp" x="131.17021" y="183.63829" width="23.23404" height="23.23404"/>
+          <rect id = "p2bh6" class="c cp" x="157.40425" y="183.63829" width="23.23404" height="23.23404"/>
+          <rect id = "p2bh7" class="c cp" x="183.63829" y="183.63829" width="23.23404" height="23.23404"/>
+          <rect id = "p2bh8" class="c cp" x="209.87234" y="183.63829" width="23.23404" height="23.23404"/>
+          <rect id = "p2bh9" class="c cp" x="236.10638" y="183.63829" width="23.23404" height="23.23404"/>
+          <rect id = "p2bi0" class="c cp" y="209.87234" width="23.23404" height="23.23404"/>
+          <rect id = "p2bi1" class="c cp" x="26.23404" y="209.87234" width="23.23404" height="23.23404"/>
+          <rect id = "p2bi2" class="c cp" x="52.46808" y="209.87234" width="23.23404" height="23.23404"/>
+          <rect id = "p2bi3" class="c cp" x="78.70213" y="209.87234" width="23.23404" height="23.23404"/>
+          <rect id = "p2bi4" class="c cp" x="104.93616" y="209.87234" width="23.23404" height="23.23404"/>
+          <rect id = "p2bi5" class="c cp" x="131.17021" y="209.87234" width="23.23404" height="23.23404"/>
+          <rect id = "p2bi6" class="c cp" x="157.40425" y="209.87234" width="23.23404" height="23.23404"/>
+          <rect id = "p2bi7" class="c cp" x="183.63829" y="209.87234" width="23.23404" height="23.23404"/>
+          <rect id = "p2bi8" class="c cp" x="209.87234" y="209.87234" width="23.23404" height="23.23404"/>
+          <rect id = "p2bi9" class="c cp" x="236.10638" y="209.87234" width="23.23404" height="23.23404"/>
+          <rect id = "p2bj0" class="c cp" y="236.10638" width="23.23404" height="23.23404"/>
+          <rect id = "p2bj1" class="c cp" x="26.23404" y="236.10638" width="23.23404" height="23.23404"/>
+          <rect id = "p2bj2" class="c cp" x="52.46808" y="236.10638" width="23.23404" height="23.23404"/>
+          <rect id = "p2bj3" class="c cp" x="78.70213" y="236.10638" width="23.23404" height="23.23404"/>
+          <rect id = "p2bj4" class="c cp" x="104.93616" y="236.10638" width="23.23404" height="23.23404"/>
+          <rect id = "p2bj5" class="c cp" x="131.17021" y="236.10638" width="23.23404" height="23.23404"/>
+          <rect id = "p2bj6" class="c cp" x="157.40425" y="236.10638" width="23.23404" height="23.23404"/>
+          <rect id = "p2bj7" class="c cp" x="183.63829" y="236.10638" width="23.23404" height="23.23404"/>
+          <rect id = "p2bj8" class="c cp" x="209.87234" y="236.10638" width="23.23404" height="23.23404"/>
+          <rect id = "p2bj9" class="c cp" x="236.10638" y="236.10638" width="23.23404" height="23.23404"/>
         </g>
       </g>
     </svg>
@@ -497,112 +520,114 @@
           <g id="ships">
           </g>
           <g id="grid">
-            <rect id="p2ta1"  class="c ct" width="23.23404" height="23.23404"/>
-            <rect id="p2ta2"  class="c ct" x="26.23404" width="23.23404" height="23.23404"/>
-            <rect id="p2ta3"  class="c ct" x="52.46808" width="23.23404" height="23.23404"/>
-            <rect id="p2ta4"  class="c ct" x="78.70213" width="23.23404" height="23.23404"/>
-            <rect id="p2ta5"  class="c ct" x="104.93616" width="23.23404" height="23.23404"/>
-            <rect id="p2ta6"  class="c ct" x="131.17021" width="23.23404" height="23.23404"/>
-            <rect id="p2ta7"  class="c ct" x="157.40425" width="23.23404" height="23.23404"/>
-            <rect id="p2ta8"  class="c ct" x="183.63829" width="23.23404" height="23.23404"/>
-            <rect id="p2ta9"  class="c ct" x="209.87234" width="23.23404" height="23.23404"/>
-            <rect id="p2ta10" class="c ct"  x="236.10638" width="23.23404" height="23.23404"/>
-            <rect id="p2tb1"  class="c ct" y="26.23404" width="23.23404" height="23.23404"/>
-            <rect id="p2tb2"  class="c ct" x="26.23404" y="26.23404" width="23.23404" height="23.23404"/>
-            <rect id="p2tb3"  class="c ct" x="52.46808" y="26.23404" width="23.23404" height="23.23404"/>
-            <rect id="p2tb4"  class="c ct" x="78.70213" y="26.23404" width="23.23404" height="23.23404"/>
-            <rect id="p2tb5"  class="c ct" x="104.93616" y="26.23404" width="23.23404" height="23.23404"/>
-            <rect id="p2tb6"  class="c ct" x="131.17021" y="26.23404" width="23.23404" height="23.23404"/>
-            <rect id="p2tb7"  class="c ct" x="157.40425" y="26.23404" width="23.23404" height="23.23404"/>
-            <rect id="p2tb8"  class="c ct" x="183.63829" y="26.23404" width="23.23404" height="23.23404"/>
-            <rect id="p2tb9"  class="c ct" x="209.87234" y="26.23404" width="23.23404" height="23.23404"/>
-            <rect id="p2tb10" class="c ct"  x="236.10638" y="26.23404" width="23.23404" height="23.23404"/>
-            <rect id="p2tc1"  class="c ct" y="52.46808" width="23.23404" height="23.23404"/>
-            <rect id="p2tc2"  class="c ct" x="26.23404" y="52.46808" width="23.23404" height="23.23404"/>
-            <rect id="p2tc3"  class="c ct" x="52.46808" y="52.46808" width="23.23404" height="23.23404"/>
-            <rect id="p2tc4"  class="c ct" x="78.70213" y="52.46808" width="23.23404" height="23.23404"/>
-            <rect id="p2tc5"  class="c ct" x="104.93616" y="52.46808" width="23.23404" height="23.23404"/>
-            <rect id="p2tc6"  class="c ct" x="131.17021" y="52.46808" width="23.23404" height="23.23404"/>
-            <rect id="p2tc7"  class="c ct" x="157.40425" y="52.46808" width="23.23404" height="23.23404"/>
-            <rect id="p2tc8"  class="c ct" x="183.63829" y="52.46808" width="23.23404" height="23.23404"/>
-            <rect id="p2tc9"  class="c ct" x="209.87234" y="52.46808" width="23.23404" height="23.23404"/>
-            <rect id="p2tc10" class="c ct"  x="236.10638" y="52.46808" width="23.23404" height="23.23404"/>
-            <rect id="p2td1"  class="c ct" y="78.70213" width="23.23404" height="23.23404"/>
-            <rect id="p2td2"  class="c ct" x="26.23404" y="78.70213" width="23.23404" height="23.23404"/>
-            <rect id="p2td3"  class="c ct" x="52.46808" y="78.70213" width="23.23404" height="23.23404"/>
-            <rect id="p2td4"  class="c ct" x="78.70213" y="78.70213" width="23.23404" height="23.23404"/>
-            <rect id="p2td5"  class="c ct" x="104.93616" y="78.70213" width="23.23404" height="23.23404"/>
-            <rect id="p2td6"  class="c ct" x="131.17021" y="78.70213" width="23.23404" height="23.23404"/>
-            <rect id="p2td7"  class="c ct" x="157.40425" y="78.70213" width="23.23404" height="23.23404"/>
-            <rect id="p2td8"  class="c ct" x="183.63829" y="78.70213" width="23.23404" height="23.23404"/>
-            <rect id="p2td9"  class="c ct" x="209.87234" y="78.70213" width="23.23404" height="23.23404"/>
-            <rect id="p2td10" class="c ct"  x="236.10638" y="78.70213" width="23.23404" height="23.23404"/>
-            <rect id="p2te1"  class="c ct" y="104.93616" width="23.23404" height="23.23404"/>
-            <rect id="p2te2"  class="c ct" x="26.23404" y="104.93616" width="23.23404" height="23.23404"/>
-            <rect id="p2te3"  class="c ct" x="52.46808" y="104.93616" width="23.23404" height="23.23404"/>
-            <rect id="p2te4"  class="c ct" x="78.70213" y="104.93616" width="23.23404" height="23.23404"/>
-            <rect id="p2te5"  class="c ct" x="104.93616" y="104.93616" width="23.23404" height="23.23404"/>
-            <rect id="p2te6"  class="c ct" x="131.17021" y="104.93616" width="23.23404" height="23.23404"/>
-            <rect id="p2te7"  class="c ct" x="157.40425" y="104.93616" width="23.23404" height="23.23404"/>
-            <rect id="p2te8"  class="c ct" x="183.63829" y="104.93616" width="23.23404" height="23.23404"/>
-            <rect id="p2te9"  class="c ct" x="209.87234" y="104.93616" width="23.23404" height="23.23404"/>
-            <rect id="p2te10" class="c ct"  x="236.10638" y="104.93616" width="23.23404" height="23.23404"/>
-            <rect id="p2tf1"  class="c ct" y="131.17021" width="23.23404" height="23.23404"/>
-            <rect id="p2tf2"  class="c ct" x="26.23404" y="131.17021" width="23.23404" height="23.23404"/>
-            <rect id="p2tf3"  class="c ct" x="52.46808" y="131.17021" width="23.23404" height="23.23404"/>
-            <rect id="p2tf4"  class="c ct" x="78.70213" y="131.17021" width="23.23404" height="23.23404"/>
-            <rect id="p2tf5"  class="c ct" x="104.93616" y="131.17021" width="23.23404" height="23.23404"/>
-            <rect id="p2tf6"  class="c ct" x="131.17021" y="131.17021" width="23.23404" height="23.23404"/>
-            <rect id="p2tf7"  class="c ct" x="157.40425" y="131.17021" width="23.23404" height="23.23404"/>
-            <rect id="p2tf8"  class="c ct" x="183.63829" y="131.17021" width="23.23404" height="23.23404"/>
-            <rect id="p2tf9"  class="c ct" x="209.87234" y="131.17021" width="23.23404" height="23.23404"/>
-            <rect id="p2tf10" class="c ct"  x="236.10638" y="131.17021" width="23.23404" height="23.23404"/>
-            <rect id="p2tg1"  class="c ct" y="157.40425" width="23.23404" height="23.23404"/>
-            <rect id="p2tg2"  class="c ct" x="26.23404" y="157.40425" width="23.23404" height="23.23404"/>
-            <rect id="p2tg3"  class="c ct" x="52.46808" y="157.40425" width="23.23404" height="23.23404"/>
-            <rect id="p2tg4"  class="c ct" x="78.70213" y="157.40425" width="23.23404" height="23.23404"/>
-            <rect id="p2tg5"  class="c ct" x="104.93616" y="157.40425" width="23.23404" height="23.23404"/>
-            <rect id="p2tg6"  class="c ct" x="131.17021" y="157.40425" width="23.23404" height="23.23404"/>
-            <rect id="p2tg7"  class="c ct" x="157.40425" y="157.40425" width="23.23404" height="23.23404"/>
-            <rect id="p2tg8"  class="c ct" x="183.63829" y="157.40425" width="23.23404" height="23.23404"/>
-            <rect id="p2tg9"  class="c ct" x="209.87234" y="157.40425" width="23.23404" height="23.23404"/>
-            <rect id="p2tg10" class="c ct"  x="236.10638" y="157.40425" width="23.23404" height="23.23404"/>
-            <rect id="p2th1"  class="c ct" y="183.63829" width="23.23404" height="23.23404"/>
-            <rect id="p2th2"  class="c ct" x="26.23404" y="183.63829" width="23.23404" height="23.23404"/>
-            <rect id="p2th3"  class="c ct" x="52.46808" y="183.63829" width="23.23404" height="23.23404"/>
-            <rect id="p2th4"  class="c ct" x="78.70213" y="183.63829" width="23.23404" height="23.23404"/>
-            <rect id="p2th5"  class="c ct" x="104.93616" y="183.63829" width="23.23404" height="23.23404"/>
-            <rect id="p2th6"  class="c ct" x="131.17021" y="183.63829" width="23.23404" height="23.23404"/>
-            <rect id="p2th7"  class="c ct" x="157.40425" y="183.63829" width="23.23404" height="23.23404"/>
-            <rect id="p2th8"  class="c ct" x="183.63829" y="183.63829" width="23.23404" height="23.23404"/>
-            <rect id="p2th9"  class="c ct" x="209.87234" y="183.63829" width="23.23404" height="23.23404"/>
-            <rect id="p2th10" class="c ct"  x="236.10638" y="183.63829" width="23.23404" height="23.23404"/>
-            <rect id="p2ti1"  class="c ct" y="209.87234" width="23.23404" height="23.23404"/>
-            <rect id="p2ti2"  class="c ct" x="26.23404" y="209.87234" width="23.23404" height="23.23404"/>
-            <rect id="p2ti3"  class="c ct" x="52.46808" y="209.87234" width="23.23404" height="23.23404"/>
-            <rect id="p2ti4"  class="c ct" x="78.70213" y="209.87234" width="23.23404" height="23.23404"/>
-            <rect id="p2ti5"  class="c ct" x="104.93616" y="209.87234" width="23.23404" height="23.23404"/>
-            <rect id="p2ti6"  class="c ct" x="131.17021" y="209.87234" width="23.23404" height="23.23404"/>
-            <rect id="p2ti7"  class="c ct" x="157.40425" y="209.87234" width="23.23404" height="23.23404"/>
-            <rect id="p2ti8"  class="c ct" x="183.63829" y="209.87234" width="23.23404" height="23.23404"/>
-            <rect id="p2ti9"  class="c ct" x="209.87234" y="209.87234" width="23.23404" height="23.23404"/>
-            <rect id="p2ti10" class="c ct"  x="236.10638" y="209.87234" width="23.23404" height="23.23404"/>
-            <rect id="p2tj1"  class="c ct" y="236.10638" width="23.23404" height="23.23404"/>
-            <rect id="p2tj2"  class="c ct" x="26.23404" y="236.10638" width="23.23404" height="23.23404"/>
-            <rect id="p2tj3"  class="c ct" x="52.46808" y="236.10638" width="23.23404" height="23.23404"/>
-            <rect id="p2tj4"  class="c ct" x="78.70213" y="236.10638" width="23.23404" height="23.23404"/>
-            <rect id="p2tj5"  class="c ct" x="104.93616" y="236.10638" width="23.23404" height="23.23404"/>
-            <rect id="p2tj6"  class="c ct" x="131.17021" y="236.10638" width="23.23404" height="23.23404"/>
-            <rect id="p2tj7"  class="c ct" x="157.40425" y="236.10638" width="23.23404" height="23.23404"/>
-            <rect id="p2tj8"  class="c ct" x="183.63829" y="236.10638" width="23.23404" height="23.23404"/>
-            <rect id="p2tj9"  class="c ct" x="209.87234" y="236.10638" width="23.23404" height="23.23404"/>
-            <rect id="p2tj10" class="c ct"  x="236.10638" y="236.10638" width="23.23404" height="23.23404"/>
+            <rect id="p2ta0"  class="c ct" width="23.23404" height="23.23404"/>
+            <rect id="p2ta1"  class="c ct" x="26.23404" width="23.23404" height="23.23404"/>
+            <rect id="p2ta2"  class="c ct" x="52.46808" width="23.23404" height="23.23404"/>
+            <rect id="p2ta3"  class="c ct" x="78.70213" width="23.23404" height="23.23404"/>
+            <rect id="p2ta4"  class="c ct" x="104.93616" width="23.23404" height="23.23404"/>
+            <rect id="p2ta5"  class="c ct" x="131.17021" width="23.23404" height="23.23404"/>
+            <rect id="p2ta6"  class="c ct" x="157.40425" width="23.23404" height="23.23404"/>
+            <rect id="p2ta7"  class="c ct" x="183.63829" width="23.23404" height="23.23404"/>
+            <rect id="p2ta8"  class="c ct" x="209.87234" width="23.23404" height="23.23404"/>
+            <rect id="p2ta9" class="c ct"  x="236.10638" width="23.23404" height="23.23404"/>
+            <rect id="p2tb0"  class="c ct" y="26.23404" width="23.23404" height="23.23404"/>
+            <rect id="p2tb1"  class="c ct" x="26.23404" y="26.23404" width="23.23404" height="23.23404"/>
+            <rect id="p2tb2"  class="c ct" x="52.46808" y="26.23404" width="23.23404" height="23.23404"/>
+            <rect id="p2tb3"  class="c ct" x="78.70213" y="26.23404" width="23.23404" height="23.23404"/>
+            <rect id="p2tb4"  class="c ct" x="104.93616" y="26.23404" width="23.23404" height="23.23404"/>
+            <rect id="p2tb5"  class="c ct" x="131.17021" y="26.23404" width="23.23404" height="23.23404"/>
+            <rect id="p2tb6"  class="c ct" x="157.40425" y="26.23404" width="23.23404" height="23.23404"/>
+            <rect id="p2tb7"  class="c ct" x="183.63829" y="26.23404" width="23.23404" height="23.23404"/>
+            <rect id="p2tb8"  class="c ct" x="209.87234" y="26.23404" width="23.23404" height="23.23404"/>
+            <rect id="p2tb9" class="c ct"  x="236.10638" y="26.23404" width="23.23404" height="23.23404"/>
+            <rect id="p2tc0"  class="c ct" y="52.46808" width="23.23404" height="23.23404"/>
+            <rect id="p2tc1"  class="c ct" x="26.23404" y="52.46808" width="23.23404" height="23.23404"/>
+            <rect id="p2tc2"  class="c ct" x="52.46808" y="52.46808" width="23.23404" height="23.23404"/>
+            <rect id="p2tc3"  class="c ct" x="78.70213" y="52.46808" width="23.23404" height="23.23404"/>
+            <rect id="p2tc4"  class="c ct" x="104.93616" y="52.46808" width="23.23404" height="23.23404"/>
+            <rect id="p2tc5"  class="c ct" x="131.17021" y="52.46808" width="23.23404" height="23.23404"/>
+            <rect id="p2tc6"  class="c ct" x="157.40425" y="52.46808" width="23.23404" height="23.23404"/>
+            <rect id="p2tc7"  class="c ct" x="183.63829" y="52.46808" width="23.23404" height="23.23404"/>
+            <rect id="p2tc8"  class="c ct" x="209.87234" y="52.46808" width="23.23404" height="23.23404"/>
+            <rect id="p2tc9" class="c ct"  x="236.10638" y="52.46808" width="23.23404" height="23.23404"/>
+            <rect id="p2td0"  class="c ct" y="78.70213" width="23.23404" height="23.23404"/>
+            <rect id="p2td1"  class="c ct" x="26.23404" y="78.70213" width="23.23404" height="23.23404"/>
+            <rect id="p2td2"  class="c ct" x="52.46808" y="78.70213" width="23.23404" height="23.23404"/>
+            <rect id="p2td3"  class="c ct" x="78.70213" y="78.70213" width="23.23404" height="23.23404"/>
+            <rect id="p2td4"  class="c ct" x="104.93616" y="78.70213" width="23.23404" height="23.23404"/>
+            <rect id="p2td5"  class="c ct" x="131.17021" y="78.70213" width="23.23404" height="23.23404"/>
+            <rect id="p2td6"  class="c ct" x="157.40425" y="78.70213" width="23.23404" height="23.23404"/>
+            <rect id="p2td7"  class="c ct" x="183.63829" y="78.70213" width="23.23404" height="23.23404"/>
+            <rect id="p2td8"  class="c ct" x="209.87234" y="78.70213" width="23.23404" height="23.23404"/>
+            <rect id="p2td9" class="c ct"  x="236.10638" y="78.70213" width="23.23404" height="23.23404"/>
+            <rect id="p2te0"  class="c ct" y="104.93616" width="23.23404" height="23.23404"/>
+            <rect id="p2te1"  class="c ct" x="26.23404" y="104.93616" width="23.23404" height="23.23404"/>
+            <rect id="p2te2"  class="c ct" x="52.46808" y="104.93616" width="23.23404" height="23.23404"/>
+            <rect id="p2te3"  class="c ct" x="78.70213" y="104.93616" width="23.23404" height="23.23404"/>
+            <rect id="p2te4"  class="c ct" x="104.93616" y="104.93616" width="23.23404" height="23.23404"/>
+            <rect id="p2te5"  class="c ct" x="131.17021" y="104.93616" width="23.23404" height="23.23404"/>
+            <rect id="p2te6"  class="c ct" x="157.40425" y="104.93616" width="23.23404" height="23.23404"/>
+            <rect id="p2te7"  class="c ct" x="183.63829" y="104.93616" width="23.23404" height="23.23404"/>
+            <rect id="p2te8"  class="c ct" x="209.87234" y="104.93616" width="23.23404" height="23.23404"/>
+            <rect id="p2te9" class="c ct"  x="236.10638" y="104.93616" width="23.23404" height="23.23404"/>
+            <rect id="p2tf0"  class="c ct" y="131.17021" width="23.23404" height="23.23404"/>
+            <rect id="p2tf1"  class="c ct" x="26.23404" y="131.17021" width="23.23404" height="23.23404"/>
+            <rect id="p2tf2"  class="c ct" x="52.46808" y="131.17021" width="23.23404" height="23.23404"/>
+            <rect id="p2tf3"  class="c ct" x="78.70213" y="131.17021" width="23.23404" height="23.23404"/>
+            <rect id="p2tf4"  class="c ct" x="104.93616" y="131.17021" width="23.23404" height="23.23404"/>
+            <rect id="p2tf5"  class="c ct" x="131.17021" y="131.17021" width="23.23404" height="23.23404"/>
+            <rect id="p2tf6"  class="c ct" x="157.40425" y="131.17021" width="23.23404" height="23.23404"/>
+            <rect id="p2tf7"  class="c ct" x="183.63829" y="131.17021" width="23.23404" height="23.23404"/>
+            <rect id="p2tf8"  class="c ct" x="209.87234" y="131.17021" width="23.23404" height="23.23404"/>
+            <rect id="p2tf9" class="c ct"  x="236.10638" y="131.17021" width="23.23404" height="23.23404"/>
+            <rect id="p2tg0"  class="c ct" y="157.40425" width="23.23404" height="23.23404"/>
+            <rect id="p2tg1"  class="c ct" x="26.23404" y="157.40425" width="23.23404" height="23.23404"/>
+            <rect id="p2tg2"  class="c ct" x="52.46808" y="157.40425" width="23.23404" height="23.23404"/>
+            <rect id="p2tg3"  class="c ct" x="78.70213" y="157.40425" width="23.23404" height="23.23404"/>
+            <rect id="p2tg4"  class="c ct" x="104.93616" y="157.40425" width="23.23404" height="23.23404"/>
+            <rect id="p2tg5"  class="c ct" x="131.17021" y="157.40425" width="23.23404" height="23.23404"/>
+            <rect id="p2tg6"  class="c ct" x="157.40425" y="157.40425" width="23.23404" height="23.23404"/>
+            <rect id="p2tg7"  class="c ct" x="183.63829" y="157.40425" width="23.23404" height="23.23404"/>
+            <rect id="p2tg8"  class="c ct" x="209.87234" y="157.40425" width="23.23404" height="23.23404"/>
+            <rect id="p2tg9" class="c ct"  x="236.10638" y="157.40425" width="23.23404" height="23.23404"/>
+            <rect id="p2th0"  class="c ct" y="183.63829" width="23.23404" height="23.23404"/>
+            <rect id="p2th1"  class="c ct" x="26.23404" y="183.63829" width="23.23404" height="23.23404"/>
+            <rect id="p2th2"  class="c ct" x="52.46808" y="183.63829" width="23.23404" height="23.23404"/>
+            <rect id="p2th3"  class="c ct" x="78.70213" y="183.63829" width="23.23404" height="23.23404"/>
+            <rect id="p2th4"  class="c ct" x="104.93616" y="183.63829" width="23.23404" height="23.23404"/>
+            <rect id="p2th5"  class="c ct" x="131.17021" y="183.63829" width="23.23404" height="23.23404"/>
+            <rect id="p2th6"  class="c ct" x="157.40425" y="183.63829" width="23.23404" height="23.23404"/>
+            <rect id="p2th7"  class="c ct" x="183.63829" y="183.63829" width="23.23404" height="23.23404"/>
+            <rect id="p2th8"  class="c ct" x="209.87234" y="183.63829" width="23.23404" height="23.23404"/>
+            <rect id="p2th9" class="c ct"  x="236.10638" y="183.63829" width="23.23404" height="23.23404"/>
+            <rect id="p2ti0"  class="c ct" y="209.87234" width="23.23404" height="23.23404"/>
+            <rect id="p2ti1"  class="c ct" x="26.23404" y="209.87234" width="23.23404" height="23.23404"/>
+            <rect id="p2ti2"  class="c ct" x="52.46808" y="209.87234" width="23.23404" height="23.23404"/>
+            <rect id="p2ti3"  class="c ct" x="78.70213" y="209.87234" width="23.23404" height="23.23404"/>
+            <rect id="p2ti4"  class="c ct" x="104.93616" y="209.87234" width="23.23404" height="23.23404"/>
+            <rect id="p2ti5"  class="c ct" x="131.17021" y="209.87234" width="23.23404" height="23.23404"/>
+            <rect id="p2ti6"  class="c ct" x="157.40425" y="209.87234" width="23.23404" height="23.23404"/>
+            <rect id="p2ti7"  class="c ct" x="183.63829" y="209.87234" width="23.23404" height="23.23404"/>
+            <rect id="p2ti8"  class="c ct" x="209.87234" y="209.87234" width="23.23404" height="23.23404"/>
+            <rect id="p2ti9" class="c ct"  x="236.10638" y="209.87234" width="23.23404" height="23.23404"/>
+            <rect id="p2tj0"  class="c ct" y="236.10638" width="23.23404" height="23.23404"/>
+            <rect id="p2tj1"  class="c ct" x="26.23404" y="236.10638" width="23.23404" height="23.23404"/>
+            <rect id="p2tj2"  class="c ct" x="52.46808" y="236.10638" width="23.23404" height="23.23404"/>
+            <rect id="p2tj3"  class="c ct" x="78.70213" y="236.10638" width="23.23404" height="23.23404"/>
+            <rect id="p2tj4"  class="c ct" x="104.93616" y="236.10638" width="23.23404" height="23.23404"/>
+            <rect id="p2tj5"  class="c ct" x="131.17021" y="236.10638" width="23.23404" height="23.23404"/>
+            <rect id="p2tj6"  class="c ct" x="157.40425" y="236.10638" width="23.23404" height="23.23404"/>
+            <rect id="p2tj7"  class="c ct" x="183.63829" y="236.10638" width="23.23404" height="23.23404"/>
+            <rect id="p2tj8"  class="c ct" x="209.87234" y="236.10638" width="23.23404" height="23.23404"/>
+            <rect id="p2tj9" class="c ct"  x="236.10638" y="236.10638" width="23.23404" height="23.23404"/>
           </g>
         </g>
       </svg>
     </div>
-
+</div>
+<div class="bottom"></div>
 <!-- end svg copy/paste -->
+
         <footer>
           <script type="text/javascript" src="./js/game.js"></script>
           <script type="text/javascript" src="./js/ship.js"></script>

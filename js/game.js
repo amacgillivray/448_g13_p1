@@ -1,5 +1,107 @@
 "use strict";
 
+const alphabet = [
+    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
+    'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+];
+
+class cell {
+    
+    /** 
+     * @param board 
+     *        String such as "p1p" (player1's placement board) that acts as 
+     *        a prefix to the cell's id.
+     * @param row
+     * @param col
+     */
+    constructor ( board, row, col )
+    {
+        this._board = board;
+        this._row = row;
+        this._col = col;
+        this._occupied = false;
+        this._called = false;        
+        this._node = document.getElementById(board + alphabet[row] + col );
+    }
+    
+    /** 
+     * @brief Tells the cell that it has been "called" by an opposing player. 
+     * @post  The cell's class-list will be modified with "h" (hit) or "m" (miss)
+     * @return true|false
+     *          True indicates hit. False indicates miss.
+     */ 
+    call()
+    {
+        this._called = true;
+        
+        if ( this._occupied ) 
+        {
+            this._node.classlist.add("h");
+            return true;
+        } else {
+            this._node.classList.add("m");
+            return false;
+        }
+    }
+    
+    setOccupied()
+    {
+        this._occupied = true;
+    }
+
+}
+
+class Ship 
+{
+    constructor( size, cells )
+    {
+        this._cells = cells;    
+    }
+
+    __boundscheck( row_offset = 0 , col_offset = 0 ){
+        // todo - check that movement is valid 
+    }
+
+    moveA(){
+        if (!this.__boundscheck( 0, -1 ))
+            return;
+    }
+
+    moveW() {
+        if (!this.__boundscheck( 1 ))
+            return;
+    }
+
+    moveS(){
+        if (!this.__boundscheck( -1 ))
+            return;
+    }
+
+    moveD(){
+        if (!this.__boundscheck( 0, 1 ))
+            return;
+    }
+
+    rotateQ()
+    {
+        // algorithmically shift by -90 deg
+        // manual boundary check
+    }
+
+    rotateE(){
+        // algorithmically shift by +90 deg 
+        // manual boundary check
+    }
+
+    _confirm()
+    {
+        forEach( this._cells => function(cell){
+            cell.setOccupied();
+        });
+    }
+}
+
+
 class Board
 {
     constructor( rootNode, rows = 10, cols = 10 )
@@ -18,12 +120,6 @@ class Board
 
 class Player
 {
-  // constructor ( boardPlacement, boardTarget )
-  // {
-  //   // or just give the container and player number?
-  //   this._p = boardPlacement;
-  //   this._t = boardTarget;
-  // }
 
   constructor ( container, player_number )
   {
@@ -32,6 +128,8 @@ class Player
     this._container = container;
     this._b_placement = new Board( document.getElementById( 'p' + this._num + '-board-placement' ) );
     this._b_target    = new Board( document.getElementById( 'p' + this._num + '-board-target' ) );
+    this._form = document.getElementById("p" + this._num + "-ship-opt");
+    this._formSubmit = document.getElementById("p" + this._num + "-ship-opt-submit" );
   }
 
   _giveTurn( type ="targeting" )
@@ -52,6 +150,8 @@ class Player
         this._doPlacementTurn();
         break;
       case "first":
+        this._doFirstTurn();
+        break;
       default:
         window.alert("Invalid turn type specified: " + type);
         break;
@@ -74,6 +174,10 @@ class Player
   {
     // get the number of ships the player is going to place
     // then, loop over "DoPlacementTurn" until all ships are placed
+    this._formSubmit.addEventListener("click", function(e){
+        
+    });
+    
   }
 
   _toggleHidden()
@@ -96,6 +200,7 @@ class Game
         2
       );
   }
+  
   start(){
     this._p2._toggleHidden();
     this._p1._giveTurn("first");
@@ -106,6 +211,7 @@ class Game
     this._p2._giveTurn("first");
     this.loop();
   }
+  
   loop()
   {
     // call toggle hidden on both players for each turn change
