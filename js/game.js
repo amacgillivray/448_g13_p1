@@ -51,55 +51,55 @@ class cell {
 
 }
 
-// class Ship 
-// {
-//     constructor( size, cells )
-//     {
-//         this._cells = cells;    
-//     }
-// 
-//     __boundscheck( row_offset = 0 , col_offset = 0 ){
-//         // todo - check that movement is valid 
-//     }
-// 
-//     moveA(){
-//         if (!this.__boundscheck( 0, -1 ))
-//             return;
-//     }
-// 
-//     moveW() {
-//         if (!this.__boundscheck( 1 ))
-//             return;
-//     }
-// 
-//     moveS(){
-//         if (!this.__boundscheck( -1 ))
-//             return;
-//     }
-// 
-//     moveD(){
-//         if (!this.__boundscheck( 0, 1 ))
-//             return;
-//     }
-// 
-//     rotateQ()
-//     {
-//         // algorithmically shift by -90 deg
-//         // manual boundary check
-//     }
-// 
-//     rotateE(){
-//         // algorithmically shift by +90 deg 
-//         // manual boundary check
-//     }
-// 
-//     _confirm()
-//     {
-//         forEach( this._cells => function(cell){
-//             cell.setOccupied();
-//         });
-//     }
-// }
+class Ship 
+{
+    constructor( size, cells )
+    {
+        this._cells = cells;    
+    }
+
+    __boundscheck( row_offset = 0 , col_offset = 0 ){
+        // todo - check that movement is valid 
+    }
+
+    moveA(){
+        if (!this.__boundscheck( 0, -1 ))
+            return;
+    }
+
+    moveW() {
+        if (!this.__boundscheck( 1 ))
+            return;
+    }
+
+    moveS(){
+        if (!this.__boundscheck( -1 ))
+            return;
+    }
+
+    moveD(){
+        if (!this.__boundscheck( 0, 1 ))
+            return;
+    }
+
+    rotateQ()
+    {
+        // algorithmically shift by -90 deg
+        // manual boundary check
+    }
+
+    rotateE(){
+        // algorithmically shift by +90 deg 
+        // manual boundary check
+    }
+
+    _confirm()
+    {
+        forEach( this._cells => function(cell){
+            cell.setOccupied();
+        });
+    }
+}
 
 
 class Board
@@ -129,7 +129,7 @@ class Player
     this._b_placement = new Board( document.getElementById( 'p' + this._num + '-board-placement' ) );
     this._b_target    = new Board( document.getElementById( 'p' + this._num + '-board-target' ) );
     this._form = document.getElementById("p" + this._num + "-ship-opt");
-    this._formSubmit = document.getElementById("p" + this._num );
+    this._formSubmit = document.getElementById("p" + this._num + "-ship-opt-submit" );
   }
 
   _giveTurn( type ="targeting" )
@@ -150,6 +150,7 @@ class Player
         this._doPlacementTurn();
         break;
       case "first":
+        this._doFirstTurn();
         break;
       default:
         window.alert("Invalid turn type specified: " + type);
