@@ -38,6 +38,11 @@
           .m {
               fill: #242424;
           }
+          
+          .menu {
+              display: flex;
+              flex-direction: column;
+          }
 
           .container
           {
@@ -54,6 +59,14 @@
 <p>Battleship is a two player game. Where you will take turns trying to sink each others ships!</p>
 <p>Player 1's Boards</p>
 <div id="p1-boards-container" class="container">
+<form id="p1-ship-opt" class="menu">
+        <p><label for="p1so_1">1</label><input type="radio" value="1" name="p1so_1"/></p>
+        <p><label for="p1so_2">2</label><input type="radio" value="2" name="p1so_2"/></p>
+        <p><label for="p1so_3">3</label><input type="radio" value="3" name="p1so_3"/></p>
+        <p><label for="p1so_4">4</label><input type="radio" value="4" name="p1so_4"/></p>
+        <p><label for="p1so_5">5</label><input type="radio" value="5" name="p1so_5"/></p>
+        <input type="submit" value="Confirm &raquo;" />
+</form>
 <svg id="p1-board-placement" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 259.34042 259.34042" width="500" height="500">
     <defs>
       <clipPath id="a" transform="translate(-103 -244.65957)">
@@ -64,7 +77,7 @@
       <g id="ships">
       </g>
       <g id="grid">
-        <rect class="c cp" width="23.23404" height="23.23404"/>
+        <rect id="p1pa1" class="c cp" width="23.23404" height="23.23404"/>
         <rect class="c cp" x="26.23404" width="23.23404" height="23.23404"/>
         <rect class="c cp" x="52.46808" width="23.23404" height="23.23404"/>
         <rect class="c cp" x="78.70213" width="23.23404" height="23.23404"/>
@@ -294,6 +307,14 @@
   <!--  -->
   <p>Player 2's Boards</p>
   <div id="p2-boards-container" class="container hidden">
+      <form id="p2-ship-opt" class="menu">
+              <p><label for="p2so_1">1</label><input type="radio" value="1" name="p2so_1"/></p>
+              <p><label for="p2so_2">2</label><input type="radio" value="2" name="p2so_2"/></p>
+              <p><label for="p2so_3">3</label><input type="radio" value="3" name="p2so_3"/></p>
+              <p><label for="p2so_4">4</label><input type="radio" value="4" name="p2so_4"/></p>
+              <p><label for="p2so_5">5</label><input type="radio" value="5" name="p2so_5"/></p>
+              <input type="submit" value="Confirm &raquo;" />
+      </form>
   <svg id="p2-board-placement" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 259.34042 259.34042" width="500" height="500">
       <defs>
         <clipPath id="a" transform="translate(-103 -244.65957)">

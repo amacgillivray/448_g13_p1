@@ -1,10 +1,12 @@
 "use strict";
 
-class Board 
+class Cell
 {
 
-    constructor( row, col )
+    constructor( node, row, col )
     {
+	this._node = node;
+	
         /**
          * @brief The row number of the cell.
          */
@@ -27,10 +29,20 @@ class Board
         this._called = false;
     }
 
-    _draw()
-    {
-        
-    }
+    _call() 
+	{
+		this._called = true;	
+		if(this._occupied)
+		{
+			this._node.classList.add("h");		
+			return true;
+		}
+		else
+		{
+			this._node.classList.add("m");
+			return false;
+		}
+	}
 
 
 }
