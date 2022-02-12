@@ -1,5 +1,87 @@
 "use strict";
 
+const alphabet = [
+    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
+    'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+];
+
+class cell {
+    
+    /** 
+     * @param board 
+     *        String such as "p1p" (player1's placement board) that acts as 
+     *        a prefix to the cell's id.
+     * @param row
+     * @param col
+     */
+    constructor ( board, row, col )
+    {
+        this._board = board;
+        this._row = row;
+        this._col = col;
+        this._occupied = false;
+        this._called = false;        
+        this._node = document.getElementById(board + alphabet[row] + col );
+    }
+    
+    setOccupied()
+    {
+        this._occupied = true;
+    }
+
+}
+
+class Ship 
+{
+    constructor( size, cells )
+    {
+        this._cells = cells;    
+    }
+    
+    __boundscheck( row_offset = 0 , col_offset = 0 ){
+        // todo - check that movement is valid 
+    }
+    
+    moveA(){
+        if (!this.__boundscheck( 0, -1 ))
+            return;
+    }
+    
+    moveW() {
+        if (!this.__boundscheck( 1 ))
+            return;
+    }
+    
+    moveS(){
+        if (!this.__boundscheck( -1 ))
+            return;
+    }
+    
+    moveD(){
+        if (!this.__boundscheck( 0, 1 ))
+            return;
+    }
+    
+    rotateQ()
+    {
+        // algorithmically shift by -90 deg
+        // manual boundary check
+    }
+    
+    rotateE(){
+        // algorithmically shift by +90 deg 
+        // manual boundary check
+    }
+    
+    _confirm()
+    {
+        forEach( this._cells => function(cell){
+            cell.setOccupied();
+        });
+    }
+}
+
+
 class Board
 {
     constructor( rootNode, rows = 10, cols = 10 )
@@ -31,6 +113,7 @@ class Player
     this._num = player_number;
     this._b_placement = new Board( document.getElementById( 'p' + this._num + '-board-placement' ) );
     this._b_target    = new Board( document.getElementById( 'p' + this._num + '-board-target' ) );
+    this._form = 
   }
 
   _giveTurn( type ="targeting" )
@@ -66,6 +149,9 @@ class Player
   _doPlacementTurn()
   {
       alert("Targeting");
+      wasd
+      enter
+      
   }
   
   _doFirstTurn() 
