@@ -90,11 +90,15 @@
 
           .bottom
           {
-            
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            color: white;
+            text-align: center;
             background-color: #333;
             overflow: hidden;
-            width: all;
-            height: 200px;
+            height: 50px;
 
           }
 
@@ -139,7 +143,7 @@
 
           .submit:hover
           {
-            background-color: #4CAF50; /* Green */
+            background-color: #4CAF50;
             color: white;
           }
 
@@ -214,8 +218,9 @@
 </div>
 <div id="p1-boards-container" class="container">
 <div class="buttons">
-  <p>Player 1's Boards</p>
+  
   <form class="" id="p1-ship-opt" class="menu">
+        <p>Player 1's Boards</p>
         <p><label class="form-control" for="p1so_1"><input type="radio" value="1" name="p1so"/>1</label></p>
         <p><label class="form-control" for="p1so_2"><input type="radio" value="2" name="p1so"/>2</label></p>
         <p><label class="form-control" for="p1so_3"><input type="radio" value="3" name="p1so"/>3</label></p>
@@ -707,7 +712,6 @@
                     </svg>
                 </div>
             </div>
-            <div class="bottom"></div>
             <footer>
               <script type="text/javascript" src="./js/game.js"></script>
               <script type="text/javascript" src="./js/ship.js"></script>
@@ -715,4 +719,7 @@
               <script type="text/javascript" src="./test.js"></script>
             </footer>
         </body>
+        <div class="bottom">
+          <p> </p>
+        </div>
 </html>
