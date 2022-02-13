@@ -73,11 +73,23 @@ function getYfromId( id )
 
 class Ship 
 {
-    constructor( parent, length, cells )
+    constructor( board, parent, length, cells )
     {
         this._parent = parent;
         this._length = length;
-        this._cells = cells;    
+        this._invalidStart = false;
+        this._cells  = [];
+        for (let i = 0; i < length; i++)
+        {    
+            let node = document.getElementById(board+alphabet[i]+col);    
+            if (node.classList.contains("s")) {
+                node.classList.add("so"); // overlapping
+                this._invalidStart = true;
+            } else {
+                node.classList.add("s");
+            }
+            this._cells[] = board + alphabet[i] + col;
+        }
     }
 
     moveA(){
@@ -151,6 +163,7 @@ class Player
     this._form = document.getElementById("p" + this._num + "-ship-opt");
     this._formSubmit = document.getElementById("p" + this._num + "-ship-opt-submit" );
     this._shipCount = -1;
+    this._ships = null;
   }
 
   giveTurn( type = "targeting" )
@@ -189,39 +202,37 @@ class Player
   _doPlacementTurn( shipLength )
   {
       alert("Placing ship of size 1x" + shipLength);
+      this._ships[shipLength-1] = new Ship(shipLength);
+      window.addEventListener("keydown", function(e){
+         if (e.code == 10) // 10 = enter
+         {
+             game.endTurn()
+         }  
+      });
+  }
+  
+  _placementTurnHandler( e )
+  {
+      switch (e.code)
+      {
+          case 10:
+            game.endturn(this._num);
+            break;
+          case 65:
+          case 97:
+            
+      }
       
-      
+      // if (e.code == 10)
+      // {
+      //     // e.removeEventListener
+      //     game.endTurn(this._num);
+      // } else if
   }
   
   _doFirstTurn( obj ) 
   {
-    // get the number of ships the player is going to place
-    // then, loop over "DoPlacementTurn" until all ships are placed
-    // this._formSubmit.this = this;
-    // this._formSubmit.addEventListener("click", function(e){
-    //     // alert("Clicked");
-    //     let str = "p" + this._num + "so_";
-    //     for ( let i = 1; i <=5; i++ )
-    //     {
-    //         alert(str+i);
-    //         let button = document.getElementById(str + i); 
-    //         if (button.checked)  {
-    //             this.shipCount = button.value;
-    //             break;
-    //         }
-    //     }
-    //     e.preventDefault();
-    // 
-    //     for (let i = 0; i < shipCount; i++)
-    //     {
-    //         this._doPlacementTurn(i);
-    //     }
-    // 
-    //     this._parent.endTurn( this._num );
-    // 
-    // });
     this._formSubmit.addEventListener("click", function(e){ 
-        alert( obj );
         obj._firstTurnHandler(e) }, false );
   }
   
