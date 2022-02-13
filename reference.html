@@ -17,7 +17,7 @@
           }
 
           .ct {
-            fill: #445577;
+            fill: #edeef0;
           }
 
           .c:hover {
@@ -29,6 +29,11 @@
               fill: #777;
           }
           
+          /* overlapping / invalid ship cell */
+          .so {
+              fill: #f2e52e;
+          }
+
           /* target board : hit cell */
           .h {
               fill: #fa242e;
@@ -251,7 +256,7 @@
           <h1 id="title">Welcome to Battleship!</h1>
         </div>
         <div class="desc">
-          <p>Battleship is a two player game. Where you will take turns trying to sink each others ships!</p>
+          <p>Battleship is a two player game where you will take turns trying to sink each others ships!</p>
         </div>
 
     <!-- The Modal -->
@@ -270,6 +275,15 @@
         <div id="p1-boards-container" class="container">
             <div class="buttons">
               <p class="hidden">Player 1's Boards</p>
+              <p>Ship Placement Controls:</p>
+              <code style="text-align:left !important;">
+                < W >      Up<br/>
+                < S >      Down<br/>
+                < D >      Right<br/>
+                < A >      Left<br/>
+                < ENTER >  Confirm 
+              </code>
+              <p>Targeting: Point-And-Click</p>
               <form id="p1-ship-opt" class="menu">
                     <p>Player 1's Boards</p>
                     <p><label class="form-control" for="p1so_1"><input id="p1so_1" type="radio" value="1" name="p1so"/>1</label></p>
@@ -280,7 +294,8 @@
                     <input class="submit" id="p1-ship-opt-submit" type="submit" value="Confirm &raquo;" />
 
                      <script>
-                        // Get the modal
+                       // good stuff, disabling for now for testing purposes
+                        {{/*  // Get the modal
                         var modal = document.getElementById("myModal");
 
                         // Get the button that opens the modal
@@ -304,7 +319,7 @@
                           if (event.target == modal) {
                             modal.style.display = "none";
                           }
-                        }
+                        }  */}}
                     </script>
 
               </form>
@@ -574,106 +589,106 @@
                             <g id="ships">
                             </g>
                             <g id="grid">
-                                <rect id = "p2ba0" class="c cp" width="23.23404" height="23.23404"/>
-                                <rect id = "p2ba1" class="c cp" x="26.23404" width="23.23404" height="23.23404"/>
-                                <rect id = "p2ba2" class="c cp" x="52.46808" width="23.23404" height="23.23404"/>
-                                <rect id = "p2ba3" class="c cp" x="78.70213" width="23.23404" height="23.23404"/>
-                                <rect id = "p2ba4" class="c cp" x="104.93616" width="23.23404" height="23.23404"/>
-                                <rect id = "p2ba5" class="c cp" x="131.17021" width="23.23404" height="23.23404"/>
-                                <rect id = "p2ba6" class="c cp" x="157.40425" width="23.23404" height="23.23404"/>
-                                <rect id = "p2ba7" class="c cp" x="183.63829" width="23.23404" height="23.23404"/>
-                                <rect id = "p2ba8" class="c cp" x="209.87234" width="23.23404" height="23.23404"/>
-                                <rect id = "p2ba9" class="c cp" x="236.10638" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bb0" class="c cp" y="26.23404" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bb1" class="c cp" x="26.23404" y="26.23404" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bb2" class="c cp" x="52.46808" y="26.23404" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bb3" class="c cp" x="78.70213" y="26.23404" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bb4" class="c cp" x="104.93616" y="26.23404" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bb5" class="c cp" x="131.17021" y="26.23404" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bb6" class="c cp" x="157.40425" y="26.23404" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bb7" class="c cp" x="183.63829" y="26.23404" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bb8" class="c cp" x="209.87234" y="26.23404" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bb9" class="c cp" x="236.10638" y="26.23404" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bc0" class="c cp" y="52.46808" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bc1" class="c cp" x="26.23404" y="52.46808" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bc2" class="c cp" x="52.46808" y="52.46808" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bc3" class="c cp" x="78.70213" y="52.46808" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bc4" class="c cp" x="104.93616" y="52.46808" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bc5" class="c cp" x="131.17021" y="52.46808" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bc6" class="c cp" x="157.40425" y="52.46808" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bc7" class="c cp" x="183.63829" y="52.46808" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bc8" class="c cp" x="209.87234" y="52.46808" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bc9" class="c cp" x="236.10638" y="52.46808" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bd0" class="c cp" y="78.70213" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bd1" class="c cp" x="26.23404" y="78.70213" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bd2" class="c cp" x="52.46808" y="78.70213" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bd3" class="c cp" x="78.70213" y="78.70213" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bd4" class="c cp" x="104.93616" y="78.70213" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bd5" class="c cp" x="131.17021" y="78.70213" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bd6" class="c cp" x="157.40425" y="78.70213" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bd7" class="c cp" x="183.63829" y="78.70213" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bd8" class="c cp" x="209.87234" y="78.70213" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bd9" class="c cp" x="236.10638" y="78.70213" width="23.23404" height="23.23404"/>
-                                <rect id = "p2be0" class="c cp" y="104.93616" width="23.23404" height="23.23404"/>
-                                <rect id = "p2be1" class="c cp" x="26.23404" y="104.93616" width="23.23404" height="23.23404"/>
-                                <rect id = "p2be2" class="c cp" x="52.46808" y="104.93616" width="23.23404" height="23.23404"/>
-                                <rect id = "p2be3" class="c cp" x="78.70213" y="104.93616" width="23.23404" height="23.23404"/>
-                                <rect id = "p2be4" class="c cp" x="104.93616" y="104.93616" width="23.23404" height="23.23404"/>
-                                <rect id = "p2be5" class="c cp" x="131.17021" y="104.93616" width="23.23404" height="23.23404"/>
-                                <rect id = "p2be6" class="c cp" x="157.40425" y="104.93616" width="23.23404" height="23.23404"/>
-                                <rect id = "p2be7" class="c cp" x="183.63829" y="104.93616" width="23.23404" height="23.23404"/>
-                                <rect id = "p2be8" class="c cp" x="209.87234" y="104.93616" width="23.23404" height="23.23404"/>
-                                <rect id = "p2be9" class="c cp" x="236.10638" y="104.93616" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bf0" class="c cp" y="131.17021" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bf1" class="c cp" x="26.23404" y="131.17021" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bf2" class="c cp" x="52.46808" y="131.17021" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bf3" class="c cp" x="78.70213" y="131.17021" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bf4" class="c cp" x="104.93616" y="131.17021" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bf5" class="c cp" x="131.17021" y="131.17021" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bf6" class="c cp" x="157.40425" y="131.17021" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bf7" class="c cp" x="183.63829" y="131.17021" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bf8" class="c cp" x="209.87234" y="131.17021" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bf9" class="c cp" x="236.10638" y="131.17021" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bg0" class="c cp" y="157.40425" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bg1" class="c cp" x="26.23404" y="157.40425" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bg2" class="c cp" x="52.46808" y="157.40425" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bg3" class="c cp" x="78.70213" y="157.40425" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bg4" class="c cp" x="104.93616" y="157.40425" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bg5" class="c cp" x="131.17021" y="157.40425" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bg6" class="c cp" x="157.40425" y="157.40425" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bg7" class="c cp" x="183.63829" y="157.40425" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bg8" class="c cp" x="209.87234" y="157.40425" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bg9" class="c cp" x="236.10638" y="157.40425" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bh0" class="c cp" y="183.63829" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bh1" class="c cp" x="26.23404" y="183.63829" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bh2" class="c cp" x="52.46808" y="183.63829" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bh3" class="c cp" x="78.70213" y="183.63829" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bh4" class="c cp" x="104.93616" y="183.63829" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bh5" class="c cp" x="131.17021" y="183.63829" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bh6" class="c cp" x="157.40425" y="183.63829" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bh7" class="c cp" x="183.63829" y="183.63829" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bh8" class="c cp" x="209.87234" y="183.63829" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bh9" class="c cp" x="236.10638" y="183.63829" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bi0" class="c cp" y="209.87234" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bi1" class="c cp" x="26.23404" y="209.87234" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bi2" class="c cp" x="52.46808" y="209.87234" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bi3" class="c cp" x="78.70213" y="209.87234" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bi4" class="c cp" x="104.93616" y="209.87234" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bi5" class="c cp" x="131.17021" y="209.87234" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bi6" class="c cp" x="157.40425" y="209.87234" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bi7" class="c cp" x="183.63829" y="209.87234" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bi8" class="c cp" x="209.87234" y="209.87234" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bi9" class="c cp" x="236.10638" y="209.87234" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bj0" class="c cp" y="236.10638" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bj1" class="c cp" x="26.23404" y="236.10638" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bj2" class="c cp" x="52.46808" y="236.10638" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bj3" class="c cp" x="78.70213" y="236.10638" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bj4" class="c cp" x="104.93616" y="236.10638" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bj5" class="c cp" x="131.17021" y="236.10638" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bj6" class="c cp" x="157.40425" y="236.10638" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bj7" class="c cp" x="183.63829" y="236.10638" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bj8" class="c cp" x="209.87234" y="236.10638" width="23.23404" height="23.23404"/>
-                                <rect id = "p2bj9" class="c cp" x="236.10638" y="236.10638" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pa0" class="c cp" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pa1" class="c cp" x="26.23404" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pa2" class="c cp" x="52.46808" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pa3" class="c cp" x="78.70213" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pa4" class="c cp" x="104.93616" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pa5" class="c cp" x="131.17021" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pa6" class="c cp" x="157.40425" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pa7" class="c cp" x="183.63829" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pa8" class="c cp" x="209.87234" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pa9" class="c cp" x="236.10638" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pb0" class="c cp" y="26.23404" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pb1" class="c cp" x="26.23404" y="26.23404" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pb2" class="c cp" x="52.46808" y="26.23404" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pb3" class="c cp" x="78.70213" y="26.23404" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pb4" class="c cp" x="104.93616" y="26.23404" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pb5" class="c cp" x="131.17021" y="26.23404" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pb6" class="c cp" x="157.40425" y="26.23404" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pb7" class="c cp" x="183.63829" y="26.23404" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pb8" class="c cp" x="209.87234" y="26.23404" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pb9" class="c cp" x="236.10638" y="26.23404" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pc0" class="c cp" y="52.46808" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pc1" class="c cp" x="26.23404" y="52.46808" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pc2" class="c cp" x="52.46808" y="52.46808" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pc3" class="c cp" x="78.70213" y="52.46808" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pc4" class="c cp" x="104.93616" y="52.46808" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pc5" class="c cp" x="131.17021" y="52.46808" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pc6" class="c cp" x="157.40425" y="52.46808" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pc7" class="c cp" x="183.63829" y="52.46808" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pc8" class="c cp" x="209.87234" y="52.46808" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pc9" class="c cp" x="236.10638" y="52.46808" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pd0" class="c cp" y="78.70213" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pd1" class="c cp" x="26.23404" y="78.70213" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pd2" class="c cp" x="52.46808" y="78.70213" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pd3" class="c cp" x="78.70213" y="78.70213" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pd4" class="c cp" x="104.93616" y="78.70213" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pd5" class="c cp" x="131.17021" y="78.70213" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pd6" class="c cp" x="157.40425" y="78.70213" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pd7" class="c cp" x="183.63829" y="78.70213" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pd8" class="c cp" x="209.87234" y="78.70213" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pd9" class="c cp" x="236.10638" y="78.70213" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pe0" class="c cp" y="104.93616" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pe1" class="c cp" x="26.23404" y="104.93616" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pe2" class="c cp" x="52.46808" y="104.93616" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pe3" class="c cp" x="78.70213" y="104.93616" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pe4" class="c cp" x="104.93616" y="104.93616" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pe5" class="c cp" x="131.17021" y="104.93616" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pe6" class="c cp" x="157.40425" y="104.93616" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pe7" class="c cp" x="183.63829" y="104.93616" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pe8" class="c cp" x="209.87234" y="104.93616" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pe9" class="c cp" x="236.10638" y="104.93616" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pf0" class="c cp" y="131.17021" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pf1" class="c cp" x="26.23404" y="131.17021" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pf2" class="c cp" x="52.46808" y="131.17021" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pf3" class="c cp" x="78.70213" y="131.17021" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pf4" class="c cp" x="104.93616" y="131.17021" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pf5" class="c cp" x="131.17021" y="131.17021" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pf6" class="c cp" x="157.40425" y="131.17021" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pf7" class="c cp" x="183.63829" y="131.17021" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pf8" class="c cp" x="209.87234" y="131.17021" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pf9" class="c cp" x="236.10638" y="131.17021" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pg0" class="c cp" y="157.40425" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pg1" class="c cp" x="26.23404" y="157.40425" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pg2" class="c cp" x="52.46808" y="157.40425" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pg3" class="c cp" x="78.70213" y="157.40425" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pg4" class="c cp" x="104.93616" y="157.40425" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pg5" class="c cp" x="131.17021" y="157.40425" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pg6" class="c cp" x="157.40425" y="157.40425" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pg7" class="c cp" x="183.63829" y="157.40425" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pg8" class="c cp" x="209.87234" y="157.40425" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pg9" class="c cp" x="236.10638" y="157.40425" width="23.23404" height="23.23404"/>
+                                <rect id = "p2ph0" class="c cp" y="183.63829" width="23.23404" height="23.23404"/>
+                                <rect id = "p2ph1" class="c cp" x="26.23404" y="183.63829" width="23.23404" height="23.23404"/>
+                                <rect id = "p2ph2" class="c cp" x="52.46808" y="183.63829" width="23.23404" height="23.23404"/>
+                                <rect id = "p2ph3" class="c cp" x="78.70213" y="183.63829" width="23.23404" height="23.23404"/>
+                                <rect id = "p2ph4" class="c cp" x="104.93616" y="183.63829" width="23.23404" height="23.23404"/>
+                                <rect id = "p2ph5" class="c cp" x="131.17021" y="183.63829" width="23.23404" height="23.23404"/>
+                                <rect id = "p2ph6" class="c cp" x="157.40425" y="183.63829" width="23.23404" height="23.23404"/>
+                                <rect id = "p2ph7" class="c cp" x="183.63829" y="183.63829" width="23.23404" height="23.23404"/>
+                                <rect id = "p2ph8" class="c cp" x="209.87234" y="183.63829" width="23.23404" height="23.23404"/>
+                                <rect id = "p2ph9" class="c cp" x="236.10638" y="183.63829" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pi0" class="c cp" y="209.87234" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pi1" class="c cp" x="26.23404" y="209.87234" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pi2" class="c cp" x="52.46808" y="209.87234" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pi3" class="c cp" x="78.70213" y="209.87234" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pi4" class="c cp" x="104.93616" y="209.87234" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pi5" class="c cp" x="131.17021" y="209.87234" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pi6" class="c cp" x="157.40425" y="209.87234" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pi7" class="c cp" x="183.63829" y="209.87234" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pi8" class="c cp" x="209.87234" y="209.87234" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pi9" class="c cp" x="236.10638" y="209.87234" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pj0" class="c cp" y="236.10638" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pj1" class="c cp" x="26.23404" y="236.10638" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pj2" class="c cp" x="52.46808" y="236.10638" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pj3" class="c cp" x="78.70213" y="236.10638" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pj4" class="c cp" x="104.93616" y="236.10638" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pj5" class="c cp" x="131.17021" y="236.10638" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pj6" class="c cp" x="157.40425" y="236.10638" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pj7" class="c cp" x="183.63829" y="236.10638" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pj8" class="c cp" x="209.87234" y="236.10638" width="23.23404" height="23.23404"/>
+                                <rect id = "p2pj9" class="c cp" x="236.10638" y="236.10638" width="23.23404" height="23.23404"/>
                             </g>
                         </g>
                     </svg>
@@ -794,9 +809,6 @@
             </div>
             <footer>
               <script type="text/javascript" src="./js/game.js"></script>
-              <!-- <script type="text/javascript" src="./js/ship.js"></script>
-              <script type="text/javascript" src="./js/cell.js"></script> -->
-              <script type="text/javascript" src="./test.js"></script>
             </footer>
         </body>
         <div class="bottom">

@@ -5,6 +5,11 @@ const alphabet = [
     'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
 ];
 
+function keydowncb( e )
+{
+  e.currentTarget.obj._placementTurnHandler(e);
+}
+
 /**
  * @brief converts a row letter to a number
  */
@@ -188,14 +193,9 @@ class Player
   _doPlacementTurn( obj, shipLength )
   {
       alert("Placing ship of size 1x" + shipLength);
-      this._ships[shipLength-1] = new Ship( "p"+this._num+"p", this, shipLength);
-      window.addEventListener("keydown", function(e){
-        //  if (e.code == 10) // 10 = enter
-        //  {
-            //  return;
-        //  }  
-        obj._placementTurnHandler(e);
-      }, false);
+      this._ships[this._shipsPlaced] = new Ship( "p"+this._num+"p", this, shipLength);
+      window.addEventListener("keydown", keydowncb, false);
+      window.obj = obj;
   }
   
 
@@ -207,8 +207,9 @@ class Player
       switch (e.code)
       {
           case "Enter":
+            window.removeEventListener("keydown", keydowncb, false);
             this._shipsPlaced++;
-            this._parent.endturn( this._shipsPlaced );
+            this._ships[this._shipsPlaced-1]._confirm();
             break;
           case "KeyA":
             // this._ships[this._shipsPlaced].moveA();
@@ -240,11 +241,13 @@ class Player
   {
       if (this._shipsPlaced == this._shipCount)
       {
-        this._form.classList.toggle("hidden", true);    
+        window.obj = null;
+        this._form.classList.toggle("hidden", true);
         this._parent.endTurn( this._num );
+        return;
       }
-
-      this._doPlacementTurn(this, i+1);
+      this._doPlacementTurn(this, this._shipsPlaced+1);
+      return;
   }
   
 
