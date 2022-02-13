@@ -56,6 +56,7 @@
           }
           
           .svg_container {
+            align-content: center;
               padding: 50px;
               display: flex;
               flex-direction: row;
@@ -205,6 +206,44 @@
             outline: max(2px, 0.15em) solid currentColor;
             outline-offset: max(2px, 0.15em);
           }
+
+          /*Trying to work with pop ups*/
+          .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+          }
+
+          .modal-content {
+            background-color: green;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+          }
+
+          /* The Close Button */
+          .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+          }
+
+          .close:hover,
+          .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+          }
         </style>
     </head>
     <body>
@@ -214,6 +253,20 @@
         <div class="desc">
           <p>Battleship is a two player game. Where you will take turns trying to sink each others ships!</p>
         </div>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>Player X won (will just pop up when the p1 button is used rn but will be changed to have conditions later)</p>
+      </div>
+
+    </div>
+
+   
+
         <div id="p1-boards-container" class="container">
             <div class="buttons">
               <p class="hidden">Player 1's Boards</p>
@@ -225,6 +278,35 @@
                     <p><label class="form-control" for="p1so_4"><input id="p1so_4" type="radio" value="4" name="p1so"/>4</label></p>
                     <p><label class="form-control" for="p1so_5"><input id="p1so_5" checked="checked" type="radio" value="5" name="p1so"/>5</label></p>
                     <input class="submit" id="p1-ship-opt-submit" type="submit" value="Confirm &raquo;" />
+
+                     <script>
+                        // Get the modal
+                        var modal = document.getElementById("myModal");
+
+                        // Get the button that opens the modal
+                        var btn = document.getElementById("p1-ship-opt-submit");
+
+                        // Get the <span> element that closes the modal
+                        var span = document.getElementsByClassName("close")[0];
+
+                        // When the user clicks the button, open the modal 
+                        btn.onclick = function() {
+                          modal.style.display = "block";
+                        }
+
+                        // When the user clicks on <span> (x), close the modal
+                        span.onclick = function() {
+                          modal.style.display = "none";
+                        }
+
+                        // When the user clicks anywhere outside of the modal, close it
+                        window.onclick = function(event) {
+                          if (event.target == modal) {
+                            modal.style.display = "none";
+                          }
+                        }
+                    </script>
+
               </form>
             </div>
             <div class="svg_container">
@@ -470,13 +552,14 @@
   
             <div id="p2-boards-container" class="container hidden">
                 <div class="buttons">
-                    <p>Player 2's Boards</p>
+                    <p class="hidden">Player 2's Boards</p>
                     <form id="p2-ship-opt" class="menu">
-                        <p><label for="p2so_1">1</label><input id="p2so_1" type="radio" value="1" name="p2so"/></p>
-                        <p><label for="p2so_2">2</label><input id="p2so_2" type="radio" value="2" name="p2so"/></p>
-                        <p><label for="p2so_3">3</label><input id="p2so_3" type="radio" value="3" name="p2so"/></p>
-                        <p><label for="p2so_4">4</label><input id="p2so_4" type="radio" value="4" name="p2so"/></p>
-                        <p><label for="p2so_5">5</label><input id="p2so_5" checked="checked" type="radio" value="5" name="p2so"/></p>
+                        <p>Player 2's Boards</p>
+                        <p><label class="form-control" for="p2so_1"><input id="p2so_1" type="radio" value="1" name="p2so"/>1</label></p>
+                        <p><label class="form-control" for="p2so_2"><input id="p2so_2" type="radio" value="2" name="p2so"/>2</label></p>
+                        <p><label class="form-control" for="p2so_3"><input id="p2so_3" type="radio" value="3" name="p2so"/>3</label></p>
+                        <p><label class="form-control" for="p2so_4"><input id="p2so_4" type="radio" value="4" name="p2so"/>4</label></p>
+                        <p><label class="form-control" for="p2so_5"><input id="p2so_5" checked="checked" type="radio" value="5" name="p2so"/>5</label></p>
                         <input class="submit" id="p2-ship-opt-submit" type="submit" value="Confirm &raquo;" />
                     </form>
                 </div>
