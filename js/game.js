@@ -15,7 +15,7 @@ function rowToNum( letter )
 
 function getXfromId( id )
 {
-    return id[4];
+    return parseInt(id[4]);
 }
 
 function getYfromId( id )
@@ -23,93 +23,77 @@ function getYfromId( id )
     return rowToNum(id[3]);
 }
 
-
-// Cell will now be handled entirely in the DOM, no JS objects. 
-// class cell {
-// 
-//     /** 
-//      * @param board 
-//      *        String such as "p1p" (player1's placement board) that acts as 
-//      *        a prefix to the cell's id.
-//      * @param row
-//      * @param col
-//      */
-//     constructor ( board, row, col )
-//     {
-//         this._board = board;
-//         this._row = row;
-//         this._col = col;
-//         this._occupied = false;
-//         this._called = false;        
-//         this._node = document.getElementById(board + alphabet[row] + col );
-//     }
-// 
-//     /** 
-//      * @brief Tells the cell that it has been "called" by an opposing player. 
-//      * @post  The cell's class-list will be modified with "h" (hit) or "m" (miss)
-//      * @return true|false
-//      *          True indicates hit. False indicates miss.
-//      */ 
-//     call()
-//     {
-//         this._called = true;
-// 
-//         if ( this._occupied ) 
-//         {
-//             this._node.classlist.add("h");
-//             return true;
-//         } else {
-//             this._node.classList.add("m");
-//             return false;
-//         }
-//     }
-// 
-//     setOccupied()
-//     {
-//         this._occupied = true;
-//     }
-// 
-// }
-
 class Ship 
 {
-    constructor( board, parent, length, cells )
+    constructor( board, parent, length )
     {
+        this._board  = board;
         this._parent = parent;
         this._length = length;
-        this._invalidStart = false;
-        this._cells  = [];
+        this._invalid = false;
+        this._cells  = Array(length);
         for (let i = 0; i < length; i++)
         {    
-            let node = document.getElementById(board+alphabet[i]+col);    
+            let node = document.getElementById(board+alphabet[i]+0);
             if (node.classList.contains("s")) {
                 node.classList.add("so"); // overlapping
-                this._invalidStart = true;
+                this._invalid = true;
             } else {
                 node.classList.add("s");
             }
-            this._cells[] = board + alphabet[i] + col;
+            this._cells[i] = board+alphabet[i]+0;
         }
     }
 
-    moveA(){
-        if (!this.__boundscheck( 0, -1 ))
-            return;
+    _translateBoundsCheck( offsetX = 0, offsetY = 0 )
+    {
+      for (let i = 0; i < this._length; i++)
+      {
+        let cell = this._cells[i];
+        let new_x = offsetX + getXfromId(cell);
+        let new_y = offsetY + getYfromId(cell);
+        if ( new_x < 0 || new_x > 9 || new_y < 0 || new_y > 9 )
+          return false;
+      }
+      console.log("Move is in-bounds.")
+      return true;
     }
 
-    moveW() {
-        if (!this.__boundscheck( 1 ))
-            return;
-    }
+    translate( offsetX = 0, offsetY = 0)
+    {
+      if (!this._translateBoundsCheck( offsetX, offsetY ))
+          return;
 
-    moveS(){
-        if (!this.__boundscheck( -1 ))
-            return;
-    }
+      // reset to false; if new position is not overlapping, will stay false,
+      // otherwise will be set to true
+      this._invalid = false;
 
-    moveD(){
-        if (!this.__boundscheck( 0, 1 ))
-            return;
+      for (let i = 0; i < this._length; i++)
+      {
+        let cell = document.getElementById(this._cells[i]);
+        let x = getXfromId(this._cells[i]);
+        let y = getYfromId(this._cells[i]);
+
+        if (cell.classList.contains("so"))
+          cell.classList.remove("so");
+        else
+          cell.classList.remove("s")
+
+        x = offsetX+parseInt(x);
+        y = offsetY+y;
+        this._cells[i] = this._board + alphabet[y] + x;
+        console.log(this._cells[i]);
+
+        let newCell = document.getElementById(this._cells[i]);
+
+        if (newCell.classList.contains("s")) 
+        {
+          this._invalid = true;
+          newCell.classList.toggle("so", true);
+        } else {
+          newCell.classList.toggle("s", true);
+        }
+      }
     }
 
     rotateQ()
@@ -125,9 +109,10 @@ class Ship
 
     _confirm()
     {
-        // forEach( this._cells => function(cell){
-        //     cell.setOccupied();
-        // });
+        if (this._invalid)
+          return;
+        else 
+          this._parent._endPlacementTurn(this._length);
     }
 }
 
@@ -163,6 +148,7 @@ class Player
     this._form = document.getElementById("p" + this._num + "-ship-opt");
     this._formSubmit = document.getElementById("p" + this._num + "-ship-opt-submit" );
     this._shipCount = -1;
+    this._shipsPlaced = 0;
     this._ships = null;
   }
 
@@ -199,37 +185,69 @@ class Player
   }
 
   // only called by _doFirstTurn; 
-  _doPlacementTurn( shipLength )
+  _doPlacementTurn( obj, shipLength )
   {
       alert("Placing ship of size 1x" + shipLength);
-      this._ships[shipLength-1] = new Ship(shipLength);
+      this._ships[shipLength-1] = new Ship( "p"+this._num+"p", this, shipLength);
       window.addEventListener("keydown", function(e){
-         if (e.code == 10) // 10 = enter
-         {
-             game.endTurn()
-         }  
-      });
+        //  if (e.code == 10) // 10 = enter
+        //  {
+            //  return;
+        //  }  
+        obj._placementTurnHandler(e);
+      }, false);
   }
   
+
+
   _placementTurnHandler( e )
   {
+      // this._ships[this._shipsPlaced] = new Ship(this._shipsPlaced+1);
+      console.log(e.code);
       switch (e.code)
       {
-          case 10:
-            game.endturn(this._num);
+          case "Enter":
+            this._shipsPlaced++;
+            this._parent.endturn( this._shipsPlaced );
             break;
-          case 65:
-          case 97:
-            
+          case "KeyA":
+            // this._ships[this._shipsPlaced].moveA();
+            this._ships[this._shipsPlaced].translate( -1 , 0 );
+            break;
+          case "KeyD":
+            // this._ships[this._shipsPlaced].moveD();
+            this._ships[this._shipsPlaced].translate( 1 , 0 );
+            break;
+          case "KeyW":
+            // this._ships[this._shipsPlaced].moveW();
+            this._ships[this._shipsPlaced].translate( 0 , -1 );
+            break;
+          case "KeyS":
+            // this._ships[this._shipsPlaced].moveS();
+            this._ships[this._shipsPlaced].translate( 0 , 1 );
+            break;
+          default:
+            break;
       }
-      
-      // if (e.code == 10)
-      // {
-      //     // e.removeEventListener
-      //     game.endTurn(this._num);
-      // } else if
+      return;
+  }
+
+  /** 
+   * called by ship after placement is confirmed, 
+   *  allows js to wait for input
+   */
+  _endPlacementTurn( i )
+  {
+      if (this._shipsPlaced == this._shipCount)
+      {
+        this._form.classList.toggle("hidden", true);    
+        this._parent.endTurn( this._num );
+      }
+
+      this._doPlacementTurn(this, i+1);
   }
   
+
   _doFirstTurn( obj ) 
   {
     this._formSubmit.addEventListener("click", function(e){ 
@@ -238,7 +256,6 @@ class Player
   
   _firstTurnHandler( e )
   {
-      // alert("In first turn handler");
       let str = "p" + this._num + "so_";
       for ( let i = 1; i <=5; i++ )
       {
@@ -246,20 +263,17 @@ class Player
           let button = document.getElementById(str + i); 
           if (button.checked)  {
               this._shipCount = button.value;
+              this._ships = Array(this._shipCount);
               break;
           }
       }
       e.preventDefault();
       
-      for (let i = 1; i <= this._shipCount; i++)
-      {
-          this._doPlacementTurn(i);
-      }
-      
-      this._form.classList.toggle("hidden", true);
-      
-      this._parent.endTurn( this._num );
+      this._doPlacementTurn(this, 1);
+
   }
+
+  
 
   _hide()
   {
@@ -320,16 +334,6 @@ class Game
             this._p1.giveTurn("targeting");
       }
   }
-  
-  // loop()
-  // {
-  //   // call toggle hidden on both players for each turn change
-  //   this._p1.giveTurn("targeting");
-  //   this._p1._hide();
-  //   this._p2.giveTurn("targeting");
-  //   this._p2._hide();
-  // 
-  // }
 }
 
 let game = new Game();
