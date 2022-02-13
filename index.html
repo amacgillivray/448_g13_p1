@@ -262,7 +262,22 @@
             display: none;
             width: 150px;
             padding-right: 50px;
+            font-family: monospace;
+            font-size: 115%;
+          }
 
+          .database
+          {
+            display: none;
+            width: 150px;
+            padding-right: 50px;
+            font-family: monospace;
+            font-size: 115%;
+          }
+
+          .dtbItem
+          {
+            display: none;
           }
         </style>
     </head>
@@ -294,13 +309,23 @@
               </p>
               <div class="controls" id="instructions1">
                 <p>Ship Placement Controls:</p>
-                <p style="text-align: left;" style="font-size: 50%;">
+                <p style="text-align: left;">
                   < W >      Up<br/>
                   < S >      Down<br/>
                   < D >      Right<br/>
                   < A >      Left<br/>
                   < ENTER >  Confirm 
                 </p>
+              </div>
+              <div class="database" id="p1Database">
+                <p>Your Ships</p>
+                <div style="text-align: left;">
+                  <div class="dtbItem" id="p1Ca">< Carrier >     x/5<br/></div>
+                  <div class="dtbItem" id="p1Ba">< Battleship >  x/4<br/></div>
+                  <div class="dtbItem" id="p1Cr">< Cruiser >     x/3<br/></div>
+                  <div class="dtbItem" id="p1Su">< Submarine >   x/2<br/></div>
+                  <div class="dtbItem" id="p1De">< Destroyer >   x/1</div>
+                </div>
               </div>
               <form id="p1-ship-opt" class="menu">
                     <p>Player 1 select # of ships to place</p>
@@ -314,7 +339,7 @@
                      <script>
                        // good stuff, disabling for now for testing purposes
                         {{  // Get the modal
-                        var modal = document.getElementById("instructions1");
+                        var modal = document.getElementById("myModal");
 
                         // Get the button that opens the modal
                         var btn = document.getElementById("p1-ship-opt-submit");
@@ -322,9 +347,36 @@
                         // Get the <span> element that closes the modal
                         var span = document.getElementsByClassName("close")[0];
 
+                        var p1Ins = document.getElementById("instructions1");
+                        var p1Dtb = document.getElementById("p1Database");
+
                         // When the user clicks the button, open the modal 
                         btn.onclick = function() {
-                          modal.style.display = "block";
+                          p1Ins.style.display = "block";
+                          p1Dtb.style.display = "block";
+
+                          //Checks how many ships were selected and displays the health of those ships on the side 
+                          if(document.getElementById("p1so_1").checked == true){
+                            (document.getElementById("p1De")).style.display = "block";
+                          } else if(document.getElementById("p1so_2").checked == true){
+                            (document.getElementById("p1De")).style.display = "block";
+                            (document.getElementById("p1Su")).style.display = "block";
+                          } else if(document.getElementById("p1so_3").checked == true){
+                            (document.getElementById("p1De")).style.display = "block";
+                            (document.getElementById("p1Su")).style.display = "block";
+                            (document.getElementById("p1Cr")).style.display = "block";
+                          } else if(document.getElementById("p1so_4").checked == true){
+                            (document.getElementById("p1De")).style.display = "block";
+                            (document.getElementById("p1Su")).style.display = "block";
+                            (document.getElementById("p1Cr")).style.display = "block";
+                            (document.getElementById("p1Ba")).style.display = "block";
+                          } else if(document.getElementById("p1so_5").checked == true){
+                            (document.getElementById("p1De")).style.display = "block";
+                            (document.getElementById("p1Su")).style.display = "block";
+                            (document.getElementById("p1Cr")).style.display = "block";
+                            (document.getElementById("p1Ba")).style.display = "block";
+                            (document.getElementById("p1Ca")).style.display = "block";
+                          }
                         }
 
                         // When the user clicks on <span> (x), close the modal
@@ -599,6 +651,16 @@
                         < ENTER >  Confirm 
                       </p>
                     </div>
+                    <div class="database" id="p2Database">
+                      <p>Your Ships</p>
+                      <div style="text-align: left;">
+                        <div class="dtbItem" id="p2Ca">< Carrier >     x/5<br/></div>
+                        <div class="dtbItem" id="p2Ba">< Battleship >  x/4<br/></div>
+                        <div class="dtbItem" id="p2Cr">< Cruiser >     x/3<br/></div>
+                        <div class="dtbItem" id="p2Su">< Submarine >   x/2<br/></div>
+                        <div class="dtbItem" id="p2De">< Destroyer >   x/1</div>
+                      </div>
+                    </div>
                     <form id="p2-ship-opt" class="menu">
                         <p>Player 2 select # of ships to place</p>
                         <p><label class="form-control" for="p2so_1"><input id="p2so_1" type="radio" value="1" name="p2so"/>1</label></p>
@@ -614,9 +676,35 @@
                             // Get the button that displays instructions
                             var btn2 = document.getElementById("p2-ship-opt-submit");
 
+                            var p2Dtb = document.getElementById("p2Database");
+
                             // When the user clicks the button, display controls
                             btn2.onclick = function() {
                               p2Ins.style.display = "block";
+                              p2Dtb.style.display = "block";
+
+                              //Checks how many ships were selected and displays the health of those ships on the side 
+                              if(document.getElementById("p2so_1").checked == true){
+                                (document.getElementById("p2De")).style.display = "block";
+                              } else if(document.getElementById("p2so_2").checked == true){
+                                (document.getElementById("p2De")).style.display = "block";
+                                (document.getElementById("p2Su")).style.display = "block";
+                              } else if(document.getElementById("p2so_3").checked == true){
+                                (document.getElementById("p2De")).style.display = "block";
+                                (document.getElementById("p2Su")).style.display = "block";
+                                (document.getElementById("p2Cr")).style.display = "block";
+                              } else if(document.getElementById("p2so_4").checked == true){
+                                (document.getElementById("p2De")).style.display = "block";
+                                (document.getElementById("p2Su")).style.display = "block";
+                                (document.getElementById("p2Cr")).style.display = "block";
+                                (document.getElementById("p2Ba")).style.display = "block";
+                              } else if(document.getElementById("p2so_5").checked == true){
+                                (document.getElementById("p2De")).style.display = "block";
+                                (document.getElementById("p2Su")).style.display = "block";
+                                (document.getElementById("p2Cr")).style.display = "block";
+                                (document.getElementById("p2Ba")).style.display = "block";
+                                (document.getElementById("p2Ca")).style.display = "block";
+                              }
                             } }}
                         </script>
                     </form>
