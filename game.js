@@ -1,3 +1,15 @@
+/**
+ * @file  game.js
+ * @date  2022.02.12
+ * 
+ * @brief Defines the Battleship game
+ * 
+ * @author Andrew MacGillivray
+ * @author Luke McCumber
+ * @author Brian Bosse
+ * @author Jarrod Grothusen
+ */
+
 "use strict";
 
 const alphabet = [
@@ -23,7 +35,6 @@ function keydowncb( e )
 function submitclick( e )
 {
     e.currentTarget.obj._firstTurnHandler( e );
-    // e.preventDefault();
 }
 
 /**
