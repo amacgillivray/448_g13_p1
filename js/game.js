@@ -147,7 +147,7 @@ class Ship
     {   
         if (!this._invalid)
             this._lock();
-        return this._invalid;
+        return !this._invalid;
 
         // if (this._invalid)
         //   return false;
@@ -243,12 +243,13 @@ class Player
       switch (e.code)
       {
           case "Enter":
-            this._shipsPlaced++;
-            if ( this._ships[this._shipsPlaced-1]._confirm() ) {
+            let placedShip = this._ships[this._shipsPlaced]._confirm();
+            if ( placedShip ) {
+                this._shipsPlaced++;
                 window.removeEventListener("keydown", keydowncb, false);
                 this._endPlacementTurn(this._ships[this._shipsPlaced-1]._length);
             } else {
-                this._shipsPlaced--;
+              if (debug) console.log("Ship refused to confirm.");
             }
             break;
           case "KeyA":  
@@ -275,7 +276,7 @@ class Player
    */
   _endPlacementTurn( i )
   {
-    this._shipsPlaced++;
+    // this._shipsPlaced++;
     // window.removeEventListener("keydown", keydowncb, false);
     if (this._shipsPlaced >= this._fleetSize)
     {
@@ -291,7 +292,6 @@ class Player
   _firstTurnHandler( e )
   {
     e.preventDefault();
-    if (this._shipsPlaced > 0) return;
 
       let str = "p" + this._num + "so_";
       for ( let i = 1; i <=5; i++ )
@@ -307,7 +307,8 @@ class Player
       }
       this._form.classList.toggle("hidden", true);
       this._formSubmit.removeEventListener("click", submitclick, false);
-      this._doPlacementTurn(this, 1);
+
+      this._doPlacementTurn(this, this._shipsPlaced+1);
   }
 
   
@@ -342,8 +343,7 @@ class Game
     // alert("Working!");
     this._p2._hide();
     this._p1.giveTurn("first");
-    
-    this._p1tc = 0;
+    this._p1tc = 1;
     this._p2tc = 0;
   }
   
