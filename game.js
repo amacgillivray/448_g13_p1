@@ -20,9 +20,17 @@ const alphabet = [
 const fleet = [
     "Patrol Boat",
     "Corvette",
-    "Frigate", 
+    "Destroyer", 
     "Battleship",
     "Carrier"
+];
+
+const fleetStyles = [
+  "pb", 
+  "cvt",
+  "dst",
+  "bshp",
+  "crr"
 ];
 
 const debug = true;
@@ -35,6 +43,11 @@ function keydowncb( e )
 function submitclick( e )
 {
     e.currentTarget.obj._firstTurnHandler( e );
+}
+
+function targetingCB( e )
+{
+  e.currentTarget.obj._targetingHandler( e );
 }
 
 /**
@@ -74,6 +87,8 @@ class Ship
                 this._invalid = true;
             } else {
                 node.classList.add("s");
+                // todo - diff colors for each ship type
+                // node.classList.add(fleetStyles[length-1]);
             }
             this._cells[i] = board+alphabet[i]+0;
         }
@@ -150,7 +165,8 @@ class Ship
       {
         let cell = document.getElementById(this._cells[i]);
         cell.classList.add("l"); // indicates locked
-        cell.setAttribute("owner", this._name);
+        cell.setAttribute("title", this._name);
+
       }
     }
 
@@ -171,21 +187,21 @@ class Ship
 }
 
 
-class Board
-{
-    constructor( rootNode )
-    {
-      this._root = rootNode;
+// class Board
+// {
+//     constructor( rootNode )
+//     {
+//       this._root = rootNode;
 
-      this._cells = Array.from(
-        {length:this._n},
-        (row) => Array.from(
-          {length:this._n},
-          (col) => new Cell(row, col, svg)
-        )
-      );
-    }
-}
+//       this._cells = Array.from(
+//         {length:this._n},
+//         (row) => Array.from(
+//           {length:this._n},
+//           (col) => new Cell(row, col, svg)
+//         )
+//       );
+//     }
+// }
 
 class Player
 {
@@ -196,13 +212,14 @@ class Player
      
     // or just give the container and player number?
     this._num = player_number;
+    this._opp = "p" + ((this._num % 2)+1);
     this._container = container;
     this._form = document.getElementById("p" + this._num + "-ship-opt");
     this._formSubmit = document.getElementById("p" + this._num + "-ship-opt-submit" );
     this._formSubmit.addEventListener("click", submitclick, true);
     this._formSubmit.obj = this;
-    this._b_placement = new Board( document.getElementById( 'p' + this._num + '-board-placement' ) );
-    this._b_target    = new Board( document.getElementById( 'p' + this._num + '-board-target' ) );
+    this._b_placement = document.getElementById( 'p' + this._num + '-board-placement' );
+    this._b_target    = document.getElementById( 'p' + this._num + '-board-target' );
     this._fleetSize = -1;
     this._shipsPlaced = 0;
     this._ships = null;
@@ -235,7 +252,34 @@ class Player
 
   _doTargetingTurn()
   {
-      alert("Targeting");
+      alert("Player " + this._num + ": Choose Target"); 
+      this._b_target.addEventListener("click", targetingCB, false );
+      this._b_target.obj = this;
+  }
+
+  _targetingHandler( e )
+  {
+    // let id = e.target
+    
+    let id = e.target.getAttribute("id");
+    let x = getXfromId(id);
+    let y = getYfromId(id);
+    
+    let ref = document.getElementById(e.currentTarget.obj._opp + "p" + alphabet[y] + x);
+
+    if (ref.classList.contains("s"))
+    {
+      document.getElementById(id).classList.add("h");
+      ref.classList.add("h");
+    } else {
+      document.getElementById(id).classList.add("m");
+      ref.classList.add("m");
+    }
+
+    e.currentTarget.obj._b_target.removeEventListener("click", targetingCB, false );
+    e.currentTarget.obj._parent.endTurn( e.currentTarget.obj._num );
+
+
   }
 
   // only called by _doFirstTurn; 
