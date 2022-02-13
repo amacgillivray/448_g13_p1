@@ -256,6 +256,14 @@
             text-decoration: none;
             cursor: pointer;
           }
+
+          .controls
+          {
+            display: none;
+            width: 150px;
+            padding-right: 50px;
+
+          }
         </style>
     </head>
     <body>
@@ -266,33 +274,36 @@
           <p>Battleship is a two player game where you will take turns trying to sink each others ships!</p>
         </div>
 
-    <!-- The Modal -->
-    <div id="myModal" class="modal">
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
 
-      <!-- Modal content -->
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <p>Player X won (will just pop up when the p1 button is used rn but will be changed to have conditions later)</p>
-      </div>
+          <!-- Modal content -->
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Player X won (will just pop up when the p1 button is used rn but will be changed to have conditions later)</p>
+          </div>
 
-    </div>
+        </div>
 
    
 
         <div id="p1-boards-container" class="container">
             <div class="buttons">
-              <p class="hidden">Player 1's Boards</p>
-              <p>Ship Placement Controls:</p>
-              <code style="text-align:left !important;">
-                < W >      Up<br/>
-                < S >      Down<br/>
-                < D >      Right<br/>
-                < A >      Left<br/>
-                < ENTER >  Confirm 
-              </code>
-              <p>Targeting: Point-And-Click</p>
+              <p class="hidden">Player 1's Boards<br/>
+                            Targeting: Point-And-Click
+              </p>
+              <div class="controls" id="instructions">
+                <p>Ship Placement Controls:</p>
+                <p style="text-align: left;" style="font-size: 50%;">
+                  < W >      Up<br/>
+                  < S >      Down<br/>
+                  < D >      Right<br/>
+                  < A >      Left<br/>
+                  < ENTER >  Confirm 
+                </p>
+              </div>
               <form id="p1-ship-opt" class="menu">
-                    <p>Player 1's Boards</p>
+                    <p>Player 1 select # of ships to place</p>
                     <p><label class="form-control" for="p1so_1"><input id="p1so_1" type="radio" value="1" name="p1so"/>1</label></p>
                     <p><label class="form-control" for="p1so_2"><input id="p1so_2" type="radio" value="2" name="p1so"/>2</label></p>
                     <p><label class="form-control" for="p1so_3"><input id="p1so_3" type="radio" value="3" name="p1so"/>3</label></p>
@@ -302,8 +313,8 @@
 
                      <script>
                        // good stuff, disabling for now for testing purposes
-                        {{/*  // Get the modal
-                        var modal = document.getElementById("myModal");
+                        {{  // Get the modal
+                        var modal = document.getElementById("instructions");
 
                         // Get the button that opens the modal
                         var btn = document.getElementById("p1-ship-opt-submit");
@@ -326,7 +337,12 @@
                           if (event.target == modal) {
                             modal.style.display = "none";
                           }
-                        }  */}}
+                        }  }}
+
+                        // var cnt = document.getElementById("instructions");
+                        // btn.onclick = function() {
+                        //   cnt.style.display = "block";
+                        // }
                     </script>
 
               </form>
