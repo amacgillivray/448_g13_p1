@@ -12,11 +12,30 @@
 
 "use strict";
 
+/**
+ * @brief Set to false to disable extraneous "console.log()" operations.
+ */
+const debug = true;
+
+/**
+ * @brief Used to determine row letter identifiers
+ * @details
+ * Only the first ten letters are used. To convert from a letter to a number,
+ * use "rowToNum". 
+ */
 const alphabet = [
     'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
     'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
 ];
 
+/**
+ * @brief Defines the names of each ship in a player's fleet.
+ * @details
+ * The values are grabbed in the Ship class constructor by fetching
+ *      "fleet[this._length-1]"
+ * i.e., the index of the array that is 1 less than the length of 
+ * the ship.
+ */
 const fleet = [
     "Patrol Boat",
     "Corvette",
@@ -24,6 +43,7 @@ const fleet = [
     "Battleship",
     "Carrier"
 ];
+
 
 const fleetStyles = [
     "pb",
@@ -33,44 +53,131 @@ const fleetStyles = [
     "crr"
 ];
 
-const debug = true;
+/**
+ * @brief converts a row letter to a number using the Alphabet constant.
+ */
+ function rowToNum(letter) {
+    return alphabet.indexOf(letter);
+}
 
+/**
+ * @brief Taking a cell ID of the form "p[1|2][p|t][A-J][0-9]", returns column number.
+ * @param {string} id 
+ * @returns {Number} The last character of the ID (the column number / x-coordinate),
+ *                as an integer.
+ */
+function getXfromId(id) {
+    return parseInt(id[4]);
+}
+
+/**
+ * @brief Taking a cell ID of the form "p[1|2][p|t][A-J][0-9]", returns column number.
+ * @param {string} id 
+ * @returns {Number} The 4th character of the ID (the row number / y-coordinate),
+ *                as an integer. 
+ * @note To get the y-coordinate as a letter, use the return value as the index of alphabet,
+ *       e.g. "let yAsLetter = alphabet[getYfromId(some_id)];"
+ */
+function getYfromId(id) {
+    return rowToNum(id[3]);
+}
+
+/**
+ * @brief Callback fn for keypress event listeners that listen for ship-placement
+ *        instructions (WASD QE Enter).
+ * @details
+ * This function is necessary (instead of an anonymous function) to allow 
+ * old / unnecessary eventListeners to be removed via removeEventListener().
+ * 
+ * @param {Event} e 
+ */
 function keydowncb(e) {
     e.currentTarget.obj._placementTurnHandler(e);
 }
 
+/**
+ * @brief Callback fn for click event listener on the "confirm" button 
+ *        shown to each player when they are selecting the number of ships
+ *        to place.
+ * @details
+ * This function is necessary (instead of an anonymous function) to allow 
+ * old / unnecessary eventListeners to be removed via removeEventListener().
+ * @param {Event} e 
+ */
 function submitclick(e) {
     e.currentTarget.obj._firstTurnHandler(e);
 }
 
+/**
+ * @brief Callback fn for click event listeners created for a player's 
+ *        "targeting" turn (that is, a turn where they click a cell on
+ *        the white grid in order to fire at that position on the opp.
+ *        player's board).
+ * @details
+ * This function is necessary (instead of an anonymous function) to allow 
+ * old / unnecessary eventListeners to be removed via removeEventListener().
+ * 
+ * @param {Event} e 
+ */
 function targetingCB(e) {
     e.currentTarget.obj._targetingHandler(e);
 }
 
 /**
- * @brief converts a row letter to a number
+ * @class Ship
+ * @brief Logical representation of a ship in the Battleship game.
  */
-function rowToNum(letter) {
-    return alphabet.indexOf(letter);
-}
-
-function getXfromId(id) {
-    return parseInt(id[4]);
-}
-
-function getYfromId(id) {
-    return rowToNum(id[3]);
-}
-
 class Ship {
-    constructor(board, parent, length) {
+
+    /**
+     * 
+     * @param {string} board
+     *        The 3-character cell-ID prefix assigned to a given board.
+     *        Ships are only logically represented for placement boards, 
+     *        so "board" should always be "p1p" or "p2p" (which correspond
+     *        to #p1-board-placement and #p2-board-placement, respectively).
+     * @param {Number} length
+     *        The length of the ship's longest side. 
+     */
+    constructor(board, length) {
+        
+        /**
+         * @brief The board prefix
+         */
         this._board = board;
-        this._parent = parent;
+        
+        /**
+         * @brief The length of the ship
+         */
         this._length = length;
+
+        /**
+         * @brief The name, from the "fleet" constant, assigned for 
+         *        ships of this length.
+         */
         this._name = fleet[length - 1];
+
+        /**
+         * @brief Boolean flag; true when 1 or more of the ship's cells
+         *        are already occupied by another ship.
+         */
         this._invalid = false;
+        
+        /**
+         * @brief Boolean flag; true when the ship has been placed and 
+         *        can no longer be moved.
+         */
         this._locked = false;
+        
+        /**
+         * @brief Array of strings, where each string is the ID of a cell
+         *        being occupied by the ship. 
+         */
         this._cells = Array(length);
+
+        /* Initialize the ship on the board by collecting an adequate # 
+           of Cell IDs and modifying their classlist to show them to the 
+           player. */
         for (let i = 0; i < length; i++) {
             let node = document.getElementById(board + alphabet[i] + 0);
             if (node.classList.contains("s")) {
@@ -86,6 +193,16 @@ class Ship {
         if (debug) console.log("Created " + board + " " + this._name);
     }
 
+    /**
+     * @brief Checks whether the specified translation exceeds the boundaries 
+     *        of the game board.
+     * @param {Number} offsetX
+     *              The number of cells the ship is moving in the X-direction 
+     * @param {Number} offsetY 
+     *              The number of cells the ship is moving in the Y-direction 
+     * @returns {boolean}
+     *          Whether or not the move is legal.
+     */
     _translateBoundsCheck(offsetX = 0, offsetY = 0) {
         for (let i = 0; i < this._length; i++) {
             let cell = this._cells[i];
@@ -98,6 +215,13 @@ class Ship {
         return true;
     }
 
+    /**
+     * @brief Prepares a cell that was being occupied by this ship to no longer
+     *        be occupied by this ship, by appropriately modifying the cell's 
+     *        class list.
+     * @param {Node} cell
+     *        DOM node for the cell being modified. NOT an ID string.  
+     */
     _prepMove( cell )
     {
         if (cell.classList.contains("so"))
@@ -106,6 +230,20 @@ class Ship {
             cell.classList.remove("s")
     }
 
+    /**
+     * @brief Applies a translation to the ship.
+     * @details
+     * If the requested move is legal, the ship will update it's "this._cells"
+     * array as well as the DOM to stop occupying the old cells, and start 
+     * occupying the ones that it will be in after moving +offsetX cols and
+     * +offsetY rows.
+     * 
+     * @param {Number} offsetX
+     *        The number of columns to move 
+     * @param {Number} offsetY 
+     *        The number of rows to move
+     * @returns {void}
+     */
     translate(offsetX = 0, offsetY = 0) {
         if (this._locked || !this._translateBoundsCheck(offsetX, offsetY))
             return;
@@ -119,10 +257,6 @@ class Ship {
             let x = getXfromId(this._cells[i]);
             let y = getYfromId(this._cells[i]);
 
-            // if (cell.classList.contains("so"))
-            //     cell.classList.remove("so");
-            // else if (!cell.classList.contains("l"))
-            //     cell.classList.remove("s")
             this._prepMove(cell);
 
             x = offsetX + parseInt(x);
@@ -142,6 +276,11 @@ class Ship {
         return;
     }
 
+    /**
+     * @brief Rotates the ship, anti-clockwise or clockwise
+     * @param {boolean} ccw [ = true ]
+     * @returns {void} 
+     */
     rotate(ccw = true) 
     {
         if (this._locked)
@@ -169,7 +308,7 @@ class Ship {
             originHigh = ( ox > getXfromId( this._cells[this._length-1] ) );
 
         // Loop 1: Calculate new cell positions
-        // NOTE - I starts at one, because the origin is not translated
+        // NOTE - i starts at one, because the origin is not altered by rotation.
         for (let i = 1; i < this._length; i++) 
         {
             let x = getXfromId(this._cells[i]);
@@ -179,9 +318,8 @@ class Ship {
 
             // Conditional Rotation Matrix:
             // Outer  Condition: if Counter-Clockwise 
-            // Middle Condition: if OriginHigh
+            // Middle Condition: if OriginHigh 
             // Inner  Condition: if Vertical
-            // [ Forms Matrix of 8 Conditions ]
             if ( ccw ){
                 if ( originHigh ){
                     // C1
@@ -256,6 +394,7 @@ class Ship {
                 }
             }
 
+            // If the rotation moves any cell out-of-bounds, do not apply it
             if ( new_x < 0 || new_x > 9 || new_y < 0 || new_y > 9 ) 
             {
                 if (debug) console.log("Skipping rotation resulting in x=" + new_x + ", y=" + new_y + ", for cell " + i);
@@ -263,6 +402,7 @@ class Ship {
                 return;
             }
 
+            // Store the new ID string in "new_cells" so the rotation can be applied in L2
             new_cells[i] = this._board + alphabet[new_y] + new_x;
         }   
 
@@ -283,72 +423,127 @@ class Ship {
         }
         return;
     }
-    
-    _lock() {
-        this._locked = true;
-        for (let i = 0; i < this._length; i++) {
-            let cell = document.getElementById(this._cells[i]);
-            cell.classList.add("l"); // indicates locked
-            cell.setAttribute("title", this._name);
 
-        }
-    }
-
+    /**
+     * @brief Confirms the ship's placement
+     * @returns {boolean}
+     *          True:  The ship's placement was confirmed
+     *          False: The ship is in at least one already-occupied space and
+     *                 cannot be placed.
+     */
     _confirm() {
         if (!this._invalid)
             this._lock();
         return !this._invalid;
-
-        // if (this._invalid)
-        //   return false;
-        // else {
-        //   this._parent._endPlacementTurn(this._length);
-        //   this._parent._shipsPlaced++;
-        //   return true;
-        // }
     }
 
-
-
+    /**
+     * @internal
+     * @brief Locks the ship's placement
+     * @pre   none
+     * @post  this._locked = true
+     *        Further attempts to translate or rotate the ship will be ignored.
+     */
+    _lock() {
+        this._locked = true;
+        for (let i = 0; i < this._length; i++) {
+            let cell = document.getElementById(this._cells[i]);
+            cell.classList.add("l"); // "l" indicates locked
+            cell.setAttribute("title", this._name);
+        }
+    }
 }
 
-
-// class Board
-// {
-//     constructor( rootNode )
-//     {
-//       this._root = rootNode;
-
-//       this._cells = Array.from(
-//         {length:this._n},
-//         (row) => Array.from(
-//           {length:this._n},
-//           (col) => new Cell(row, col, svg)
-//         )
-//       );
-//     }
-// }
-
+/**
+ * @class Player
+ * @brief Defines a logical represenation of the game's players.
+ * @uses  Ship
+ * @uses  Game
+ */
 class Player {
 
+    /**
+     * @param {Game} game 
+     *        The Game object that owns this player.
+     * @param {Node} container 
+     *        The DOM Node that contains this player's screen (UI, boards).
+     * @param {number} player_number 
+     *        The player number (needed to determine ID strings for some operations).
+     */
     constructor(game, container, player_number) {
+
+        /**
+         * @brief The Game that owns the player.
+         */
         this._parent = game;
 
-        // or just give the container and player number?
-        this._num = player_number;
-        this._opp = "p" + ((this._num % 2) + 1);
+        /**
+         * @brief The node containing all of the interactive elements for this player.
+         */
         this._container = container;
+
+        /**
+         * @brief The player number
+         */
+        this._num = player_number;
+        
+        // /**
+        //  * @brief String "p1" or "p2" that identifies the opposing player. 
+        //  * @details
+        //  * Provided solely for 
+        //  */
+        // this._opp = "p" + ((this._num % 2) + 1);
+
+        /**
+         * @brief The HTML form element used by this player to select how many ships they
+         *        want to place on their board.
+         */
         this._form = document.getElementById("p" + this._num + "-ship-opt");
+
+        /**
+         * @brief The HTML submit button that is used to submit this._form.
+         */
         this._formSubmit = document.getElementById("p" + this._num + "-ship-opt-submit");
-        this._formSubmit.addEventListener("click", submitclick, true);
-        this._formSubmit.obj = this;
+            // Add event listener and reference to this object to handle form submission
+            this._formSubmit.addEventListener("click", submitclick, true);
+            this._formSubmit.obj = this;
+
+        /**
+         * @brief Node for the SVG element where this player places their ships.
+         */
         this._b_placement = document.getElementById('p' + this._num + '-board-placement');
+
+        /**
+         * @brief Node for the SVG element that this player clicks when guessing
+         *        the location of enemy ships
+         */
         this._b_target = document.getElementById('p' + this._num + '-board-target');
+
+        /**
+         * @brief The size of this player's fleet. Pertains to the number (1-5) chosen
+         *        in the player's form.
+         */
         this._fleetSize = -1;
+
+        /**
+         * @brief The number of ships the player has placed so far. 
+         *        Used to control the flow of ship placement operations.
+         */
         this._shipsPlaced = 0;
+
+        /**
+         * @brief An array of {Ship} objects for this player
+         */
         this._ships = null;
     }
 
+    /**
+     * @brief Gives this player a turn of the specified type ("first" or "targeting").
+     * @details
+     * This function is mostly redundant, but still exists as a 
+     * @param {string} type 
+     * @returns 
+     */
     giveTurn(type = "targeting") {
         // maybe have parameter "type", for "placement" or "targeting"
         // where type would be "placement" until all ships have been placed,
@@ -371,21 +566,44 @@ class Player {
         return;
     }
 
-
+    /**
+     * @internal
+     * @brief Creates an event listener for clicks on the player's targeting board.
+     * @pre   The player's targeting board is not interactive
+     * @post  Clicking the player's target board fires an event and ends the turn.
+     * @uses  targetingCB
+     *        Callback function; simply ensures that this._targetingHandler(e) is 
+     *        called when the board is clicked.
+     */
     _doTargetingTurn() {
         alert("Player " + this._num + ": Choose Target");
         this._b_target.addEventListener("click", targetingCB, false);
         this._b_target.obj = this;
     }
 
+    /**
+     * @internal
+     * @brief @
+     */
     _targetingHandler(e) {
-        // let id = e.target
 
         let id = e.target.getAttribute("id");
         let x = getXfromId(id);
         let y = getYfromId(id);
 
-        let ref = document.getElementById(e.currentTarget.obj._opp + "p" + alphabet[y] + x);
+        // This is checking the cell on the opposing player's placement board that has the same 
+        // row and column number. Thus, the cell ID we're looking for will be of the form: 
+        //      "pXp[A-J][0-9]"
+        // Where X = 2 if the current player is 1, and vice-versa, and the last two digits correspond
+        // to the clicked cell's x and y coordinates.
+        let ref = document.getElementById(
+            "p" +                                   // p 
+            ((e.currentTarget.obj._num % 2) + 1) +  // 1 or 2
+            "p" +                                   // p
+            alphabet[y] +                           // some col in A-J
+            x                                       // some int in 0-9
+        );
+
         let ship = null;
 
         if (ref.classList.contains("s")) {
@@ -402,7 +620,15 @@ class Player {
 
     }
 
-    // only called by _doFirstTurn; 
+    /**
+     * @internal
+     * @brief Places a ship.
+     * @param {Player} obj 
+     *        Parameter allows reference to this object after event listener callback
+     *        (todo - can we get rid of this?)
+     * @param {Number} shipLength 
+     *        The length of the ship being placed
+     */
     _doPlacementTurn(obj, shipLength) {
         alert("Placing ship of size 1x" + shipLength);
         window.addEventListener("keydown", keydowncb, true);
@@ -410,6 +636,13 @@ class Player {
         this._ships[this._shipsPlaced] = new Ship("p" + this._num + "p", this, shipLength);
     }
 
+    /**
+     * @internal
+     * @brief Handles a placement turn by using specific keystrokes to modify the ship's
+     *        location / confirm placement.
+     * @param {Event} e 
+     * @returns {void}
+     */
     _placementTurnHandler(e) {
         
         let ship = this._ships[this._shipsPlaced];
@@ -474,8 +707,10 @@ class Player {
     }
 
     /** 
-     * called by ship after placement is confirmed, 
-     *  allows js to wait for input
+     * @internal
+     * @brief Called after placement is confirmed. Ends the current placement, then
+     *        starts a new one or tells the game to end the turn for the current 
+     *        player.
      */
     _endPlacementTurn(i) {
         // this._shipsPlaced++;
@@ -490,6 +725,13 @@ class Player {
         return;
     }
 
+    /**
+     * @internal
+     * @brief Gets the number of ships the player wants to use, then
+     *        starts placement operations until that many ships are 
+     *        on the player's board.
+     * @param {*} e 
+     */
     _firstTurnHandler(e) {
         e.preventDefault();
 
@@ -510,39 +752,75 @@ class Player {
         this._doPlacementTurn(this, this._shipsPlaced + 1);
     }
 
-
-
+    /**
+     * @brief Hides this player's screen (this._container)
+     */
     _hide() {
         this._container.classList.toggle("hidden", true);
     }
 }
 
+/**
+ * @class Game
+ * @brief Logical representation of the Battleship game. 
+ *        Controls each player and the flow of turns.
+ * @uses  Player
+ */
 class Game {
+
     constructor() {
+
+        /**
+         * @brief Player 1
+         */
         this._p1 = new Player(
             this,
             document.getElementById("p1-boards-container"),
             1
         );
 
+        /**
+         * @brief Player 2
+         */
         this._p2 = new Player(
             this,
             document.getElementById("p2-boards-container"),
             2
         );
+
+        /**
+         * @brief Player 1's turn count
+         */
+        this._p1tc = 1;
+    
+        /**
+         * @brief Player 2's turn count
+         */
+        this._p2tc = 0;
+
     }
 
-
-
+    /**
+     * @brief Starts the game.
+     */
     start() {
 
         // alert("Working!");
         this._p2._hide();
         this._p1.giveTurn("first");
-        this._p1tc = 1;
-        this._p2tc = 0;
     }
 
+    /**
+     * @brief Ends a player's turn. Called by the Player class
+     * @details
+     * Has logic to ensure both players get to place their ships ("first" turn)
+     * and then will repeat targeting turns for each player until a player wins.
+     * 
+     * @pre   It was Player forPlayer's turn
+     * @post  It is now the other player's turn
+     * 
+     * @param {Number} forPlayer 
+     */
     endTurn(forPlayer) {
         if (forPlayer == 1) {
             this._p1._hide();
@@ -562,5 +840,6 @@ class Game {
     }
 }
 
+// Lets get started
 let game = new Game();
 game.start();
