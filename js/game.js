@@ -5,9 +5,25 @@ const alphabet = [
     'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
 ];
 
+const fleet = [
+    "Patrol Boat",
+    "Corvette",
+    "Frigate", 
+    "Battleship",
+    "Carrier"
+];
+
+const debug = true;
+
 function keydowncb( e )
 {
   e.currentTarget.obj._placementTurnHandler(e);
+}
+
+function submitclick( e )
+{
+    e.currentTarget.obj._firstTurnHandler( e );
+    // e.preventDefault();
 }
 
 /**
@@ -35,7 +51,9 @@ class Ship
         this._board  = board;
         this._parent = parent;
         this._length = length;
+        this._name = fleet[length-1];
         this._invalid = false;
+        this._locked = false;
         this._cells  = Array(length);
         for (let i = 0; i < length; i++)
         {    
@@ -48,6 +66,7 @@ class Ship
             }
             this._cells[i] = board+alphabet[i]+0;
         }
+        if (debug) console.log("Created " + board + " " + this._name );
     }
 
     _translateBoundsCheck( offsetX = 0, offsetY = 0 )
@@ -60,13 +79,13 @@ class Ship
         if ( new_x < 0 || new_x > 9 || new_y < 0 || new_y > 9 )
           return false;
       }
-      console.log("Move is in-bounds.")
+      if (debug) console.log("Move is in-bounds.")
       return true;
     }
 
     translate( offsetX = 0, offsetY = 0)
     {
-      if (!this._translateBoundsCheck( offsetX, offsetY ))
+      if (this._locked || !this._translateBoundsCheck( offsetX, offsetY ))
           return;
 
       // reset to false; if new position is not overlapping, will stay false,
@@ -81,24 +100,25 @@ class Ship
 
         if (cell.classList.contains("so"))
           cell.classList.remove("so");
-        else
+        else if (!cell.classList.contains("l"))
           cell.classList.remove("s")
 
         x = offsetX+parseInt(x);
         y = offsetY+y;
         this._cells[i] = this._board + alphabet[y] + x;
-        console.log(this._cells[i]);
 
+        if (debug) console.log(this._cells[i]);
+        
         let newCell = document.getElementById(this._cells[i]);
-
         if (newCell.classList.contains("s")) 
         {
           this._invalid = true;
-          newCell.classList.toggle("so", true);
+          newCell.classList.add("so", true);
         } else {
           newCell.classList.toggle("s", true);
         }
       }
+      return;
     }
 
     rotateQ()
@@ -112,12 +132,30 @@ class Ship
         // manual boundary check
     }
 
-    _confirm()
+    _lock()
     {
-        if (this._invalid)
-          return;
-        else 
-          this._parent._endPlacementTurn(this._length);
+      this._locked = true;
+      for (let i = 0; i < this._length; i++)
+      {
+        let cell = document.getElementById(this._cells[i]);
+        cell.classList.add("l"); // indicates locked
+        cell.setAttribute("owner", this._name);
+      }
+    }
+
+    _confirm()
+    {   
+        if (!this._invalid)
+            this._lock();
+        return this._invalid;
+
+        // if (this._invalid)
+        //   return false;
+        // else {
+        //   this._parent._endPlacementTurn(this._length);
+        //   this._parent._shipsPlaced++;
+        //   return true;
+        // }
     }
 }
 
@@ -148,11 +186,13 @@ class Player
     // or just give the container and player number?
     this._num = player_number;
     this._container = container;
-    this._b_placement = new Board( document.getElementById( 'p' + this._num + '-board-placement' ) );
-    this._b_target    = new Board( document.getElementById( 'p' + this._num + '-board-target' ) );
     this._form = document.getElementById("p" + this._num + "-ship-opt");
     this._formSubmit = document.getElementById("p" + this._num + "-ship-opt-submit" );
-    this._shipCount = -1;
+    this._formSubmit.addEventListener("click", submitclick, true);
+    this._formSubmit.obj = this;
+    this._b_placement = new Board( document.getElementById( 'p' + this._num + '-board-placement' ) );
+    this._b_target    = new Board( document.getElementById( 'p' + this._num + '-board-target' ) );
+    this._fleetSize = -1;
     this._shipsPlaced = 0;
     this._ships = null;
   }
@@ -171,16 +211,14 @@ class Player
       case "targeting" :
         this._doTargetingTurn();
         break;
-      case "placement" :
-        this._doPlacementTurn();
-        break;
-      case "first":
-        this._doFirstTurn( this );
+      case "first": 
+        // no action needed;
         break;
       default:
         window.alert("Invalid turn type specified: " + type);
         break;
     }
+    return;
   }
 
 
@@ -193,38 +231,36 @@ class Player
   _doPlacementTurn( obj, shipLength )
   {
       alert("Placing ship of size 1x" + shipLength);
-      this._ships[this._shipsPlaced] = new Ship( "p"+this._num+"p", this, shipLength);
       window.addEventListener("keydown", keydowncb, false);
       window.obj = obj;
+      this._ships[this._shipsPlaced] = new Ship( "p"+this._num+"p", this, shipLength);
   }
-  
-
 
   _placementTurnHandler( e )
   {
       // this._ships[this._shipsPlaced] = new Ship(this._shipsPlaced+1);
-      console.log(e.code);
+      if (debug) console.log(e.code);
       switch (e.code)
       {
           case "Enter":
-            window.removeEventListener("keydown", keydowncb, false);
             this._shipsPlaced++;
-            this._ships[this._shipsPlaced-1]._confirm();
+            if ( this._ships[this._shipsPlaced-1]._confirm() ) {
+                window.removeEventListener("keydown", keydowncb, false);
+                this._endPlacementTurn(this._ships[this._shipsPlaced-1]._length);
+            } else {
+                this._shipsPlaced--;
+            }
             break;
-          case "KeyA":
-            // this._ships[this._shipsPlaced].moveA();
+          case "KeyA":  
             this._ships[this._shipsPlaced].translate( -1 , 0 );
             break;
           case "KeyD":
-            // this._ships[this._shipsPlaced].moveD();
             this._ships[this._shipsPlaced].translate( 1 , 0 );
             break;
           case "KeyW":
-            // this._ships[this._shipsPlaced].moveW();
             this._ships[this._shipsPlaced].translate( 0 , -1 );
             break;
           case "KeyS":
-            // this._ships[this._shipsPlaced].moveS();
             this._ships[this._shipsPlaced].translate( 0 , 1 );
             break;
           default:
@@ -239,41 +275,39 @@ class Player
    */
   _endPlacementTurn( i )
   {
-      if (this._shipsPlaced == this._shipCount)
-      {
-        window.obj = null;
-        this._form.classList.toggle("hidden", true);
-        this._parent.endTurn( this._num );
-        return;
-      }
-      this._doPlacementTurn(this, this._shipsPlaced+1);
+    this._shipsPlaced++;
+    // window.removeEventListener("keydown", keydowncb, false);
+    if (this._shipsPlaced >= this._fleetSize)
+    {
+      this._form.classList.toggle("hidden", true);
+      this._parent.endTurn( this._num );
       return;
-  }
-  
-
-  _doFirstTurn( obj ) 
-  {
-    this._formSubmit.addEventListener("click", function(e){ 
-        obj._firstTurnHandler(e) }, false );
+    } else {
+      this._doPlacementTurn(this, i+1);
+    }
+    return;
   }
   
   _firstTurnHandler( e )
   {
+    e.preventDefault();
+    if (this._shipsPlaced > 0) return;
+
       let str = "p" + this._num + "so_";
       for ( let i = 1; i <=5; i++ )
       {
           // alert(str+i);
           let button = document.getElementById(str + i); 
           if (button.checked)  {
-              this._shipCount = button.value;
-              this._ships = Array(this._shipCount);
+              this._fleetSize = button.value;
+              this._ships = Array(this._fleetSize);
+              if (debug) console.log("Player " + this._num + " will place " + this._fleetSize + " ships.")
               break;
           }
       }
-      e.preventDefault();
-      
+      this._form.classList.toggle("hidden", true);
+      this._formSubmit.removeEventListener("click", submitclick, false);
       this._doPlacementTurn(this, 1);
-
   }
 
   
@@ -311,11 +345,6 @@ class Game
     
     this._p1tc = 0;
     this._p2tc = 0;
-    // this._p1._hide();
-    // 
-    // this._p2.giveTurn("first");
-    // this._p2._hide();
-    // this.loop();
   }
   
   endTurn( forPlayer )
