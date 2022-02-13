@@ -467,7 +467,7 @@ class Player {
      *        The Game object that owns this player.
      * @param {Node} container 
      *        The DOM Node that contains this player's screen (UI, boards).
-     * @param {number} player_number 
+     * @param {Number} player_number 
      *        The player number (needed to determine ID strings for some operations).
      */
     constructor(game, container, player_number) {
@@ -540,7 +540,8 @@ class Player {
     /**
      * @brief Gives this player a turn of the specified type ("first" or "targeting").
      * @details
-     * This function is mostly redundant, but still exists as a 
+     * This function is mostly redundant, but still exists as an easy way to toggle the 
+     * visibility of each player's screen.
      * @param {string} type 
      * @returns 
      */
@@ -616,8 +617,6 @@ class Player {
 
         e.currentTarget.obj._b_target.removeEventListener("click", targetingCB, false);
         e.currentTarget.obj._parent.endTurn(e.currentTarget.obj._num);
-
-
     }
 
     /**
@@ -633,7 +632,7 @@ class Player {
         alert("Placing ship of size 1x" + shipLength);
         window.addEventListener("keydown", keydowncb, true);
         window.obj = obj;
-        this._ships[this._shipsPlaced] = new Ship("p" + this._num + "p", this, shipLength);
+        this._ships[this._shipsPlaced] = new Ship("p" + this._num + "p", shipLength);
     }
 
     /**
