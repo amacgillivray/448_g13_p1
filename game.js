@@ -358,12 +358,19 @@ class Ship {
         // otherwise will be set to true
         this._invalid = false;
 
+        // Go ahead and get rid of the classes that act as "occupied" flags
+        // before using those occupied flags to tell whether or not a new
+        // position is valid. (This keeps the ship from invalidating itself 
+        // when a new cell position was also an old cell position, such
+        // as when moving in a vertical line while vertically oriented.)
+        for (let i = 0; i < this._length; i++)
+        {
+            this._prepMove(document.getElementById(this._cells[i]));
+        }
+
         for (let i = 0; i < this._length; i++) {
-            let cell = document.getElementById(this._cells[i]);
             let x = getXfromId(this._cells[i]);
             let y = getYfromId(this._cells[i]);
-
-            this._prepMove(cell);
 
             x = offsetX + parseInt(x);
             y = offsetY + y;
