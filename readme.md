@@ -1,34 +1,22 @@
 Battleship Project
 ==================
 
-## Planned Language(s): 
-To be determined
+The project uses JavaScript and SVG elements to create the game.
 
-## Planned Classes:
+Most of the game's logic exists in the "game.js" file, which provides
+thorough explanations for some all of the variables and functions.
 
-### Board 
-Constructed with a parameterized size
-Creates a 2D (size NxN) array of cell objects 
-Two boards exist per game
-Tracks position of 5 ships, called cells (hits/misses)
+Here's how the game works:
 
-#### Player's Board
-Each player is given a "player's board" (name subject to change), where they place their own ships. 
-The opposing player's called cells are checked against this board for hits/misses.
+The `Game` class is created.
+It creates two `Player` objects.
+Each player object is given a first turn, where they create and place 1-5 `Ship` objects.
+Then, each player is given `"targeting"` turns until someone wins.
 
-#### Tracking Board
-Each player also gets a "tracking board", which tracks and displays their hits and misses while
-hiding the placement of their opponent's ships.
+## Other Notes
 
+### Unused Assets
+There are unused assets (carrier.svg) in the `/assets` folder that would make a beautiful improvement to the game board if completed.
 
-### Cell
-Tracks the status of a single cell on the board
-    is_occupied flag tracks whether or not a ship is in the square
-    was_called flag tracks whether or not the opponent has called this square
-        if is_occupied && was_called, then hit
-        if !is_occupied && was_called, then miss
-    
-### Ship
-The ship class is constructed with a length, and tracks
-both the orientation of the ship as it is placed as well as the cells that it is occupying.
-
+### Ships (Per Player) - Interpretation
+Our group was uncertain about the interpretation of "Number of Ships (per player)" and interpreted it to mean that each player chooses their own number of ships.
