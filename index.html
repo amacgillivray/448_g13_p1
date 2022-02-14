@@ -3,7 +3,9 @@
 
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Battleship</title>
+    
     <style>
         .a {
             fill: none;
@@ -158,10 +160,11 @@
             background-color: #f44;
         }
 
-        form {
+        form,
+        .buttons {
             display: grid;
-            place-content: center;
-            min-height: 100vh;
+            min-height: calc(100vh - 232px);
+            padding-right: 15px;
         }
 
         .form-control {
