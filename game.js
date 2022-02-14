@@ -724,6 +724,10 @@ class Player {
         if ( !e.target.nodeName == "rect" )
             return;
 
+        // ignore clicks on elements that were already targeted
+        if ( e.target.classList.contains("h") || e.target.classList.contains("m") )
+            return;
+
         let id = e.target.getAttribute("id");
         let x = getXfromId(id);
         let y = getYfromId(id);
