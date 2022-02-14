@@ -6,7 +6,7 @@ Man-Hours
 
 ## Actual
 
-**Total:** 28 man-hours
+**Total:** 31 man-hours
 !-- UPDATE THIS AS YOU FILL IN YOUR HOURS --!
 
 
@@ -34,6 +34,5 @@ Total:    28 man-hours
 
 ### Nhat Nyugen
 ```
+3 hours: Nhat Nguyen
 ```
-
-
