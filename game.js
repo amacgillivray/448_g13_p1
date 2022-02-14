@@ -44,7 +44,6 @@ const fleet = [
     "Carrier"
 ];
 
-
 const fleetStyles = [
     "pb",
     "cvt",
@@ -52,6 +51,11 @@ const fleetStyles = [
     "bshp",
     "crr"
 ];
+
+/**
+ * @brief The HTML attribute that indicates what ship owns a cell. 
+ */
+const shipAttribute = "data-s";
 
 /**
  * @brief converts a row letter to a number using the Alphabet constant.
@@ -196,15 +200,25 @@ class Ship {
         this._cells = Array(length);
 
         /**
+         * @brief Tracks the ship's health
+         */
+        this._health = length;
+
+        /**
+         * @brief Tracks how many times the ship has been hit. 
+         *        Used to control the health-indicator's color
+         */
+        this._timesHit = 0;
+
+        /**
          * @brief The HTML node that contains the ship name and health.
          */
         this._uiHealth = document.getElementById("p" + board[1] + "s" + length );
 
         /**
-         * @brief HTML span element whose innerHTML tells the player how much
-         *        health the ship has.
+         * @brief HTML span element whose innerHTML is this._health
          */
-        this._uiHealthInd = document.getElementById("p" + board[1] + "s" + length );
+        this._uiHealthInd = document.getElementById("p" + board[1] + "s" + length + "h");
 
         /* Initialize the ship on the board by collecting an adequate # 
            of Cell IDs and modifying their classlist to show them to the 
@@ -411,7 +425,7 @@ class Ship {
 
             // Store the new ID string in "new_cells" so the rotation can be applied in L2
             new_cells[i] = this._board + alphabet[new_y] + new_x;
-        }   
+        }
 
         // Loop 2: Apply Rotation
         // NOTE - I starts at one, because the origin is not translated
@@ -431,9 +445,24 @@ class Ship {
         return;
     }
 
+    /**
+     * @brief Updates the ship's health and the health display in the player's UI.
+     * @return {boolean}
+     *         True:  The ship was destroyed
+     *         False: The ship is hanging on for dear life.
+     */
     decrementHealth()
     {
-        // this._uiHealthInd.innerHTML
+        this._timesHit++;
+        this._health--;
+        this._uiHealthInd.innerHTML = this._health;
+        if (this._health<=0){
+            this._uiHealth.classList.add("dstry");
+            return true;
+        } else {
+            this._uiHealth.classList.add("hit" + this._timesHit);
+            return false;
+        }
     }
 
     /**
@@ -461,7 +490,7 @@ class Ship {
         for (let i = 0; i < this._length; i++) {
             let cell = document.getElementById(this._cells[i]);
             cell.classList.add("l"); // "l" indicates locked
-            cell.setAttribute("title", this._name);
+            cell.setAttribute(shipAttribute, this._name);
         }
     }
 }
@@ -555,6 +584,21 @@ class Player {
          */
         this._ships = null;
 
+        /**
+         * @brief The number of ships deployed by the enemy player.
+         * @details
+         * Used to evaluate win conditions at the end of a targeting turn that scored a hit.
+         * Remains -1 until this._targetingHandler() has been triggered (which is the first
+         * time win conditions need to be evaluated).
+         */
+        this._oppShips = -1;
+
+        /**
+         * @brief How many of the opposing player's ships have been destroyed
+         * @todo 
+         */
+        this._oppShipsDestroyed = 0;
+
     }
 
     /**
@@ -612,6 +656,14 @@ class Player {
         let x = getXfromId(id);
         let y = getYfromId(id);
 
+        // Get the opposing player's JavaScript object.
+        // We'll use this to update their ship's health if the current player scored a hit.
+        let opponent = (e.currentTarget.obj._num == 1) ? e.currentTarget.obj._parent._p2 : e.currentTarget.obj._parent._p1;
+        if (e.currentTarget.obj._oppShips == -1)
+        {
+            e.currentTarget.obj._oppShips = opponent._fleetSize;
+        }
+
         // This is checking the cell on the opposing player's placement board that has the same 
         // row and column number. Thus, the cell ID we're looking for will be of the form: 
         //      "pXp[A-J][0-9]"
@@ -625,9 +677,17 @@ class Player {
             x                                       // some int in 0-9
         );
 
-        let ship = null;
-
         if (ref.classList.contains("s")) {
+            
+            if (debug) console.log(opponent);
+
+            // Update the health of the opposing player's ship
+            let shipHit = ref.getAttribute(shipAttribute);
+                shipHit = fleet.indexOf(shipHit);
+            if ( opponent._ships[shipHit].decrementHealth() )
+                e.currentTarget.obj._oppShipsDestroyed++
+            
+            // Track the hit visually by adding a hitmarker (red fill color / "h" class)
             document.getElementById(id).classList.add("h");
             ref.classList.add("h");
             alert("Hit!");
@@ -639,6 +699,11 @@ class Player {
 
         e.currentTarget.obj._b_target.removeEventListener("click", targetingCB, false);
         e.currentTarget.obj._turnEndButton.classList.add("suggest");
+
+        // Trigger win if the last opponent ship was destroyed
+        if (e.currentTarget.obj._oppShipsDestroyed == e.currentTarget.obj._oppShips)
+            e.currentTarget.obj._parent.triggerWin(e.currentTarget.obj._num);
+
         // e.currentTarget.obj._parent.endTurn(e.currentTarget.obj._num);
     }
 
@@ -866,6 +931,19 @@ class Game {
                 this._p1.giveTurn("targeting");
         }
     }
+
+    /**
+     * @brief Displays a victory message for the winning player.
+     * @param {Number} forPlayer 
+     */
+    triggerWin( forPlayer )
+    {
+        alert("A grueling battle... But " + forPlayer + " has come out on top!");
+        location.reload();
+
+        // todo - show all 4 boards before reloading? 
+    }
+
 }
 
 // Lets get started
