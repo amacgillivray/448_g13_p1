@@ -154,6 +154,10 @@
             color: white;
         }
 
+        .submit.suggest {
+            background-color: #f44;
+        }
+
         form {
             display: grid;
             place-content: center;
@@ -321,13 +325,13 @@
               <div class="database" id="p1Database">
                 <p>Your Ships</p>
                 <div style="text-align: left;">
-                  <div class="dtbItem" id="p1Ca">< Carrier >     x/5<br/></div>
-                  <div class="dtbItem" id="p1Ba">< Battleship >  x/4<br/></div>
-                  <div class="dtbItem" id="p1Cr">< Cruiser >     x/3<br/></div>
-                  <div class="dtbItem" id="p1Su">< Submarine >   x/2<br/></div>
-                  <div class="dtbItem" id="p1De">< Destroyer >   x/1</div>
+                  <div class="dtbItem" id="p1Ca">< Carrier >     <span id="p1s5h">5</span>/5<br/></div>
+                  <div class="dtbItem" id="p1Ba">< Battleship >  <span id="p1s4h">4</span>/4<br/></div>
+                  <div class="dtbItem" id="p1Cr">< Destroyer >   <span id="p1s3h">3</span>/3<br/></div>
+                  <div class="dtbItem" id="p1Su">< Cruiser >     <span id="p1s2h">2</span>/2<br/></div>
+                  <div class="dtbItem" id="p1De">< Patrol Boat > <span id="p1s1h">1</span>/1</div>
                 </div>
-                <p><input class="submit" id="p1-end turn" type="submit" value="End Turn" /></p>
+                <p><a class="submit" id="p1-end-turn" href="javascript:void(0);">End Turn</a></p>
               </div>
             <form id="p1-ship-opt" class="menu">
                 <p>Player 1: Select # of Ships</p>
@@ -600,13 +604,13 @@
               <div class="database" id="p2Database">
                 <p>Your Ships</p>
                 <div style="text-align: left;">
-                  <div class="dtbItem" id="p2Ca">< Carrier >     x/5<br/></div>
-                  <div class="dtbItem" id="p2Ba">< Battleship >  x/4<br/></div>
-                  <div class="dtbItem" id="p2Cr">< Cruiser >     x/3<br/></div>
-                  <div class="dtbItem" id="p2Su">< Submarine >   x/2<br/></div>
-                  <div class="dtbItem" id="p2De">< Destroyer >   x/1</div>
+                  <div class="dtbItem" id="p2s5">< Carrier >     <span id="p2s5h">5</span>/5<br/></div>
+                  <div class="dtbItem" id="p2s4">< Battleship >  <span id="p2s4h">4</span>/4<br/></div>
+                  <div class="dtbItem" id="p2s3">< Destroyer >   <span id="p2s3h">3</span>/3<br/></div>
+                  <div class="dtbItem" id="p2s2">< Cruiser >     <span id="p2s2h">2</span>/2<br/></div>
+                  <div class="dtbItem" id="p2s1">< Patrol Boat > <span id="p2s1h">1</span>/1</div>
                 </div>
-                <p><input class="submit" id="p2-end turn" type="submit" value="End Turn" /></p>
+                <p><a class="submit" id="p2-end-turn" href="javascript:void(0);">End Turn</a></p>
               </div>
             <p class="hidden">Player 2's Boards</p>
             <form id="p2-ship-opt" class="menu">
@@ -925,25 +929,25 @@
 
               //Checks how many ships were selected and displays the health of those ships on the side 
               if(document.getElementById("p2so_1").checked == true){
-                (document.getElementById("p2De")).style.display = "block";
+                (document.getElementById("p2s1")).style.display = "block";
               } else if(document.getElementById("p2so_2").checked == true){
-                (document.getElementById("p2De")).style.display = "block";
-                (document.getElementById("p2Su")).style.display = "block";
+                (document.getElementById("p2s1")).style.display = "block";
+                (document.getElementById("p2s2")).style.display = "block";
               } else if(document.getElementById("p2so_3").checked == true){
-                (document.getElementById("p2De")).style.display = "block";
-                (document.getElementById("p2Su")).style.display = "block";
-                (document.getElementById("p2Cr")).style.display = "block";
+                (document.getElementById("p2s1")).style.display = "block";
+                (document.getElementById("p2s2")).style.display = "block";
+                (document.getElementById("p2s3")).style.display = "block";
               } else if(document.getElementById("p2so_4").checked == true){
-                (document.getElementById("p2De")).style.display = "block";
-                (document.getElementById("p2Su")).style.display = "block";
-                (document.getElementById("p2Cr")).style.display = "block";
-                (document.getElementById("p2Ba")).style.display = "block";
+                (document.getElementById("p2s1")).style.display = "block";
+                (document.getElementById("p2s2")).style.display = "block";
+                (document.getElementById("p2s3")).style.display = "block";
+                (document.getElementById("p2s4")).style.display = "block";
               } else if(document.getElementById("p2so_5").checked == true){
-                (document.getElementById("p2De")).style.display = "block";
-                (document.getElementById("p2Su")).style.display = "block";
-                (document.getElementById("p2Cr")).style.display = "block";
-                (document.getElementById("p2Ba")).style.display = "block";
-                (document.getElementById("p2Ca")).style.display = "block";
+                (document.getElementById("p2s1")).style.display = "block";
+                (document.getElementById("p2s2")).style.display = "block";
+                (document.getElementById("p2s3")).style.display = "block";
+                (document.getElementById("p2s4")).style.display = "block";
+                (document.getElementById("p2s5")).style.display = "block";
               }
             } }}
         </script>

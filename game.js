@@ -38,7 +38,7 @@ const alphabet = [
  */
 const fleet = [
     "Patrol Boat",
-    "Corvette",
+    "Cruiser",
     "Destroyer",
     "Battleship",
     "Carrier"
@@ -56,7 +56,8 @@ const fleetStyles = [
 /**
  * @brief converts a row letter to a number using the Alphabet constant.
  */
- function rowToNum(letter) {
+function rowToNum(letter) 
+{
     return alphabet.indexOf(letter);
 }
 
@@ -66,7 +67,8 @@ const fleetStyles = [
  * @returns {Number} The last character of the ID (the column number / x-coordinate),
  *                as an integer.
  */
-function getXfromId(id) {
+function getXfromId(id) 
+{
     return parseInt(id[4]);
 }
 
@@ -78,7 +80,8 @@ function getXfromId(id) {
  * @note To get the y-coordinate as a letter, use the return value as the index of alphabet,
  *       e.g. "let yAsLetter = alphabet[getYfromId(some_id)];"
  */
-function getYfromId(id) {
+function getYfromId(id) 
+{
     return rowToNum(id[3]);
 }
 
@@ -91,7 +94,8 @@ function getYfromId(id) {
  * 
  * @param {Event} e 
  */
-function keydowncb(e) {
+function keydowncb(e) 
+{
     e.currentTarget.obj._placementTurnHandler(e);
 }
 
@@ -104,7 +108,8 @@ function keydowncb(e) {
  * old / unnecessary eventListeners to be removed via removeEventListener().
  * @param {Event} e 
  */
-function submitclick(e) {
+function submitclick(e) 
+{
     e.currentTarget.obj._firstTurnHandler(e);
 }
 
@@ -119,8 +124,23 @@ function submitclick(e) {
  * 
  * @param {Event} e 
  */
-function targetingCB(e) {
+function targetingCB(e) 
+{
     e.currentTarget.obj._targetingHandler(e);
+}
+
+/**
+ * @brief Callback fn for click event listeners created for a player's 
+ *        "targeting" end-turn button.
+ * @details
+ * This function is necessary (instead of an anonymous function) to allow 
+ * old / unnecessary eventListeners to be removed via removeEventListener().
+ * 
+ * @param {Event} e 
+ */
+function targetingTurnEndCB(e) 
+{
+    e.currentTarget.obj._targetingEnd(e);
 }
 
 /**
@@ -174,6 +194,17 @@ class Ship {
          *        being occupied by the ship. 
          */
         this._cells = Array(length);
+
+        /**
+         * @brief The HTML node that contains the ship name and health.
+         */
+        this._uiHealth = document.getElementById("p" + board[1] + "s" + length );
+
+        /**
+         * @brief HTML span element whose innerHTML tells the player how much
+         *        health the ship has.
+         */
+        this._uiHealthInd = document.getElementById("p" + board[1] + "s" + length );
 
         /* Initialize the ship on the board by collecting an adequate # 
            of Cell IDs and modifying their classlist to show them to the 
@@ -324,32 +355,20 @@ class Ship {
                 if ( originHigh ){
                     // C1
                     if ( vertical ){
-                        // ccw        == true
-                        // originHigh == true
-                        // vertical   == true
                         new_x = ox - (oy-y);
                         new_y = oy;
                     // C2
                     } else {
-                        // ccw        == true
-                        // originHigh == true
-                        // vertical   == false
                         new_x = ox;
                         new_y = oy + (ox-x);
                     }
                 } else { 
                     // C3
                     if ( vertical ){
-                        // ccw        == true
-                        // originHigh == false
-                        // vertical   == true
                         new_x = ox + (y-oy);
                         new_y = oy;
                     // C4
                     } else {
-                        // ccw        == true
-                        // originHigh == false
-                        // vertical   == false
                         new_x = ox;
                         new_y = oy - (x-ox);
                     }
@@ -360,16 +379,10 @@ class Ship {
                     // C5
                     if ( vertical )
                     {
-                        // ccw        == false
-                        // originHigh == true
-                        // vertical   == true
                         new_x = ox + (oy-y);
                         new_y = oy;
                     // C6
                     } else {
-                        // ccw        == false
-                        // originHigh == true
-                        // vertical   == false
                         new_x = ox;
                         new_y = oy - (ox-x);
                     }
@@ -377,16 +390,10 @@ class Ship {
                     // C7
                     if ( vertical )
                     {
-                        // ccw        == false
-                        // originHigh == false
-                        // vertical   == true
                         new_x = ox - (y-oy);
                         new_y = oy;
                     // C8
                     } else {
-                        // ccw        == false
-                        // originHigh == false
-                        // vertical   == false
                         new_x = ox;
                         new_y = oy + (x-ox);
                     }
@@ -422,6 +429,11 @@ class Ship {
             }
         }
         return;
+    }
+
+    decrementHealth()
+    {
+        // this._uiHealthInd.innerHTML
     }
 
     /**
@@ -509,6 +521,13 @@ class Player {
             this._formSubmit.obj = this;
 
         /**
+         * @brief The HTML link that is used to confirm the end of a player's turn
+         */
+        this._turnEndButton = document.getElementById("p" + this._num + "-end-turn");
+            this._turnEndButton.addEventListener("click", targetingTurnEndCB, true);
+            this._turnEndButton.obj = this;
+
+        /**
          * @brief Node for the SVG element where this player places their ships.
          */
         this._b_placement = document.getElementById('p' + this._num + '-board-placement');
@@ -535,6 +554,7 @@ class Player {
          * @brief An array of {Ship} objects for this player
          */
         this._ships = null;
+
     }
 
     /**
@@ -610,12 +630,21 @@ class Player {
         if (ref.classList.contains("s")) {
             document.getElementById(id).classList.add("h");
             ref.classList.add("h");
+            alert("Hit!");
         } else {
             document.getElementById(id).classList.add("m");
             ref.classList.add("m");
+            alert("Miss!");
         }
 
         e.currentTarget.obj._b_target.removeEventListener("click", targetingCB, false);
+        e.currentTarget.obj._turnEndButton.classList.add("suggest");
+        // e.currentTarget.obj._parent.endTurn(e.currentTarget.obj._num);
+    }
+
+    _targetingEnd( e )
+    {
+        e.currentTarget.obj._turnEndButton.classList.remove("suggest");
         e.currentTarget.obj._parent.endTurn(e.currentTarget.obj._num);
     }
 
