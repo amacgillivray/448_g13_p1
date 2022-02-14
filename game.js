@@ -625,7 +625,10 @@ class Player {
                 // no action needed;
                 break;
             default:
-                window.alert("Invalid turn type specified: " + type);
+                // window.alert("Invalid turn type specified: " + type);
+                document.getElementById("modalText").innerText = "Invalid turn type specified: " + type;
+                var modal = document.getElementById("myModal");
+                modal.style.display = "block";
                 break;
         }
         return;
@@ -641,7 +644,10 @@ class Player {
      *        called when the board is clicked.
      */
     _doTargetingTurn() {
-        alert("Player " + this._num + ": Choose Target");
+        // alert("Player " + this._num + ": Choose Target");
+        document.getElementById("modalText").innerText = "Player " + this._num + ": Choose Target";
+        var modal = document.getElementById("myModal");
+        modal.style.display = "block";
         this._b_target.addEventListener("click", targetingCB, false);
         this._b_target.obj = this;
     }
@@ -690,11 +696,17 @@ class Player {
             // Track the hit visually by adding a hitmarker (red fill color / "h" class)
             document.getElementById(id).classList.add("h");
             ref.classList.add("h");
-            alert("Hit!");
+            // alert("Hit!");
+            document.getElementById("modalText").innerText = "Hit!";
+            var modal = document.getElementById("myModal");
+            modal.style.display = "block";
         } else {
             document.getElementById(id).classList.add("m");
             ref.classList.add("m");
-            alert("Miss!");
+            // alert("Miss!");
+            document.getElementById("modalText").innerText = "Miss!";
+            var modal = document.getElementById("myModal");
+            modal.style.display = "block";
         }
 
         e.currentTarget.obj._b_target.removeEventListener("click", targetingCB, false);
@@ -723,7 +735,10 @@ class Player {
      *        The length of the ship being placed
      */
     _doPlacementTurn(obj, shipLength) {
-        alert("Placing ship of size 1x" + shipLength);
+        document.getElementById("modalText").innerText = "Place ship of size 1x" + shipLength;
+        var modal = document.getElementById("myModal");
+        modal.style.display = "block";
+        // alert("Placing ship of size 1x" + shipLength);
         window.addEventListener("keydown", keydowncb, true);
         window.obj = obj;
         this._ships[this._shipsPlaced] = new Ship("p" + this._num + "p", shipLength);
