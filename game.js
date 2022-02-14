@@ -623,6 +623,7 @@ class Player {
         this._turnEndButton = document.getElementById("p" + this._num + "-end-turn");
             this._turnEndButton.addEventListener("click", targetingTurnEndCB, true);
             this._turnEndButton.obj = this;
+            this._turnEndButton.classList.add("etHidden");
 
         /**
          * @brief Node for the SVG element where this player places their ships.
@@ -779,6 +780,7 @@ class Player {
         // Tell the player of their accomplishments (or lack thereof)
         openModal( msg );
 
+        e.currentTarget.obj._turnEndButton.classList.remove("etHidden");
         e.currentTarget.obj._b_target.removeEventListener("click", targetingCB, false);
         e.currentTarget.obj._turnEndButton.classList.add("suggest");
 
@@ -799,6 +801,7 @@ class Player {
     _targetingEnd( e )
     {
         e.currentTarget.obj._turnEndButton.classList.remove("suggest");
+        e.currentTarget.obj._turnEndButton.classList.add("etHidden");
         e.currentTarget.obj._parent.endTurn(e.currentTarget.obj._num);
     }
 
@@ -898,6 +901,7 @@ class Player {
         // this._shipsPlaced++;
         // window.removeEventListener("keydown", keydowncb, false);
         if (this._shipsPlaced >= this._fleetSize) {
+            openModal("That's everything. Time to batten down the hatches.");
             this._form.classList.toggle("hidden", true);
             this._parent.endTurn(this._num);
             return;
