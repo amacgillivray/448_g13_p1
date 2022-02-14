@@ -148,6 +148,67 @@ function targetingTurnEndCB(e)
 }
 
 /**
+ * @brief Opens a modal displaying the provided content
+ * @uses closeModal
+ * @uses holdModal
+ * @details
+ * Content is applied as the innerHTML of a paragraph <p> in the modal.
+ * 
+ * @param {string} text 
+ *        The text to display 
+ */
+function openModal( text )
+{
+    let container = document.getElementById("modalContainer");
+    let content = document.getElementById("modalContent");
+    let close = document.getElementById("modalClose");
+    let mtext = document.getElementById("modalText");
+    
+    mtext.innerHTML = text;
+
+    // Stop the modal from closing when the main content container is clicked
+    content.addEventListener("click", holdModal, true);
+
+    // But close it if the background or close button is clicked, or any key is pressed
+    container.addEventListener("click", closeModal, true);
+    close.addEventListener("click", closeModal, true);
+    window.addEventListener("keydown", closeModal, true);
+
+    container.classList.remove("hidden");
+}
+
+function holdModal( e )
+{
+    e.stopPropagation();
+    e.preventDefault();
+}
+
+/**
+ * @brief Closes a modal, if opened.
+ * @param {Event} e 
+ */
+function closeModal( e )
+{
+    e.stopImmediatePropagation();
+    e.stopPropagation();
+    e.preventDefault();
+    let container = document.getElementById("modalContainer");
+    let content = document.getElementById("modalContent");
+    let close = document.getElementById("modalClose");
+    let text = document.getElementById("modalText");
+
+    // Remove all event listeners
+    content.removeEventListener("click", holdModal, true);
+    container.removeEventListener("click", closeModal, true);
+    close.removeEventListener("click", closeModal, true);
+    window.removeEventListener("keydown", closeModal, true);
+
+    // Hide the modal and reset its content.
+    container.classList.add("hidden");
+    text.innerHTML = "&nbsp;";
+}
+
+/**
  * @class Ship
  * @brief Logical representation of a ship in the Battleship game.
  */
@@ -625,10 +686,7 @@ class Player {
                 // no action needed;
                 break;
             default:
-                // window.alert("Invalid turn type specified: " + type);
-                document.getElementById("modalText").innerText = "Invalid turn type specified: " + type;
-                var modal = document.getElementById("myModal");
-                modal.style.display = "block";
+                openModal("Invalid turn type specified: " + type);
                 break;
         }
         return;
@@ -644,10 +702,7 @@ class Player {
      *        called when the board is clicked.
      */
     _doTargetingTurn() {
-        // alert("Player " + this._num + ": Choose Target");
-        document.getElementById("modalText").innerText = "Player " + this._num + ": Choose Target";
-        var modal = document.getElementById("myModal");
-        modal.style.display = "block";
+        openModal("Player " + this._num + ": Choose Target");
         this._b_target.addEventListener("click", targetingCB, false);
         this._b_target.obj = this;
     }
@@ -657,6 +712,10 @@ class Player {
      * @brief @
      */
     _targetingHandler(e) {
+
+        // ignore clicks on anything other than the grid rectangles
+        if ( !e.target.nodeName == "rect" )
+            return;
 
         let id = e.target.getAttribute("id");
         let x = getXfromId(id);
@@ -683,6 +742,8 @@ class Player {
             x                                       // some int in 0-9
         );
 
+        let msg = "Hit!";
+
         if (ref.classList.contains("s")) {
             
             if (debug) console.log(opponent);
@@ -690,32 +751,37 @@ class Player {
             // Update the health of the opposing player's ship
             let shipHit = ref.getAttribute(shipAttribute);
                 shipHit = fleet.indexOf(shipHit);
-            if ( opponent._ships[shipHit].decrementHealth() )
+            if ( opponent._ships[shipHit].decrementHealth() ) {
                 e.currentTarget.obj._oppShipsDestroyed++
+                msg = msg + " You sank their " + ref.getAttribute(shipAttribute);
+            }
             
             // Track the hit visually by adding a hitmarker (red fill color / "h" class)
             document.getElementById(id).classList.add("h");
             ref.classList.add("h");
-            // alert("Hit!");
-            document.getElementById("modalText").innerText = "Hit!";
-            var modal = document.getElementById("myModal");
-            modal.style.display = "block";
         } else {
+            msg = "Miss!";
             document.getElementById(id).classList.add("m");
             ref.classList.add("m");
-            // alert("Miss!");
-            document.getElementById("modalText").innerText = "Miss!";
-            var modal = document.getElementById("myModal");
-            modal.style.display = "block";
         }
+
+        // Tell the player of their accomplishments (or lack thereof)
+        openModal( msg );
 
         e.currentTarget.obj._b_target.removeEventListener("click", targetingCB, false);
         e.currentTarget.obj._turnEndButton.classList.add("suggest");
 
         // Trigger win if the last opponent ship was destroyed
         if (e.currentTarget.obj._oppShipsDestroyed == e.currentTarget.obj._oppShips)
+        {
             e.currentTarget.obj._parent.triggerWin(e.currentTarget.obj._num);
-
+            e.currentTarget.obj._turnEndButton.innerHTML = "New Game";
+            this._turnEndButton.removeEventListener("click", targetingTurnEndCB, true);
+            this._turnEndButton.addEventListener("click", function(e){
+                e.preventDefault();
+                location.reload();
+            });
+        }
         // e.currentTarget.obj._parent.endTurn(e.currentTarget.obj._num);
     }
 
@@ -735,10 +801,7 @@ class Player {
      *        The length of the ship being placed
      */
     _doPlacementTurn(obj, shipLength) {
-        document.getElementById("modalText").innerText = "Place ship of size 1x" + shipLength;
-        var modal = document.getElementById("myModal");
-        modal.style.display = "block";
-        // alert("Placing ship of size 1x" + shipLength);
+        openModal("Admiral, place your " + fleet[shipLength-1] + ".");
         window.addEventListener("keydown", keydowncb, true);
         window.obj = obj;
         this._ships[this._shipsPlaced] = new Ship("p" + this._num + "p", shipLength);
@@ -953,10 +1016,10 @@ class Game {
      */
     triggerWin( forPlayer )
     {
-        alert("A grueling battle... But " + forPlayer + " has come out on top!");
-        location.reload();
-
-        // todo - show all 4 boards before reloading? 
+        
+        openModal("A grueling battle... But Player " + forPlayer + " has come out on top!");
+        // location.reload();
+        // document.getElementById("modalContainer").addEventListener("")
     }
 
 }
