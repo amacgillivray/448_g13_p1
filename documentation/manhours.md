@@ -32,7 +32,9 @@ Total:    28 man-hours
 ```
 ```
 
-### Nhat Nyugen
+### Nhat Nguyen
 ```
-3 hours: Nhat Nguyen
+22.02.??:  1 hours: Meeting with Luke and Andrew
+22.02.12:  8 hours: Writing game core w/ group
+22.02.13:  3 hours: Finishing game & polishing work 
 ```
