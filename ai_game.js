@@ -1008,15 +1008,15 @@
          * @brief The HTML form element used by this player to select how many ships they
          *        want to place on their board.
          */
-        this._form = document.getElementById("p" + this._num + "-ship-opt");
+        //this._form = document.getElementById("p" + this._num + "-ship-opt");
 
         /**
          * @brief The HTML submit button that is used to submit this._form.
          */
-        this._formSubmit = document.getElementById("p" + this._num + "-ship-opt-submit");
+        //this._formSubmit = document.getElementById("p" + this._num + "-ship-opt-submit");
             // Add event listener and reference to this object to handle form submission
-            this._formSubmit.addEventListener("click", submitclick, true);
-            this._formSubmit.obj = this;
+            //this._formSubmit.addEventListener("click", submitclick, true);
+            //this._formSubmit.obj = this;
 
         /**
          * @brief The HTML link that is used to confirm the end of a player's turn
@@ -1093,6 +1093,7 @@
                 break;
             case "first":
                 // no action needed;
+                this._firstTurnHandler();
                 break;
             default:
                 openModal("Invalid turn type specified: " + type);
@@ -1122,8 +1123,8 @@
      */
     _targetingHandler() {
         // random numbers based off of https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-        let x = 0//Math.floor(Math.random() * 9);
-        let y = 0//Math.floor(Math.random() * 9);
+        let x = Math.floor(Math.random() * 9);
+        let y = Math.floor(Math.random() * 9);
 
         // Get the opposing player's JavaScript object.
         // We'll use this to update their ship's health if the current player scored a hit.
@@ -1218,10 +1219,11 @@
      *        The length of the ship being placed
      */
     _doPlacementTurn(obj, shipLength) {
-        openModal("Admiral, place your " + fleet[shipLength-1] + ".");
-        window.addEventListener("keydown", keydowncb, true);
-        window.obj = obj;
+        //openModal("Admiral, place your " + fleet[shipLength-1] + ".");
+        //window.addEventListener("keydown", keydowncb, true);
+        //window.obj = obj;
         this._ships[this._shipsPlaced] = new Ship("p" + this._num + "p", shipLength);
+        this._placementTurnHandler();
     }
 
     /**
@@ -1231,65 +1233,45 @@
      * @param {Event} e 
      * @returns {void}
      */
-    _placementTurnHandler(e) {
+    _placementTurnHandler() {
         
         let ship = this._ships[this._shipsPlaced];
-
-        if (debug) console.log(e.code);
-
-        switch (e.code) {
-            // ================== 
-            // TRANSLATION  MOVES 
-            // "A", "D", "W", "S"
-            // ================== 
-            case "KeyA":
-                e.preventDefault();
-                ship.translate(-1, 0);
-                break;
-            case "KeyD":
-                e.preventDefault();
-                ship.translate(1, 0);
-                break;
-            case "KeyW":
-                e.preventDefault();
-                ship.translate(0, -1);
-                break;
-            case "KeyS":
-                e.preventDefault();
-                ship.translate(0, 1);
-                break;
-            // ==============
-            // ROTATION MOVES
-            // "Q", "E"
-            // ==============
-            case "KeyE":
-                e.preventDefault();
-                ship.rotate(true);
-                break;                
-            case "KeyQ":
-                e.preventDefault();
-                ship.rotate(false);
-                break;
-            // =========================
-            // CONFIRMATION OF PLACEMENT
-            // "Enter"
-            // =========================
-            case "Enter":
-                e.preventDefault();
-                let placedShip = ship._confirm();
-                if (placedShip) {
-                    this._shipsPlaced++;
-                    window.removeEventListener("keydown", keydowncb, true);
-                    this._endPlacementTurn(this._ships[this._shipsPlaced - 1]._length);
-                } else {
-                    if (debug) console.log("Ship refused to confirm.");
-                }
-                break;
-            // =======================
-            // IGNORE OTHER KEYSTROKES
-            // =======================
-            default:
-                break;
+        let A = Math.floor(Math.random() * 9);
+        let D = Math.floor(Math.random() * 9);
+        let W = Math.floor(Math.random() * 9);
+        let S = Math.floor(Math.random() * 9);
+        let E = Math.floor(Math.random() * 2);
+        // ================== 
+        // TRANSLATION  MOVES 
+        // "A", "D", "W", "S"
+        // ================== 
+        for(let i = 0; i < A; i++){
+            ship.translate(-1, 0);
+        }
+        for(let i = 0; i < D; i++){
+            ship.translate(1, 0);
+        }
+        for(let i = 0; i < W; i++){
+            ship.translate(0, -1);
+        }
+        for(let i = 0; i < S; i++){
+            ship.translate(0, 1);
+        }
+        // ==============
+        // ROTATION MOVES
+        // "Q", "E"
+        // ==============
+        for(let i = 0; i < E; i++){
+            ship.rotate(true);
+        }             
+        let placedShip = ship._confirm();
+        if (placedShip) {
+            this._shipsPlaced++;
+            //window.removeEventListener("keydown", keydowncb, true);
+            this._endPlacementTurn(this._ships[this._shipsPlaced - 1]._length);
+        } else {
+            if (debug) console.log("Ship refused to confirm.");
+            this._placementTurnHandler()
         }
         return;
     }
@@ -1305,7 +1287,7 @@
         // window.removeEventListener("keydown", keydowncb, false);
         if (this._shipsPlaced >= this._fleetSize) {
             openModal("That's everything. Time to batten down the hatches.");
-            this._form.classList.toggle("hidden", true);
+            //this._form.classList.toggle("hidden", true);
             this._parent.endTurn(this._num);
             return;
         } else {
@@ -1322,22 +1304,12 @@
      * @param {*} e 
      */
     _firstTurnHandler(e) {
-        e.preventDefault();
-
-        let str = "p" + this._num + "so_";
-        for (let i = 1; i <= 5; i++) {
-            // alert(str+i);
-            let button = document.getElementById(str + i);
-            if (button.checked) {
-                this._fleetSize = button.value;
-                this._ships = Array(this._fleetSize);
-                if (debug) console.log("Player " + this._num + " will place " + this._fleetSize + " ships.")
-                break;
-            }
-        }
-        this._form.classList.toggle("hidden", true);
-        this._formSubmit.removeEventListener("click", submitclick, false);
-
+        //e.preventDefault()
+        this._fleetSize = this._opponent._fleetSize;
+        this._ships = Array(this._fleetSize);
+        if (debug) console.log("Player " + this._num + " will place " + this._fleetSize + " ships.")
+        //this._form.classList.toggle("hidden", true);
+        //this._formSubmit.removeEventListener("click", submitclick, false);
         this._doPlacementTurn(this, this._shipsPlaced + 1);
     }
 
