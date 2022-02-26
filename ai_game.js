@@ -667,6 +667,7 @@
           * @todo 
           */
          this._oppShipsDestroyed = 0;
+         this._gameover = false;
  
      }
  
@@ -710,9 +711,19 @@
       *        called when the board is clicked.
       */
      _doTargetingTurn() {
-         openModal("Player " + this._num + ": Choose Target");
-         this._b_target.addEventListener("click", targetingCB, false);
-         this._b_target.obj = this;
+        if(!this._gameover){
+            openModal("Player " + this._num + ": Choose Target");
+            this._b_target.addEventListener("click", targetingCB, false);
+            this._b_target.obj = this;
+        }
+        else{
+            openModal("The AI won the game! Please exit the page");
+            Promise(resolve => setTimeout(resolve, 3000));
+            this._turnEndButton.addEventListener("click", function(e){
+                e.preventDefault();
+                location.reload();
+            });
+        }
      }
  
      /**
@@ -1111,8 +1122,8 @@
      */
     _targetingHandler() {
         // random numbers based off of https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-        let x = Math.floor(Math.random() * 9);
-        let y = Math.floor(Math.random() * 9);
+        let x = 0//Math.floor(Math.random() * 9);
+        let y = 0//Math.floor(Math.random() * 9);
 
         // Get the opposing player's JavaScript object.
         // We'll use this to update their ship's health if the current player scored a hit.
@@ -1144,10 +1155,15 @@
             if (debug) console.log(this._opponent);
 
             // Update the health of the opposing player's ship
+            console.log("player 2 hit a ship");
             let shipHit = ref.getAttribute(shipAttribute);
+            console.log(shipHit);
             shipHit = fleet.indexOf(shipHit);
-            if ( opponent._ships[shipHit].decrementHealth() ) {
-                this._opponent._oppShipsDestroyed++
+            console.log(shipHit);
+            if (this._opponent._ships[shipHit].decrementHealth() ) {
+                console.log("reached right spot");
+                this._opponent._oppShipsDestroyed++;
+                console.log(this._opponent._oppShipsDestroyed)
                 msg = msg + " You sank their " + ref.getAttribute(shipAttribute);
             }
             
@@ -1170,13 +1186,17 @@
         // Trigger win if the last opponent ship was destroyed
         if (this._opponent._oppShipsDestroyed == this._opponent._oppShips)
         {
-            this._opponent._parent.triggerWin(this._opponent._num);
+            console.log("reached destroyed ship");
+            this._opponent._parent.triggerWin(2);
+            //openModal("A grueling battle... But Player " + forPlayer + " has come out on top!");
             this._opponent._turnEndButton.innerHTML = "New Game";
-            this._turnEndButton.removeEventListener("click", targetingTurnEndCB, true);
-            this._turnEndButton.addEventListener("click", function(e){
-                e.preventDefault();
-                location.reload();
-            });
+            this._opponent._gameover = true;
+            //openModal("A grueling battle... But Player " + forPlayer + " has come out on top!");
+            //this._turnEndButton.removeEventListener("click", targetingTurnEndCB, true);
+            //this._turnEndButton.addEventListener("click", function(e){
+                //e.preventDefault();
+                //location.reload();
+            //});
         }
         this._opponent._parent.endTurn(2);
     }
