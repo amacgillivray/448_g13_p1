@@ -668,6 +668,7 @@
           */
          this._oppShipsDestroyed = 0;
          this._gameover = false;
+         this._opponent;
  
      }
 
@@ -775,8 +776,8 @@
              let shipHit = ref.getAttribute(shipAttribute);
                  shipHit = fleet.indexOf(shipHit);
              if ( opponent._ships[shipHit].decrementHealth() ) {
-                 e.currentTarget.obj._oppShipsDestroyed++
-                 //this._opponent._oppShipsDestroyed++;
+                 //e.currentTarget.obj._oppShipsDestroyed++
+                 this._opponent._oppShipsDestroyed++;
                  msg = msg + " You sank their " + ref.getAttribute(shipAttribute);
              }
              
@@ -797,7 +798,8 @@
          e.currentTarget.obj._turnEndButton.classList.add("suggest");
  
          // Trigger win if the last opponent ship was destroyed
-         if (e.currentTarget.obj._oppShipsDestroyed == e.currentTarget.obj._oppShips)
+         // if (e.currentTarget.obj._oppShipsDestroyed == e.currentTarget.obj._oppShips)
+         if (this._opponent._oppShipsDestroyed == this._opponent._oppShips)
          {
              e.currentTarget.obj._parent.triggerWin(e.currentTarget.obj._num);
              e.currentTarget.obj._turnEndButton.innerHTML = "New Game";
@@ -1374,7 +1376,8 @@
              2,
              this._p1
          );
-
+        
+         this._p1._opponent = this._p2;
          //this._pl.setOpponent(this._p2);
  
          /**
