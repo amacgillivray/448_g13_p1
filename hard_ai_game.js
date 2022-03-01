@@ -999,6 +999,8 @@
         this._num = player_number;
 
         this._opponent = player_1
+
+        this._oppenent_ships = [];
         
         // /**
         //  * @brief String "p1" or "p2" that identifies the opposing player. 
@@ -1074,6 +1076,8 @@
 
         this._targets = []; 
 
+        this._count = 0;
+
     }
 
     inTargets(x, y){
@@ -1138,17 +1142,9 @@
      */
     _targetingHandler() {
         // random numbers based off of https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-        let finished = false;
-        let x;
-        let y;
-        while(!finished){
-            x = Math.floor(Math.random() * 9);
-            y = Math.floor(Math.random() * 9);
-            if(!this.inTargets(x,y)){
-                finished = true;
-                this._targets.push([x,y]);
-            }
-        }
+        let id = this._oppenent_ships[this._count];
+        this._count++;
+        
 
         // Get the opposing player's JavaScript object.
         // We'll use this to update their ship's health if the current player scored a hit.
@@ -1164,14 +1160,7 @@
         //      "pXp[A-J][0-9]"
         // Where X = 2 if the current player is 1, and vice-versa, and the last two digits correspond
         // to the clicked cell's x and y coordinates.
-        let ref = document.getElementById(
-            "p" +                                   // p 
-            (1) +  // 1 or 2
-            "p" +                                   // p
-            alphabet[y] +                           // some col in A-J
-            x                                       // some int in 0-9
-        );
-        let id = "p"+1+"p"+alphabet[y] + x 
+        let ref = document.getElementById(id);
 
         let msg = "Hit!";
 
@@ -1334,6 +1323,16 @@
         this._oppShips = this._opponent._fleetSize;
         this._fleetSize = this._opponent._fleetSize;
         this._ships = Array(this._fleetSize);
+        console.log("opponent ships");
+        console.log(this._opponent._ships.length);
+        for(let i = 0; i < this._opponent._ships.length; i++){
+            console.log("ship " + i);
+            console.log(((this._opponent._ships)[i])._cells);
+            for(let j = 0; j < (((this._opponent._ships)[i])._cells).length; j++){
+                this._oppenent_ships.push((((this._opponent._ships)[i])._cells)[j]);
+                console.log("id: " + (((this._opponent._ships)[i])._cells)[j]);
+            }
+        }
         if (debug) console.log("Player " + this._num + " will place " + this._fleetSize + " ships.")
         //this._form.classList.toggle("hidden", true);
         //this._formSubmit.removeEventListener("click", submitclick, false);
