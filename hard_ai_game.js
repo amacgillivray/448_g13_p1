@@ -668,9 +668,10 @@
           */
          this._oppShipsDestroyed = 0;
          this._gameover = false;
+         this._opponent;
  
      }
- 
+
      /**
       * @brief Gives this player a turn of the specified type ("first" or "targeting").
       * @details
@@ -775,7 +776,8 @@
              let shipHit = ref.getAttribute(shipAttribute);
                  shipHit = fleet.indexOf(shipHit);
              if ( opponent._ships[shipHit].decrementHealth() ) {
-                 e.currentTarget.obj._oppShipsDestroyed++
+                 //e.currentTarget.obj._oppShipsDestroyed++
+                 this._opponent._oppShipsDestroyed++;
                  msg = msg + " You sank their " + ref.getAttribute(shipAttribute);
              }
              
@@ -796,7 +798,8 @@
          e.currentTarget.obj._turnEndButton.classList.add("suggest");
  
          // Trigger win if the last opponent ship was destroyed
-         if (e.currentTarget.obj._oppShipsDestroyed == e.currentTarget.obj._oppShips)
+         // if (e.currentTarget.obj._oppShipsDestroyed == e.currentTarget.obj._oppShips)
+         if (this._opponent._oppShipsDestroyed == this._opponent._oppShips)
          {
              e.currentTarget.obj._parent.triggerWin(e.currentTarget.obj._num);
              e.currentTarget.obj._turnEndButton.innerHTML = "New Game";
@@ -1069,6 +1072,18 @@
          */
         this._oppShipsDestroyed = 0;
 
+        this._targets = []; 
+
+    }
+
+    inTargets(x, y){
+        for(let i = 0; i < this._targets.length; i++){
+            let coords = this._targets[i];
+            if(coords[0] == x && coords[1] == y){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -1123,8 +1138,17 @@
      */
     _targetingHandler() {
         // random numbers based off of https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-        let x = Math.floor(Math.random() * 9);
-        let y = Math.floor(Math.random() * 9);
+        let finished = false;
+        let x;
+        let y;
+        while(!finished){
+            x = Math.floor(Math.random() * 9);
+            y = Math.floor(Math.random() * 9);
+            if(!this.inTargets(x,y)){
+                finished = true;
+                this._targets.push([x,y]);
+            }
+        }
 
         // Get the opposing player's JavaScript object.
         // We'll use this to update their ship's health if the current player scored a hit.
@@ -1132,7 +1156,7 @@
 
         if (this._opponent._oppShips == -1)
         {
-            this.opponent._oppShips = this._opponent._fleetSize;
+            this._opponent._oppShips = this._opponent._fleetSize;
         }
 
         // This is checking the cell on the opposing player's placement board that has the same 
@@ -1188,6 +1212,8 @@
         if (this._opponent._oppShipsDestroyed == this._opponent._oppShips)
         {
             console.log("reached destroyed ship");
+            console.log(this._opponent._oppShipsDestroyed);
+            console.log(this._opponent._oppShips);
             this._opponent._parent.triggerWin(2);
             //openModal("A grueling battle... But Player " + forPlayer + " has come out on top!");
             this._opponent._turnEndButton.innerHTML = "New Game";
@@ -1305,6 +1331,7 @@
      */
     _firstTurnHandler(e) {
         //e.preventDefault()
+        this._oppShips = this._opponent._fleetSize;
         this._fleetSize = this._opponent._fleetSize;
         this._ships = Array(this._fleetSize);
         if (debug) console.log("Player " + this._num + " will place " + this._fleetSize + " ships.")
@@ -1349,6 +1376,9 @@
              2,
              this._p1
          );
+        
+         this._p1._opponent = this._p2;
+         //this._pl.setOpponent(this._p2);
  
          /**
           * @brief Player 1's turn count
