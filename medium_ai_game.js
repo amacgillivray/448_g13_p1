@@ -1072,7 +1072,9 @@
          */
         this._oppShipsDestroyed = 0;
 
-        this._targets = []; 
+        this._targets = [];
+
+        this._queue = [];
 
     }
 
@@ -1141,12 +1143,39 @@
         let finished = false;
         let x;
         let y;
-        while(!finished){
-            x = Math.floor(Math.random() * 9);
-            y = Math.floor(Math.random() * 9);
-            if(!this.inTargets(x,y)){
-                finished = true;
-                this._targets.push([x,y]);
+        if(this._queue.length == 0){
+            while(!finished){
+                x = Math.floor(Math.random() * 9);
+                y = Math.floor(Math.random() * 9);
+                if(!this.inTargets(x,y)){
+                    finished = true;
+                    this._targets.push([x,y]);
+                }
+            }
+        }
+        else{
+            while(!finished){
+                if(this._queue.length >= 0){
+                    let arr = this._queue.shift(); // removes and returns first element
+                    x = arr[0];
+                    y = arr[1];
+                    if(x <= 9 && x >= 0){
+                        if(y <= 9 && y >= 0){
+                            if(!this.inTargets(x, y)){
+                                finished = true; // only ends loop if it is a valid hit
+                                this._targets.push([x,y]);
+                            }
+                        }
+                    }
+                }
+                else{
+                    x = Math.floor(Math.random() * 9);
+                    y = Math.floor(Math.random() * 9);
+                    if(!this.inTargets(x,y)){
+                        finished = true;
+                        this._targets.push([x,y]);
+                    }
+                }
             }
         }
 
@@ -1181,11 +1210,17 @@
 
             // Update the health of the opposing player's ship
             console.log("player 2 hit a ship");
+            this._queue.push([x-1,y]);
+            this._queue.push([x,y-1]);
+            this._queue.push([x+1,y]);
+            this._queue.push([x,y+1]);
+            
             let shipHit = ref.getAttribute(shipAttribute);
             console.log(shipHit);
             shipHit = fleet.indexOf(shipHit);
             console.log(shipHit);
             if (this._opponent._ships[shipHit].decrementHealth() ) {
+                this._queue = [];
                 console.log("reached right spot");
                 this._opponent._oppShipsDestroyed++;
                 console.log(this._opponent._oppShipsDestroyed)
