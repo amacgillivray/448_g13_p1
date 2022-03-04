@@ -1145,11 +1145,13 @@
         let y;
         if(this._queue.length == 0){
             while(!finished){
-                x = Math.floor(Math.random() * 9);
-                y = Math.floor(Math.random() * 9);
+                x = Math.floor(Math.random() * 10);
+                y = Math.floor(Math.random() * 10);
                 if(!this.inTargets(x,y)){
-                    finished = true;
-                    this._targets.push([x,y]);
+                    if(x < 10 && y < 10){
+                        finished = true;
+                        this._targets.push([x,y]);
+                    }
                 }
             }
         }

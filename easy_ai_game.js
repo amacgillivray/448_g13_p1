@@ -1072,7 +1072,9 @@
          */
         this._oppShipsDestroyed = 0;
 
-        this._targets = []; 
+        this._targets = [];
+
+        this._queue = [];
 
     }
 
@@ -1142,11 +1144,13 @@
         let x;
         let y;
         while(!finished){
-            x = Math.floor(Math.random() * 9);
-            y = Math.floor(Math.random() * 9);
+            x = Math.floor(Math.random() * 10);
+            y = Math.floor(Math.random() * 10);
             if(!this.inTargets(x,y)){
-                finished = true;
-                this._targets.push([x,y]);
+                if(x < 10 && y < 10){
+                    finished = true;
+                    this._targets.push([x,y]);
+                }
             }
         }
 
@@ -1181,11 +1185,13 @@
 
             // Update the health of the opposing player's ship
             console.log("player 2 hit a ship");
+            
             let shipHit = ref.getAttribute(shipAttribute);
             console.log(shipHit);
             shipHit = fleet.indexOf(shipHit);
             console.log(shipHit);
             if (this._opponent._ships[shipHit].decrementHealth() ) {
+                this._queue = [];
                 console.log("reached right spot");
                 this._opponent._oppShipsDestroyed++;
                 console.log(this._opponent._oppShipsDestroyed)
