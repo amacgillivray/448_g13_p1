@@ -14,6 +14,8 @@
 const hit = new Audio("hit_effect.wav");
 const miss = new Audio("miss_effect.wav");
 const sunk = new Audio("sunk_ship_effect.wav");
+const over = new Audio("ended.wav");
+
 /**
  * @brief Set to false to disable extraneous "console.log()" operations.
  */
@@ -1035,7 +1037,7 @@ class Game {
      */
     triggerWin( forPlayer )
     {
-        
+        over.play();
         openModal("A grueling battle... But Player " + forPlayer + " has come out on top!");
         // location.reload();
         // document.getElementById("modalContainer").addEventListener("")
