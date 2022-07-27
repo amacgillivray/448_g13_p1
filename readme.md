@@ -1,6 +1,8 @@
 Battleship Project
 ==================
 
+![p1](https://user-images.githubusercontent.com/40438470/181321847-1ee2a452-f4f4-464a-b9c4-e44d8fd14c5a.jpg)
+
 The project uses JavaScript and SVG elements to create the game.
 
 Most of the game's logic exists in the "game.js" file, which provides
